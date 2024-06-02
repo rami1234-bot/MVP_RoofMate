@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tlbr"
-        android:divider="@android:color/darker_gray"
+        android:divider="@color/black"
         android:dividerHeight="1dp" />
 
 </RelativeLayout>
