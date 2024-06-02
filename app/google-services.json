@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "275295762445",
+    "firebase_url": "https://foormate-4b4cd-default-rtdb.firebaseio.com",
+    "project_id": "foormate-4b4cd",
+    "storage_bucket": "foormate-4b4cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275295762445:android:630e83a599633fa316fd44",
+        "android_client_info": {
+          "package_name": "com.example.roofmate_mvp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwFxBhMdTlBT-cI1Fn-FWPJ6VXCBw3weE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
