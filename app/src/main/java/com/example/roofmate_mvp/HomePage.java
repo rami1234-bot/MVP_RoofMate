@@ -59,17 +59,26 @@ public class HomePage extends AppCompatActivity {
         } else if (id == R.id.tool2) {
             Intent intent = new Intent(HomePage.this, Profile.class);
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid",currentUser.getUid() );
+            intent.putExtra("uid",currentUser.getUid());
             startActivity(intent);
             return true;
         } else if (id == R.id.tool3) {
-            // Handle action for Tool 3
+            Intent intent = new Intent(HomePage.this, AddHome.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
             return true;
         } else if (id == R.id.tool4) {
-            // Handle action for Tool 4
+            Intent intent = new Intent(HomePage.this, HomeSearch.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
             return true;
         } else if (id == R.id.tool5) {
-            // Handle action for Tool 5
+            Intent intent = new Intent(HomePage.this, HomeInfo.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
             return true;
         } else {
             return super.onOptionsItemSelected(item);

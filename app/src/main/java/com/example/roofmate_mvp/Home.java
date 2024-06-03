@@ -9,16 +9,38 @@ public class Home {
     int rent;
     String name;
     List<Image> imageList = new ArrayList<>();
+
+    public int getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(int rooms) {
+        this.rooms = rooms;
+    }
+
+    int rooms ;
+
+    public String getDisk() {
+        return disk;
+    }
+
+    public void setDisk(String disk) {
+        this.disk = disk;
+    }
+
+    String disk = "";
     String ownerid;
 
     // Constructors
     public Home() {
     }
 
-    public Home(int rent, String name, String ownerid) {
+    public Home(int rent, String name, String ownerid,String disk ,int rooms ) {
         this.rent = rent;
         this.name = name;
         this.ownerid = ownerid;
+        this.disk = disk;
+        this.rooms = rooms;
     }
 
     // Getter and Setter methods

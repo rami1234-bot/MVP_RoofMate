@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Toolbar at the top -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tlbr"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <!-- Content section for creating posts -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create a New Post"
+                android:textSize="24sp"
+                android:paddingBottom="16dp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/disc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/rent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Monthly Rent"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:padding="10dp" />
+
+
+            <EditText
+                android:id="@+id/rooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="rooms"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:padding="10dp" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:onClick="submitPost"
+                android:layout_gravity="center"
+                android:padding="10dp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,12 +24,65 @@
         android:iconifiedByDefault="false"
         android:layout_marginTop="8dp" />
 
+    <!-- Price Range Title -->
+    <TextView
+        android:id="@+id/tv_price_range_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Price Range"
+        android:textSize="18sp"
+        android:layout_below="@id/searchView"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- Price Range EditTexts -->
+    <LinearLayout
+        android:id="@+id/ll_price_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/tv_price_range_title"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <EditText
+            android:id="@+id/et_min_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="Min Price"
+            android:inputType="number"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/et_max_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="Max Price"
+            android:inputType="number"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <!-- Apply Filter Button -->
+    <Button
+        android:id="@+id/btn_apply_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply Filter"
+        android:layout_below="@id/ll_price_range"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true" />
+
     <!-- ListView -->
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchView"
+        android:layout_below="@id/btn_apply_filter"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:layout_marginTop="8dp" />
