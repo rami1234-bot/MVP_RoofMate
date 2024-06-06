@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -42,14 +41,36 @@
         android:minHeight="48dp"
         android:padding="10dp" />
 
+    <!-- Profile Picture ImageView -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/passwordEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/img"
+        android:contentDescription="Profile Picture"
+        android:scaleType="centerCrop" />
+
+    <!-- Select Profile Image Button -->
+    <Button
+        android:id="@+id/selectProfileImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profileImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Select Profile Image" />
+
     <!-- Sign Up Button -->
     <Button
         android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        android:layout_below="@id/passwordEditText"
-        android:layout_marginTop="20dp"/>
+        android:layout_below="@id/selectProfileImageButton"
+        android:layout_marginTop="20dp" />
 
     <!-- Go Back Button -->
     <Button
@@ -60,6 +81,5 @@
         android:layout_below="@id/signupButton"
         android:layout_marginTop="20dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"/>
-
+        android:layout_alignParentLeft="true" />
 </RelativeLayout>

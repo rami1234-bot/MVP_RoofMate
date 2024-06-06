@@ -3,7 +3,10 @@ package com.example.roofmate_mvp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +46,13 @@ public class Chat extends AppCompatActivity {
         messageEditText = findViewById(R.id.messageEditText);
         sendMessageButton = findViewById(R.id.sendMessageButton);
 
+        // Retrieve chat room ID and username from intent extras
         chatRoomId = getIntent().getStringExtra("chatRoomId");
+        String username = getIntent().getStringExtra("oth");
+
+        // Set the toolbar title to the username
+        getSupportActionBar().setTitle(username);
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomId).child("messages");
 
         messagesList = new ArrayList<>();
@@ -57,6 +67,73 @@ public class Chat extends AppCompatActivity {
         });
 
         fetchMessages();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.tool1) {
+            Intent intent = new Intent(Chat.this, Profile.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("userId",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.tool2) {
+            Intent intent = new Intent(Chat.this, Profile.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("userId",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        } else
+        if (id == R.id.tool9) {
+            Intent intent = new Intent(Chat.this, HomePage.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("userId",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.tool3) {
+            Intent intent = new Intent(Chat.this, AddHome.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.tool4) {
+            Intent intent = new Intent(Chat.this, HomeSearch.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.tool5) {
+            Intent intent = new Intent(Chat.this, Usersearch.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.tool10) {
+            Intent intent = new Intent(Chat.this, OwnHomes.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.tool13) {
+            Intent intent = new Intent(Chat.this, Usersearch.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private void fetchMessages() {

@@ -28,6 +28,8 @@ public class Profile extends AppCompatActivity {
     private Button sendMesButton;
     private String otherUserId;
 
+    private String s = "";
+
     @SuppressLint("StringFormatInvalid")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,8 @@ public class Profile extends AppCompatActivity {
                     if (user != null) {
                         // Display the username
                         userIdTextView.setText(getString(R.string.username_label, user.username));
+                        s = user.getUsername();
+
                     } else {
                         Toast.makeText(Profile.this, R.string.user_data_null, Toast.LENGTH_SHORT).show();
                     }
@@ -202,6 +206,8 @@ public class Profile extends AppCompatActivity {
     private void navigateToChatActivity(String chatRoomId) {
         Intent intent = new Intent(Profile.this, Chat.class);
         intent.putExtra("chatRoomId", chatRoomId);
+        intent.putExtra("oth", s);
+
         startActivity(intent);
     }
 }
