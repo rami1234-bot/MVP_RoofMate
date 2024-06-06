@@ -78,8 +78,8 @@ public class Signup extends AppCompatActivity {
                         if (user != null) {
                             // Get user ID
                             String userId = user.getUid();
-                            // Create a User object
-                            User newUser = new User(username, email, password);
+                            // Create a User object with user ID
+                            User newUser = new User(userId, username, email, password);
                             // Save user information in the database
                             mDatabase.child("users").child(userId).setValue(newUser)
                                     .addOnCompleteListener(task1 -> {
@@ -100,6 +100,4 @@ public class Signup extends AppCompatActivity {
                     }
                 });
     }
-
-
 }

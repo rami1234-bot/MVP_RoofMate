@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tlbr"
-        android:queryHint="Search..."
         android:iconifiedByDefault="false"
         android:layout_marginTop="8dp" />
 
@@ -29,7 +28,7 @@
         android:id="@+id/tv_price_range_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Price Range"
+        android:text="select_price_range"
         android:textSize="18sp"
         android:layout_below="@id/searchView"
         android:layout_marginTop="16dp"
@@ -52,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="Min Price"
+            android:hint="min_price"
             android:inputType="number"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -62,7 +61,50 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="Max Price"
+            android:hint="max_price"
+            android:inputType="number"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <!-- Room Range Title -->
+    <TextView
+        android:id="@+id/tv_room_range_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="select_room_range"
+        android:textSize="18sp"
+        android:layout_below="@id/ll_price_range"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- Room Range EditTexts -->
+    <LinearLayout
+        android:id="@+id/ll_room_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/tv_room_range_title"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <EditText
+            android:id="@+id/et_min_rooms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="min_rooms"
+            android:inputType="number"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <EditText
+            android:id="@+id/et_max_rooms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="max_rooms"
             android:inputType="number"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
@@ -72,8 +114,8 @@
         android:id="@+id/btn_apply_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apply Filter"
-        android:layout_below="@id/ll_price_range"
+        android:text="apply_filter"
+        android:layout_below="@id/ll_room_range"
         android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true" />
 

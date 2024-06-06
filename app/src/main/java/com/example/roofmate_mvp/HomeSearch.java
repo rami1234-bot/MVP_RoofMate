@@ -1,5 +1,6 @@
 package com.example.roofmate_mvp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,7 +27,9 @@ import java.util.List;
 
 public class HomeSearch extends AppCompatActivity {
 
-    private EditText etMinPrice, etMaxPrice;
+    private static final String FIREBASE_HOMES_REFERENCE = "homes";
+
+    private EditText etMinPrice, etMaxPrice, etMinRooms, etMaxRooms;
     private Button btnApplyFilter;
     private SearchView searchView;
     private ListView listView;
@@ -44,8 +47,26 @@ public class HomeSearch extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         // Initialize UI components
+        initializeUIComponents();
+
+        // Load all homes from Firebase
+        loadHomes();
+
+        // Set button click listener
+        setApplyFilterButtonListener();
+
+        // Set SearchView query listener
+        setSearchViewQueryListener();
+
+        // Set ListView item click listener
+        setListViewItemClickListener();
+    }
+
+    private void initializeUIComponents() {
         etMinPrice = findViewById(R.id.et_min_price);
         etMaxPrice = findViewById(R.id.et_max_price);
+        etMinRooms = findViewById(R.id.et_min_rooms);
+        etMaxRooms = findViewById(R.id.et_max_rooms);
         btnApplyFilter = findViewById(R.id.btn_apply_filter);
         searchView = findViewById(R.id.searchView);
         listView = findViewById(R.id.listView);
@@ -53,28 +74,74 @@ public class HomeSearch extends AppCompatActivity {
         homeList = new ArrayList<>();
         homeAdapter = new HomeAdapter(this, homeList);
         listView.setAdapter(homeAdapter);
+
         Toolbar toolbar = findViewById(R.id.tlbr);
         setSupportActionBar(toolbar);
-        // Load all homes from Firebase
-        loadHomes();
+    }
 
-        // Set button click listener
+    private void loadHomes() {
+        database.getReference(FIREBASE_HOMES_REFERENCE).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                homeList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Home home = dataSnapshot.getValue(Home.class);
+                    if (home != null) {
+                        homeList.add(home);
+                    }
+                }
+                homeAdapter.notifyDataSetChanged();
+                if (homeList.isEmpty()) {
+                    Toast.makeText(HomeSearch.this, "No homes found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomeSearch.this, "Failed to load homes", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setApplyFilterButtonListener() {
         btnApplyFilter.setOnClickListener(v -> {
             String minPriceStr = etMinPrice.getText().toString().trim();
             String maxPriceStr = etMaxPrice.getText().toString().trim();
+            String minRoomsStr = etMinRooms.getText().toString().trim();
+            String maxRoomsStr = etMaxRooms.getText().toString().trim();
 
-            if (minPriceStr.isEmpty() || maxPriceStr.isEmpty()) {
-                Toast.makeText(this, "Please enter both min and max prices", Toast.LENGTH_SHORT).show();
+            if (minPriceStr.isEmpty() || maxPriceStr.isEmpty() || minRoomsStr.isEmpty() || maxRoomsStr.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            int minPrice = Integer.parseInt(minPriceStr);
-            int maxPrice = Integer.parseInt(maxPriceStr);
-
-            filterHomes(minPrice, maxPrice);
+            try {
+                int minPrice = Integer.parseInt(minPriceStr);
+                int maxPrice = Integer.parseInt(maxPriceStr);
+                int minRooms = Integer.parseInt(minRoomsStr);
+                int maxRooms = Integer.parseInt(maxRoomsStr);
+                filterHomes(minPrice, maxPrice, minRooms, maxRooms);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Please enter valid numbers", Toast.LENGTH_SHORT).show();
+            }
         });
+    }
 
-        // Set SearchView query listener
+    private void filterHomes(int minPrice, int maxPrice, int minRooms, int maxRooms) {
+        List<Home> filteredList = new ArrayList<>();
+        for (Home home : homeList) {
+            if (home.getRent() >= minPrice && home.getRent() <= maxPrice &&
+                    home.getRooms() >= minRooms && home.getRooms() <= maxRooms) {
+                filteredList.add(home);
+            }
+        }
+        homeAdapter.updateList(filteredList);
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "No homes found matching the criteria", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setSearchViewQueryListener() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -88,46 +155,6 @@ public class HomeSearch extends AppCompatActivity {
                 return true;
             }
         });
-
-        // Set ListView item click listener
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            Home selectedHome = homeList.get(position);
-            Intent intent = new Intent(HomeSearch.this, HomeInfo.class);
-            intent.putExtra("home_name", selectedHome.getName());
-            intent.putExtra("home_description", selectedHome.getDisk());
-            startActivity(intent);
-        });
-    }
-
-    private void loadHomes() {
-        database.getReference("homes").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                homeList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Home home = dataSnapshot.getValue(Home.class);
-                    if (home != null) {
-                        homeList.add(home);
-                    }
-                }
-                homeAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeSearch.this, "Failed to load homes", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void filterHomes(int minPrice, int maxPrice) {
-        List<Home> filteredList = new ArrayList<>();
-        for (Home home : homeList) {
-            if (home.getRent() >= minPrice && home.getRent() <= maxPrice) {
-                filteredList.add(home);
-            }
-        }
-        homeAdapter.updateList(filteredList);
     }
 
     private void filterHomesByName(String name) {
@@ -138,6 +165,20 @@ public class HomeSearch extends AppCompatActivity {
             }
         }
         homeAdapter.updateList(filteredList);
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "No homes found matching the search criteria", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setListViewItemClickListener() {
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Home selectedHome = homeList.get(position);
+            Intent intent = new Intent(HomeSearch.this, HomeInfo.class);
+            intent.putExtra("home_name", selectedHome.getName());
+            intent.putExtra("home_description", selectedHome.getDisk());
+            intent.putExtra("owneruid", selectedHome.getOwnerid());
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -146,35 +187,63 @@ public class HomeSearch extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.tool1) {
-            // Handle action for Tool 1
+            Intent intent = new Intent(HomeSearch.this, Profile.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("userId",currentUser.getUid());
+            startActivity(intent);
             return true;
         } else if (id == R.id.tool2) {
             Intent intent = new Intent(HomeSearch.this, Profile.class);
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
+            intent.putExtra("userId",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        } else
+        if (id == R.id.tool9) {
+            Intent intent = new Intent(HomeSearch.this, HomePage.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("userId",currentUser.getUid());
             startActivity(intent);
             return true;
         } else if (id == R.id.tool3) {
             Intent intent = new Intent(HomeSearch.this, AddHome.class);
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
+            intent.putExtra("uid",currentUser.getUid());
             startActivity(intent);
             return true;
         } else if (id == R.id.tool4) {
             Intent intent = new Intent(HomeSearch.this, HomeSearch.class);
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
+            intent.putExtra("uid",currentUser.getUid());
             startActivity(intent);
             return true;
         } else if (id == R.id.tool5) {
-            // Handle action for Tool 5
+            Intent intent = new Intent(HomeSearch.this, Usersearch.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
             return true;
-        } else {
+        }
+        else if (id == R.id.tool10) {
+            Intent intent = new Intent(HomeSearch.this, OwnHomes.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.tool13) {
+            Intent intent = new Intent(HomeSearch.this, Usersearch.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        }else {
             return super.onOptionsItemSelected(item);
         }
     }

@@ -5,4 +5,5 @@
     <item name="passwordEditText" type="id" />
     <item name="signupButton" type="id" />
     <item name="goBackButton" type="id" />
+    <item name="userListView" type="id" />
 </resources>

@@ -5,26 +5,39 @@
 
 
     <item
-        android:id="@+id/tool1"
-        android:title="Settings"
-      />
+        android:id="@+id/tool9"
+        android:title="Home"
+        />
 
+    <item
+        android:id="@+id/tool10"
+        android:title="OwnHomes"
+        />
+
+    <item
+    android:id="@+id/tool1"
+    android:title="Profile"
+    />
+    <item
+        android:id="@+id/tool13"
+        android:title="search for users"
+        />
 
     <item
         android:id="@+id/tool2"
-        android:title="Settings"
+        android:title="profile"
 />
 
     <item
         android:id="@+id/tool3"
-        android:title="Settings"
+        android:title="add home"
  />
     <item
         android:id="@+id/tool4"
-        android:title="Settings"
+        android:title="search for homes"
 />
     <item
         android:id="@+id/tool5"
-        android:title="Settings"
+        android:title="look for users"
 />
 </menu>

@@ -54,12 +54,22 @@ public class HomePage extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.tool1) {
-            // Handle action for Tool 1
+            Intent intent = new Intent(HomePage.this, Profile.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("userId",currentUser.getUid());
+            startActivity(intent);
             return true;
         } else if (id == R.id.tool2) {
             Intent intent = new Intent(HomePage.this, Profile.class);
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid",currentUser.getUid());
+            intent.putExtra("userId",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        } else
+        if (id == R.id.tool9) {
+            Intent intent = new Intent(HomePage.this, HomePage.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("userId",currentUser.getUid());
             startActivity(intent);
             return true;
         } else if (id == R.id.tool3) {
@@ -75,12 +85,26 @@ public class HomePage extends AppCompatActivity {
             startActivity(intent);
             return true;
         } else if (id == R.id.tool5) {
-            Intent intent = new Intent(HomePage.this, HomeInfo.class);
+            Intent intent = new Intent(HomePage.this, Usersearch.class);
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             intent.putExtra("uid",currentUser.getUid());
             startActivity(intent);
             return true;
-        } else {
+        }
+        else if (id == R.id.tool10) {
+            Intent intent = new Intent(HomePage.this, OwnHomes.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.tool13) {
+            Intent intent = new Intent(HomePage.this, Usersearch.class);
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            intent.putExtra("uid",currentUser.getUid());
+            startActivity(intent);
+            return true;
+        }else {
             return super.onOptionsItemSelected(item);
         }
     }

@@ -3,6 +3,7 @@ package com.example.roofmate_mvp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeInfo extends AppCompatActivity {
+public class HomeInfo extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
     private TextView tvHouseName, tvHouseDescription;
@@ -40,7 +41,7 @@ public class HomeInfo extends AppCompatActivity {
         tvHouseDescription = findViewById(R.id.tv_house_description);
         listViewPictures = findViewById(R.id.listView_pictures);
         btnContactOwner = findViewById(R.id.btn_contact_owner);
-
+        btnContactOwner.setOnClickListener(this);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,16 +66,38 @@ public class HomeInfo extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // Handle toolbar item clicks
-        if (item.getItemId() == android.R.id.home) {
-
-
-
-            Intent intent = new Intent(HomeInfo.this, HomeSearch.class);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.tool1) {
+            Intent intent = new Intent(HomeInfo.this, HomePage.class);
             startActivity(intent);
             return true;
+        } else if (id == R.id.tool2) {
+            // Handle action for Tool 2
+            return true;
+        } else if (id == R.id.tool3) {
+            // Handle action for Tool 3
+            return true;
+        } else if (id == R.id.tool4) {
+            // Handle action for Tool 4
+            return true;
+        } else if (id == R.id.tool5) {
+            // Handle action for Tool 5
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = getIntent();
+        String uidoo = intent.getStringExtra("owneruid");
+
+        Intent intent1 = new Intent(HomeInfo.this,Profile.class);
+        intent1.putExtra("userId", uidoo);
+        startActivity(intent1);
+    }
+
+
 }

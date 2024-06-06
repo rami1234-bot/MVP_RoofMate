@@ -5,22 +5,18 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tlbr"
+        android:id="@+id/tlbrr"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <!-- List of Own Homes -->
+    <!-- ListView to display homes -->
     <ListView
-        android:id="@+id/listView_own_homes"
+        android:id="@+id/homeListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tlbr"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:layout_marginTop="8dp" />
-
+        android:layout_below="@id/tlbrr"
+        android:padding="16dp" />
 </RelativeLayout>
