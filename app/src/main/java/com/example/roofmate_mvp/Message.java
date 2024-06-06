@@ -1,8 +1,20 @@
 package com.example.roofmate_mvp;
 
-import java.sql.Timestamp;
-
 public class Message {
+    private String content;
+    private String senderid;
+    private long date;
+
+    public Message(String content, String senderid) {
+        this.content = content;
+        this.senderid = senderid;
+        this.date = System.currentTimeMillis(); // Current time in milliseconds
+    }
+
+    public Message() {
+        // Default constructor required for calls to DataSnapshot.getValue(Message.class)
+    }
+
     public String getContent() {
         return content;
     }
@@ -10,8 +22,6 @@ public class Message {
     public void setContent(String content) {
         this.content = content;
     }
-
-    String content ;
 
     public String getSenderid() {
         return senderid;
@@ -21,15 +31,11 @@ public class Message {
         this.senderid = senderid;
     }
 
-    String senderid;
-    Timestamp date ;
-    public Message(String s, String c){
-        content = c;
-        senderid = s;
-
-
+    public long getDate() {
+        return date;
     }
 
-
-
+    public void setDate(long date) {
+        this.date = date;
+    }
 }

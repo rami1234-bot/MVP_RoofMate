@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RoofMate_mvp</string>
+    <string name="username_label" />
+    <string name="user_data_null" />
+    <string name="user_not_found" />
+    <string name="read_user_data_failed" />
+    <string name="user_id_label" />
+    <string name="user_id_missing" />
 </resources>
