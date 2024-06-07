@@ -23,14 +23,20 @@ public class HomePage extends AppCompatActivity {
 //    private ArrayList<User> messages;
 //    private MsAdapt messageAdapter;
 //    private DatabaseReference mDatabase;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        //set the toolbar
         Toolbar toolbar = findViewById(R.id.tlbr);
         setSupportActionBar(toolbar);
+
+        // Get the User object from the Intent
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
 
 //
 //        listView = findViewById(R.id.list_view);
@@ -57,6 +63,10 @@ public class HomePage extends AppCompatActivity {
             Intent intent = new Intent(HomePage.this, Profile.class);
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             intent.putExtra("userId",currentUser.getUid());
+
+            // pass user itself
+            intent.putExtra("user",user);
+
             startActivity(intent);
             return true;
         } else if (id == R.id.tool2) {

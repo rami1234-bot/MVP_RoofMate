@@ -46,6 +46,8 @@ public class interests extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String userId;
 
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,10 @@ public class interests extends AppCompatActivity {
 
         // Get userId from intent
         userId = getIntent().getStringExtra("userId");
+
+        // Get the User object from the Intent
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
 
         // Initialize views
         musicCheckBox = findViewById(R.id.interest_music);
@@ -125,9 +131,14 @@ public class interests extends AppCompatActivity {
             mDatabase.child("users").child(userId).child("interests").setValue(selectedInterests)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
+
+                            // Update the User object
+                            user.setInterests(selectedInterests);
+
                             Toast.makeText(interests.this, "Interests Saved", Toast.LENGTH_SHORT).show();
                             // Redirect to HomePage
                             Intent intent = new Intent(interests.this, HomePage.class);
+                            intent.putExtra("user",user);
                             startActivity(intent);
                             finish();
                         } else {

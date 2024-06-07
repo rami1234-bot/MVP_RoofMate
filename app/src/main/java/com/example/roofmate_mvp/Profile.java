@@ -28,6 +28,8 @@ public class Profile extends AppCompatActivity {
     private Button sendMesButton;
     private String otherUserId;
 
+    private User user;
+
     private String s = "";
 
     @SuppressLint("StringFormatInvalid")
@@ -42,12 +44,25 @@ public class Profile extends AppCompatActivity {
         userIdTextView = findViewById(R.id.usernameTextView);
         sendMesButton = findViewById(R.id.sendmes);
 
+        // Get the User object from the Intent
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
+
         // Initialize the Firebase Database reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Get the user ID from the Intent
         otherUserId = getIntent().getStringExtra("userId");
+
+        // Check if the current user is viewing their own profile
+        if (user != null && otherUserId != null && otherUserId.equals(user.getUserid())) {
+            Intent editPIntent = new Intent(Profile.this, EditProfile.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+            finish();  // Close the current activity
+            return;
+        }
 
         // Display the user ID (for demonstration purposes)
         userIdTextView.setText(getString(R.string.user_id_label, otherUserId));

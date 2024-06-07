@@ -1,8 +1,11 @@
 package com.example.roofmate_mvp;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class User {
+public class User implements Serializable { // to enable passing user in intent
+
+    private static final long serialVersionUID = 1L; //  this line for serialization
 
     public String username;
     public String email;
@@ -10,6 +13,7 @@ public class User {
     public String userid;
     public int follower = 0;
     public String profileImageUrl;
+    private List<String> interests;
 
     public List<String> getInterests() {
         return interests;
@@ -18,11 +22,6 @@ public class User {
     public void setInterests(List<String> interests) {
         this.interests = interests;
     }
-
-    private List<String> interests;
-
-
-
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -36,6 +35,7 @@ public class User {
         this.follower = 0;
     }
 
+    // Getters and setters
     public String getUsername() {
         return username;
     }

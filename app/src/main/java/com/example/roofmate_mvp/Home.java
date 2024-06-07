@@ -30,6 +30,7 @@ public class Home {
 
     String disk = "";
     String ownerid;
+
     boolean available= true;
 
     // Constructors
