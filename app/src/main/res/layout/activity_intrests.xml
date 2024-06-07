@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Your Interests"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"/>
+
+        <CheckBox
+            android:id="@+id/interest_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Music"/>
+
+        <CheckBox
+            android:id="@+id/interest_sports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sports"/>
+
+        <CheckBox
+            android:id="@+id/interest_travel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Travel"/>
+
+        <CheckBox
+            android:id="@+id/interest_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reading"/>
+
+        <CheckBox
+            android:id="@+id/interest_cooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cooking"/>
+
+        <!-- Additional Checkboxes -->
+        <CheckBox
+            android:id="@+id/interest_gaming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gaming"/>
+
+        <CheckBox
+            android:id="@+id/interest_dancing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dancing"/>
+
+        <CheckBox
+            android:id="@+id/interest_photography"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Photography"/>
+
+        <CheckBox
+            android:id="@+id/interest_art"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Art"/>
+
+        <CheckBox
+            android:id="@+id/interest_fishing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fishing"/>
+
+        <CheckBox
+            android:id="@+id/interest_gardening"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gardening"/>
+
+        <CheckBox
+            android:id="@+id/interest_hiking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hiking"/>
+
+        <CheckBox
+            android:id="@+id/interest_knitting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Knitting"/>
+
+        <CheckBox
+            android:id="@+id/interest_cycling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cycling"/>
+
+        <CheckBox
+            android:id="@+id/interest_yoga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yoga"/>
+
+        <CheckBox
+            android:id="@+id/interest_fitness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fitness"/>
+
+        <CheckBox
+            android:id="@+id/interest_swimming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Swimming"/>
+
+        <CheckBox
+            android:id="@+id/interest_baking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baking"/>
+
+        <CheckBox
+            android:id="@+id/interest_writing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Writing"/>
+
+        <CheckBox
+            android:id="@+id/interest_meditation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Meditation"/>
+
+        <CheckBox
+            android:id="@+id/interest_boardgames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Board Games"/>
+
+        <CheckBox
+            android:id="@+id/interest_volunteering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volunteering"/>
+
+        <CheckBox
+            android:id="@+id/interest_languagelearning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Language Learning"/>
+
+        <CheckBox
+            android:id="@+id/interest_astrology"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Astrology"/>
+
+        <CheckBox
+            android:id="@+id/interest_technology"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Technology"/>
+
+        <CheckBox
+            android:id="@+id/interest_cars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cars"/>
+
+        <Button
+            android:id="@+id/saveInterestsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Interests"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>

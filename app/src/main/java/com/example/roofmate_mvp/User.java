@@ -1,5 +1,7 @@
 package com.example.roofmate_mvp;
 
+import java.util.List;
+
 public class User {
 
     public String username;
@@ -9,17 +11,29 @@ public class User {
     public int follower = 0;
     public String profileImageUrl;
 
+    public List<String> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
+    }
+
+    private List<String> interests;
+
+
+
+
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String userid, String username, String email, String password, String profileImageUrl) {
+    public User(String userid, String username, String email, String password) {
         this.userid = userid;
         this.username = username;
         this.email = email;
         this.password = password;
         this.follower = 0;
-        this.profileImageUrl = profileImageUrl;
     }
 
     public String getUsername() {
