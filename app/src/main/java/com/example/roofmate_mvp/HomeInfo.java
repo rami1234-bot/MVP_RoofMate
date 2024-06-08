@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeInfo extends AppCompatActivity implements View.OnClickListener {
+public class HomeInfo extends BaseActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
     private TextView tvHouseName, tvHouseDescription;
@@ -72,10 +72,8 @@ public class HomeInfo extends AppCompatActivity implements View.OnClickListener 
             Intent intent = new Intent(HomeInfo.this, HomePage.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.tool2) {
-            // Handle action for Tool 2
-            return true;
-        } else if (id == R.id.tool3) {
+        }
+        else if (id == R.id.tool3) {
             // Handle action for Tool 3
             return true;
         } else if (id == R.id.tool4) {

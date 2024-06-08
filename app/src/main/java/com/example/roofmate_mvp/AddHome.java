@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddHome extends AppCompatActivity {
+public class AddHome extends BaseActivity {
 
     private EditText nameEditText;
     private EditText descriptionEditText;

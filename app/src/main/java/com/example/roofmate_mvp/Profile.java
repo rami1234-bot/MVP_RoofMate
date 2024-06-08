@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends BaseActivity {
     private TextView userIdTextView;
     private DatabaseReference mDatabase;
     private FirebaseUser currentUser;
@@ -37,9 +37,6 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        Toolbar toolbar = findViewById(R.id.tlbr);
-        setSupportActionBar(toolbar);
 
         userIdTextView = findViewById(R.id.usernameTextView);
         sendMesButton = findViewById(R.id.sendmes);
@@ -86,12 +83,6 @@ public class Profile extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
     private void getUsernameAndDisplay(String userId) {
         // Fetch the username from the database using the user ID
         mDatabase.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -120,67 +111,6 @@ public class Profile extends AppCompatActivity {
                 Toast.makeText(Profile.this, getString(R.string.read_user_data_failed, databaseError.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.tool1) {
-            Intent intent = new Intent(Profile.this, Profile.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("userId",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool2) {
-            Intent intent = new Intent(Profile.this, Profile.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("userId",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else
-        if (id == R.id.tool9) {
-            Intent intent = new Intent(Profile.this, HomePage.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("userId",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool3) {
-            Intent intent = new Intent(Profile.this, AddHome.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool4) {
-            Intent intent = new Intent(Profile.this, HomeSearch.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool5) {
-            Intent intent = new Intent(Profile.this, Usersearch.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        }
-        else if (id == R.id.tool10) {
-            Intent intent = new Intent(Profile.this, OwnHomes.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        }
-        else if (id == R.id.tool13) {
-            Intent intent = new Intent(Profile.this, Usersearch.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid",currentUser.getUid());
-            startActivity(intent);
-            return true;
-        }else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     private void createOrNavigateChatRoom(final String userId1, final String userId2) {

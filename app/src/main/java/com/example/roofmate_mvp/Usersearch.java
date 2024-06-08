@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Usersearch extends AppCompatActivity {
+public class Usersearch extends BaseActivity {
 
     private ListView listViewUsers;
     private UserAdapter userAdapter;
@@ -38,9 +38,6 @@ public class Usersearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usersearch);
-
-        Toolbar toolbar = findViewById(R.id.tlbr);
-        setSupportActionBar(toolbar);
 
         // Initialize Firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -89,12 +86,6 @@ public class Usersearch extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
     private void fetchUsersFromFirebase() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -127,56 +118,5 @@ public class Usersearch extends AppCompatActivity {
             }
         }
         userAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.tool1) {
-            Intent intent = new Intent(Usersearch.this, HomePage.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("userId", currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool2) {
-            Intent intent = new Intent(Usersearch.this, Profile.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("userId", currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool3) {
-            Intent intent = new Intent(Usersearch.this, AddHome.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool4) {
-            Intent intent = new Intent(Usersearch.this, HomeSearch.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool5) {
-            Intent intent = new Intent(Usersearch.this, Usersearch.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool10) {
-            Intent intent = new Intent(Usersearch.this, OwnHomes.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else if (id == R.id.tool13) {
-            Intent intent = new Intent(Usersearch.this, Usersearch.class);
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            intent.putExtra("uid", currentUser.getUid());
-            startActivity(intent);
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 }

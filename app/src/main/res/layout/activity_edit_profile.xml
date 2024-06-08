@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <!-- Buttons at the top -->
     <LinearLayout
@@ -15,18 +16,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="<-- go back" />
+            android:text="Go Back" />
 
         <Button
             android:id="@+id/editInterestsBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="set new interests" />
+            android:text="Set New Interests" />
 
     </LinearLayout>
 
-    <!-- EditTexts and Save button at the center -->
+    <!-- EditTexts at the center -->
     <LinearLayout
         android:id="@+id/centerContentLayout"
         android:layout_width="match_parent"
@@ -34,7 +35,9 @@
         android:layout_below="@id/topButtonsLayout"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
 
         <EditText
             android:id="@+id/usernameEditText"
@@ -57,6 +60,9 @@
             android:hint="Enter new password"
             android:inputType="textPassword"/>
 
+    </LinearLayout>
+
+    <!-- Save button at the bottom -->
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
@@ -64,9 +70,5 @@
         android:text="Save"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
-
-    </LinearLayout>
-
-
 
 </RelativeLayout>

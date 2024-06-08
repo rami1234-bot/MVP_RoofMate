@@ -5,7 +5,7 @@
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tlbrr"
+        android:id="@+id/tlbr"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -17,6 +17,6 @@
         android:id="@+id/homeListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tlbrr"
+        android:layout_below="@id/tlbr"
         android:padding="16dp" />
 </RelativeLayout>
