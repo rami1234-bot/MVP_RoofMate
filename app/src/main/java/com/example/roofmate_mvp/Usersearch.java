@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,11 +30,13 @@ import java.util.List;
 
 public class Usersearch extends BaseActivity {
 
+    private Button SearchByInterests;
     private ListView listViewUsers;
     private UserAdapter userAdapter;
     private List<User> userList;
     private List<User> filteredUserList;
     private DatabaseReference databaseReference;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,19 @@ public class Usersearch extends BaseActivity {
             // User not logged in, handle accordingly
         } else {
             databaseReference = FirebaseDatabase.getInstance().getReference("users");
+            user = (User) getIntent().getSerializableExtra("user");
+
+            // set up the button to go to the interests search
+            SearchByInterests = findViewById(R.id.Search_interests);
+            SearchByInterests.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Usersearch.this, InterestSearch.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                }
+            });
+        }
 
             // Set up ListView and Adapter
             listViewUsers = findViewById(R.id.listViewUsers);
@@ -84,7 +101,7 @@ public class Usersearch extends BaseActivity {
                 startActivity(intent);
             });
         }
-    }
+
 
     private void fetchUsersFromFirebase() {
         databaseReference.addValueEventListener(new ValueEventListener() {

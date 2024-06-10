@@ -11,8 +11,28 @@ import java.util.List;
 
 public class UserAdapter extends ArrayAdapter<User> {
 
+    private List<User> users;
+    private OnUserClickListener onUserClickListener;
+
+    // making the list clickable
+    public interface OnUserClickListener {
+        void onUserClick(User user);
+    }
+    public void setOnUserClickListener(OnUserClickListener listener) {
+        this.onUserClickListener = listener;
+    }
+
+    // ...
+
     public UserAdapter(Context context, List<User> users) {
         super(context, 0, users);
+        this.users = users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users.clear();
+        this.users.addAll(users);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -27,6 +47,15 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         usernameTextView.setText(user.getUsername());
         emailTextView.setText(user.getEmail());
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onUserClickListener != null) {
+                    onUserClickListener.onUserClick(user);
+                }
+            }
+        });
+
 
         return convertView;
     }
