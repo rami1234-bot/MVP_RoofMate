@@ -66,6 +66,7 @@ public class Signup extends AppCompatActivity {
                         if (user != null) {
                             String userId = user.getUid();
                             saveUserToDatabase(userId, username, email, password);
+
                         }
                     } else {
                         Toast.makeText(Signup.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

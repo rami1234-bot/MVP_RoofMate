@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -43,6 +46,7 @@ public class interests extends AppCompatActivity {
     private CheckBox carsCheckBox;
     private Button saveInterestsButton;
 
+    private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private String userId;
 
@@ -56,8 +60,11 @@ public class interests extends AppCompatActivity {
         // Initialize Database Reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Get userId from intent
-        userId = getIntent().getStringExtra("userId");
+        FirebaseApp.initializeApp(this);
+
+
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getUid();
 
         // Get the User object from the Intent
         Intent intent = getIntent();
