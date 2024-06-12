@@ -211,7 +211,7 @@ public class InterestSearch extends BaseActivity implements UserAdapter.OnUserCl
     @Override
     public void onUserClick(User user) {
         Intent intent = new Intent(InterestSearch.this, Profile.class);
-        intent.putExtra("user", user);
+        intent.putExtra("userid", user.getUserid());
         startActivity(intent);
     }
 

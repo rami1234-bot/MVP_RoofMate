@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.roofmate_mvp.R;
+import com.example.roofmate_mvp.User;
+
 import java.util.List;
 
 public class UserAdapter extends ArrayAdapter<User> {
@@ -14,15 +17,15 @@ public class UserAdapter extends ArrayAdapter<User> {
     private List<User> users;
     private OnUserClickListener onUserClickListener;
 
-    // making the list clickable
+    // Interface for handling click events
     public interface OnUserClickListener {
         void onUserClick(User user);
     }
+
+    // Setter method for setting the click listener
     public void setOnUserClickListener(OnUserClickListener listener) {
         this.onUserClickListener = listener;
     }
-
-    // ...
 
     public UserAdapter(Context context, List<User> users) {
         super(context, 0, users);
@@ -47,6 +50,8 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         usernameTextView.setText(user.getUsername());
         emailTextView.setText(user.getEmail());
+
+        // Set onClickListener for the convertView
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +60,6 @@ public class UserAdapter extends ArrayAdapter<User> {
                 }
             }
         });
-
 
         return convertView;
     }

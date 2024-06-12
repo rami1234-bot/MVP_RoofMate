@@ -34,15 +34,25 @@
         android:layout_alignBaseline="@id/usernameTextView"
         android:layout_marginStart="16dp" />
 
-
+    <!-- Send Message Button -->
     <Button
         android:id="@+id/sendmes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="send mess"
+        android:text="Send Message"
         android:layout_toEndOf="@id/followButton"
         android:layout_alignBaseline="@id/usernameTextView"
         android:layout_marginStart="16dp" />
+
+    <!-- Interests LinearLayout -->
+    <LinearLayout
+        android:id="@+id/interestsLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameTextView"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal" />
 
     <!-- Follower Count TextView -->
     <TextView
@@ -51,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="Followers: 0"
         android:textSize="16sp"
-        android:layout_below="@id/usernameTextView"
+        android:layout_below="@id/interestsLinearLayout"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp" />
 

@@ -69,7 +69,7 @@ public class BaseActivity extends AppCompatActivity {
     private void navigateTo(Class<?> cls, FirebaseUser currentUser) {
         Intent intent = new Intent(BaseActivity.this, cls);
         if (currentUser != null) {
-            intent.putExtra("userId", currentUser.getUid());
+            intent.putExtra("userid", currentUser.getUid());
         }
         startActivity(intent);
     }
