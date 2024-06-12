@@ -1,7 +1,5 @@
 package com.example.roofmate_mvp;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,18 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HomeInfo extends AppCompatActivity {
 
+    private static final String TAG = "HomeInfo";
     private Toolbar toolbar;
     private TextView tvHouseName, tvHouseDescription;
-    private ListView listViewPictures;
-    private Button btnAddToWishlist; // Updated button name
-
-    private List<String> pictureUrls; // This will store the URLs of the pictures
-    //private PictureAdapter pictureAdapter;
+    private Button btnToggleWishlist;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -53,8 +44,7 @@ public class HomeInfo extends AppCompatActivity {
         toolbar = findViewById(R.id.tlbr);
         tvHouseName = findViewById(R.id.tv_house_name);
         tvHouseDescription = findViewById(R.id.tv_house_description);
-        listViewPictures = findViewById(R.id.listView_pictures);
-        btnAddToWishlist = findViewById(R.id.btn_add_to_wishlist); // Updated button reference
+        btnToggleWishlist = findViewById(R.id.btn_add_to_wishlist);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,49 +54,51 @@ public class HomeInfo extends AppCompatActivity {
         Intent intent = getIntent();
         String homeName = intent.getStringExtra("home_name");
         String homeDescription = intent.getStringExtra("home_description");
+        String homeId = intent.getStringExtra("home_id");
         tvHouseName.setText(homeName);
         tvHouseDescription.setText(homeDescription);
 
-        // Sample data for pictures
-        pictureUrls = new ArrayList<>();
-        pictureUrls.add("https://example.com/pic1.jpg");
-        pictureUrls.add("https://example.com/pic2.jpg");
-        pictureUrls.add("https://example.com/pic3.jpg");
+        // Check if the home is in the user's wishlist and update the button text accordingly
+        checkWishlistStatus(homeId);
 
-        // Initialize and set adapter for ListView
-       // pictureAdapter = new PictureAdapter(this, pictureUrls);
-        //listViewPictures.setAdapter(pictureAdapter);
+        // Set the click listener for the button
+        btnToggleWishlist.setOnClickListener(v -> toggleWishlist(homeId));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.tool1) {
-            Intent intent = new Intent(HomeInfo.this, HomePage.class);
-            startActivity(intent);
+        if (id == android.R.id.home) {
+            finish();
             return true;
-        } else {
-            return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
-    // Method to add home to wishlist
-// Method to add home to wishlist
-    // Method to add home to wishlist
-    public void addToWishlist(View view) {
+    // Method to add or remove home from wishlist
+    private void toggleWishlist(String homeId) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            String homeId = getIntent().getStringExtra("home_id"); // Get the ID of the home from the intent
             DatabaseReference userRef = mDatabase.child("users").child(userId);
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
-                        user.addToWishlist(homeId); // Add home ID to wishlist
-                        userRef.setValue(user); // Update user object in database
-                        Toast.makeText(HomeInfo.this, "Added to wishlist", Toast.LENGTH_SHORT).show();
+                        if (user.getWishlist() != null && user.getWishlist().contains(homeId)) {
+                            // Remove from wishlist
+                            user.removeFromWishlist(homeId);
+                            userRef.setValue(user); // Update user object in database
+                            btnToggleWishlist.setText("Add to Wishlist");
+                            Toast.makeText(HomeInfo.this, "Removed from wishlist", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Add to wishlist
+                            user.addToWishlist(homeId);
+                            userRef.setValue(user); // Update user object in database
+                            btnToggleWishlist.setText("Remove from Wishlist");
+                            Toast.makeText(HomeInfo.this, "Added to wishlist", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 
@@ -118,5 +110,28 @@ public class HomeInfo extends AppCompatActivity {
         }
     }
 
+    // Method to check if the home is in the user's wishlist and update button text
+    private void checkWishlistStatus(String homeId) {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference userRef = mDatabase.child("users").child(userId);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user != null && user.getWishlist() != null && user.getWishlist().contains(homeId)) {
+                        btnToggleWishlist.setText("Remove from Wishlist");
+                    } else {
+                        btnToggleWishlist.setText("Add to Wishlist");
+                    }
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.e(TAG, "Failed to read user data", databaseError.toException());
+                }
+            });
+        }
+    }
 }

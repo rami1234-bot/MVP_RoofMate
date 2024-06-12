@@ -100,6 +100,15 @@ public class User implements Serializable { // to enable passing user in intent
         if (wishlist == null) {
             wishlist = new ArrayList<>();
         }
-        wishlist.add(homeId);
+        if (!wishlist.contains(homeId)) {
+            wishlist.add(homeId);
+        }
+    }
+
+    // Method to remove a home from the wishlist
+    public void removeFromWishlist(String homeId) {
+        if (wishlist != null && wishlist.contains(homeId)) {
+            wishlist.remove(homeId);
+        }
     }
 }
