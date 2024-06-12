@@ -96,7 +96,7 @@ public class Profile extends BaseActivity {
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
                         // Display the username
-                        userIdTextView.setText(getString(R.string.username_label, user.username));
+                        userIdTextView.setText(user.getUsername());
                         s = user.getUsername();
                         // Display the interests
                         displayInterests(user.getInterests());

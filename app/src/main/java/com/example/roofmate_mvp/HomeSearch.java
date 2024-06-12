@@ -177,7 +177,7 @@ public class HomeSearch extends BaseActivity {
             intent.putExtra("home_name", selectedHome.getName());
             intent.putExtra("home_id",selectedHome.getId());
             intent.putExtra("home_description", selectedHome.getDisk());
-            intent.putExtra("owneruid", selectedHome.getOwnerid());
+            intent.putExtra("ownerid", selectedHome.getOwnerid());
             startActivity(intent);
         });
     }

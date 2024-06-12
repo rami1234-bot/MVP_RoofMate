@@ -1,10 +1,12 @@
 package com.example.roofmate_mvp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,8 +49,24 @@ public class Wishlist extends AppCompatActivity {
         adapter = new HomeAdapter(this, wishlistHomes);
         listView.setAdapter(adapter);
 
+
+
         // Load wishlist from the database
         loadWishlist();
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Home selectedHome = wishlistHomes.get(position);
+                Intent intent = new Intent(Wishlist.this, HomeInfo.class);
+                intent.putExtra("home_id", selectedHome.getId());
+                intent.putExtra("home_name", selectedHome.getName());
+                intent.putExtra("home_description", selectedHome.getDisk());
+                intent.putExtra("ownerid", selectedHome.getOwnerid());
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadWishlist() {

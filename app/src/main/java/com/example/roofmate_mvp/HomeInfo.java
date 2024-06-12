@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class HomeInfo extends AppCompatActivity {
+public class HomeInfo extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "HomeInfo";
     private Toolbar toolbar;
@@ -32,6 +32,9 @@ public class HomeInfo extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
+    private  Button contact;
+    private String ownerid;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,8 @@ public class HomeInfo extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
+        contact = findViewById(R.id.btn_contact_owner);
+        contact.setOnClickListener(this);
         toolbar = findViewById(R.id.tlbr);
         tvHouseName = findViewById(R.id.tv_house_name);
         tvHouseDescription = findViewById(R.id.tv_house_description);
@@ -52,6 +56,7 @@ public class HomeInfo extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
+        ownerid= intent.getStringExtra("ownerid");
         String homeName = intent.getStringExtra("home_name");
         String homeDescription = intent.getStringExtra("home_description");
         String homeId = intent.getStringExtra("home_id");
@@ -133,5 +138,13 @@ public class HomeInfo extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent=new Intent(this,Profile.class);
+
+        intent.putExtra("userid",ownerid);
+        startActivity(intent);
     }
 }
