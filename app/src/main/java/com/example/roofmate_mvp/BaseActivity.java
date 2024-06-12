@@ -61,6 +61,9 @@ public class BaseActivity extends AppCompatActivity {
         } else if (id == R.id.tool10) {
             navigateTo(OwnHomes.class, currentUser);
             return true;
+        }else if (id == R.id.tool90) {
+            navigateTo(Wishlist.class, currentUser);
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }

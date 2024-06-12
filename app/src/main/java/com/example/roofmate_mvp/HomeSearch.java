@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -175,6 +175,7 @@ public class HomeSearch extends BaseActivity {
             Home selectedHome = homeList.get(position);
             Intent intent = new Intent(HomeSearch.this, HomeInfo.class);
             intent.putExtra("home_name", selectedHome.getName());
+            intent.putExtra("home_id",selectedHome.getId());
             intent.putExtra("home_description", selectedHome.getDisk());
             intent.putExtra("owneruid", selectedHome.getOwnerid());
             startActivity(intent);

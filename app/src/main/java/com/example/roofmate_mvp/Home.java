@@ -6,38 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home {
-    int rent;
-    String name;
-    List<Image> imageList = new ArrayList<>();
-
-    public int getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(int rooms) {
-        this.rooms = rooms;
-    }
-
-    int rooms ;
-
-    public String getDisk() {
-        return disk;
-    }
-
-    public void setDisk(String disk) {
-        this.disk = disk;
-    }
-
-    String disk = "";
-    String ownerid;
-
-    boolean available= true;
+    private String id; // Add a field to store the unique ID
+    private int rent;
+    private String name;
+    private List<Image> imageList = new ArrayList<>();
+    private int rooms;
+    private String disk = "";
+    private String ownerid;
+    private boolean available = true;
 
     // Constructors
     public Home() {
     }
 
-    public Home(int rent, String name, String ownerid,String disk ,int rooms ) {
+    public Home( int rent, String name, String ownerid, String disk, int rooms) {
         this.rent = rent;
         this.name = name;
         this.ownerid = ownerid;
@@ -46,6 +28,14 @@ public class Home {
     }
 
     // Getter and Setter methods
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public int getRent() {
         return rent;
     }
@@ -78,9 +68,32 @@ public class Home {
         this.ownerid = ownerid;
     }
 
+    public int getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(int rooms) {
+        this.rooms = rooms;
+    }
+
+    public String getDisk() {
+        return disk;
+    }
+
+    public void setDisk(String disk) {
+        this.disk = disk;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
     // Function to add an image to the imageList
     public void addImage(Image image) {
         imageList.add(image);
     }
 }
-

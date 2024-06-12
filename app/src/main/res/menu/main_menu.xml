@@ -38,5 +38,10 @@
     <item
         android:id="@+id/tool5"
         android:title="look for users"
-/>
+        />
+
+    <item
+        android:id="@+id/tool90"
+        android:title="wishlist"
+        />
 </menu>

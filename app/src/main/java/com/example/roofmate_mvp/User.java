@@ -1,6 +1,7 @@
 package com.example.roofmate_mvp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User implements Serializable { // to enable passing user in intent
@@ -14,6 +15,7 @@ public class User implements Serializable { // to enable passing user in intent
     public int follower = 0;
     public String profileImageUrl;
     private List<String> interests;
+    private List<String> wishlist;
 
     public List<String> getInterests() {
         return interests;
@@ -82,5 +84,22 @@ public class User implements Serializable { // to enable passing user in intent
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+
+    public List<String> getWishlist() {
+        return wishlist;
+    }
+
+    public void setWishlist(List<String> wishlist) {
+        this.wishlist = wishlist;
+    }
+
+    // Method to add a home to the wishlist
+    public void addToWishlist(String homeId) {
+        if (wishlist == null) {
+            wishlist = new ArrayList<>();
+        }
+        wishlist.add(homeId);
     }
 }
