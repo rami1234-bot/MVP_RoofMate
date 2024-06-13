@@ -44,4 +44,10 @@
         android:id="@+id/tool90"
         android:title="wishlist"
         />
+
+
+    <item
+        android:id="@+id/logout"
+        android:title="logout"
+        />
 </menu>

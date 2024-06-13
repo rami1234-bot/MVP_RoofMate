@@ -23,6 +23,13 @@
         android:layout_below="@id/tlbr"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp" />
+    <Button
+        android:id="@+id/blockUnblockButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/followButton"
+        android:text="Block"
+        />
 
     <!-- Follow Button -->
     <Button
@@ -49,7 +56,7 @@
         android:id="@+id/interestsLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/usernameTextView"
+        android:layout_below="@id/blockUnblockButton"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:orientation="horizontal" />

@@ -6,4 +6,9 @@
     <string name="read_user_data_failed" />
     <string name="user_id_label" />
     <string name="user_id_missing" />
+
+    <string name="no_interests_available">No interests available</string>
 </resources>
+
+
+

@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class BaseActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +65,14 @@ public class BaseActivity extends AppCompatActivity {
         }else if (id == R.id.tool90) {
             navigateTo(Wishlist.class, currentUser);
             return true;
-        } else {
+        } else if (id == R.id.logout) {
+            mAuth.signOut();
+            // Redirect to login screen or any other appropriate screen
+            Intent intent = new Intent(BaseActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }else {
             return super.onOptionsItemSelected(item);
         }
     }

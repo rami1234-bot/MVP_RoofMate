@@ -24,9 +24,13 @@ public class ChatRoom {
     }
 
     Boolean isBlocked = false;
-    public ChatRoom(String id){
+    public ChatRoom(String id,Boolean isb){
 
         this.id = id;
+        this.isBlocked = isb;
+
+    }
+    public ChatRoom(){
 
 
     }

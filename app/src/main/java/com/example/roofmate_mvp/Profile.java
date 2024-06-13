@@ -2,7 +2,6 @@ package com.example.roofmate_mvp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,11 +26,12 @@ public class Profile extends BaseActivity {
     private TextView userIdTextView;
     private DatabaseReference mDatabase;
     private FirebaseUser currentUser;
-    private Button sendMesButton;
+    private Button sendMessageButton;
+    private Button blockUnblockButton;
     private String otherUserId;
     private LinearLayout interestsLinearLayout;
     private User user;
-    private String s = "";
+    private String username = "";
 
     @SuppressLint("StringFormatInvalid")
     @Override
@@ -40,7 +40,8 @@ public class Profile extends BaseActivity {
         setContentView(R.layout.activity_profile);
 
         userIdTextView = findViewById(R.id.usernameTextView);
-        sendMesButton = findViewById(R.id.sendmes);
+        sendMessageButton = findViewById(R.id.sendmes);
+        blockUnblockButton = findViewById(R.id.blockUnblockButton);
         interestsLinearLayout = findViewById(R.id.interestsLinearLayout);
 
         // Get the User object from the Intent
@@ -56,10 +57,10 @@ public class Profile extends BaseActivity {
 
         // Check if the current user is viewing their own profile
         if (user != null && otherUserId != null && otherUserId.equals(user.getUserid())) {
-            Intent editPIntent = new Intent(Profile.this, EditProfile.class);
-            intent.putExtra("user", user);
-            startActivity(editPIntent);
-            finish();  // Close the current activity
+            Intent editProfileIntent = new Intent(Profile.this, EditProfile.class);
+            editProfileIntent.putExtra("user", user);
+            startActivity(editProfileIntent);
+            finish();
             return;
         }
 
@@ -73,34 +74,37 @@ public class Profile extends BaseActivity {
         }
 
         // Set the button click listener
-        sendMesButton.setOnClickListener(new View.OnClickListener() {
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentUser != null && otherUserId != null) {
-                    createOrNavigateChatRoom(currentUser.getUid(), otherUserId);
+                    checkAndNavigateToChatRoom(currentUser.getUid(), otherUserId);
                 } else {
                     Toast.makeText(Profile.this, "User information is missing", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        // Set the block/unblock button click listener
+        blockUnblockButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleBlockStatus(currentUser.getUid(), otherUserId);
+            }
+        });
     }
 
     private void getUsernameAndDisplay(String userId) {
-        // Fetch the username from the database using the user ID
         mDatabase.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("StringFormatInvalid")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Retrieve the User object
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
-                        // Display the username
                         userIdTextView.setText(user.getUsername());
-                        s = user.getUsername();
-                        // Display the interests
+                        username = user.getUsername();
                         displayInterests(user.getInterests());
-
+                        checkBlockStatus(currentUser.getUid(), otherUserId);
                     } else {
                         Toast.makeText(Profile.this, R.string.user_data_null, Toast.LENGTH_SHORT).show();
                     }
@@ -129,7 +133,7 @@ public class Profile extends BaseActivity {
             }
         } else {
             TextView noInterestsTextView = new TextView(this);
-            noInterestsTextView.setText("No interests available");
+            noInterestsTextView.setText(R.string.no_interests_available);
             interestsLinearLayout.addView(noInterestsTextView);
         }
     }
@@ -146,7 +150,7 @@ public class Profile extends BaseActivity {
                 } else if (dataSnapshot.hasChild(chatRoomId2)) {
                     navigateToChatActivity(chatRoomId2);
                 } else {
-                    createChatRoom(chatRoomId1, userId1, userId2);
+                    createChatRoom(chatRoomId1, userId1, userId2, false);
                 }
             }
 
@@ -157,8 +161,8 @@ public class Profile extends BaseActivity {
         });
     }
 
-    private void createChatRoom(String chatRoomId, String userId1, String userId2) {
-        ChatRoom chatRoom = new ChatRoom(chatRoomId);
+    private void createChatRoom(String chatRoomId, String userId1, String userId2, boolean isBlocked) {
+        ChatRoom chatRoom = new ChatRoom(chatRoomId, isBlocked);
         mDatabase.child("chatrooms").child(chatRoomId).setValue(chatRoom)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -172,7 +176,140 @@ public class Profile extends BaseActivity {
     private void navigateToChatActivity(String chatRoomId) {
         Intent intent = new Intent(Profile.this, Chat.class);
         intent.putExtra("chatRoomId", chatRoomId);
-        intent.putExtra("oth", s);
+        intent.putExtra("otherUsername", username);
         startActivity(intent);
+    }
+
+    private void checkAndNavigateToChatRoom(final String userId1, final String userId2) {
+        final String chatRoomId1 = userId1 + userId2;
+        final String chatRoomId2 = userId2 + userId1;
+
+        mDatabase.child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(chatRoomId1)) {
+                    ChatRoom chatRoom = dataSnapshot.child(chatRoomId1).getValue(ChatRoom.class);
+                    if (chatRoom != null && chatRoom.getBlocked()) {
+                        Toast.makeText(Profile.this, "You are blocked and can't chat", Toast.LENGTH_SHORT).show();
+                    } else {
+                        navigateToChatActivity(chatRoomId1);
+                    }
+                } else if (dataSnapshot.hasChild(chatRoomId2)) {
+                    ChatRoom chatRoom = dataSnapshot.child(chatRoomId2).getValue(ChatRoom.class);
+                    if (chatRoom != null && chatRoom.getBlocked()) {
+                        Toast.makeText(Profile.this, "You are blocked and can't chat", Toast.LENGTH_SHORT).show();
+                    } else {
+                        navigateToChatActivity(chatRoomId2);
+                    }
+                } else {
+                    createChatRoom(chatRoomId1, userId1, userId2, false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Failed to check chat rooms: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void toggleBlockStatus(final String userId1, final String userId2) {
+        final String chatRoomId1 = userId1 + userId2;
+        final String chatRoomId2 = userId2 + userId1;
+
+        mDatabase.child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(chatRoomId1)) {
+                    updateBlockStatus(chatRoomId1);
+                } else if (dataSnapshot.hasChild(chatRoomId2)) {
+                    updateBlockStatus(chatRoomId2);
+                } else {
+                    createChatRoom(chatRoomId1, userId1, userId2, true);
+                    blockUnblockButton.setText("Unblock");
+                    Toast.makeText(Profile.this, "User blocked", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Failed to check chat rooms: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateBlockStatus(final String chatRoomId) {
+        mDatabase.child("chatrooms").child(chatRoomId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ChatRoom chatRoom = dataSnapshot.getValue(ChatRoom.class);
+                    if (chatRoom != null) {
+                        boolean isBlocked = chatRoom.getBlocked();
+                        chatRoom.setBlocked(!isBlocked);
+                        mDatabase.child("chatrooms").child(chatRoomId).setValue(chatRoom)
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        blockUnblockButton.setText(isBlocked ? "Block" : "Unblock");
+                                        Toast.makeText(Profile.this, isBlocked ? "User unblocked" : "User blocked", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(Profile.this, "Failed to update block status", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Failed to read chat room data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkBlockStatus(final String userId1, final String userId2) {
+        final String chatRoomId1 = userId1 + userId2;
+        final String chatRoomId2 = userId2 + userId1;
+
+        mDatabase.child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(chatRoomId1)) {
+                    updateButtonStatus(chatRoomId1);
+                } else if (dataSnapshot.hasChild(chatRoomId2)) {
+                    updateButtonStatus(chatRoomId2);
+                } else {
+                    blockUnblockButton.setText("Block");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Failed to check chat rooms: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateButtonStatus(final String chatRoomId) {
+        mDatabase.child("chatrooms").child(chatRoomId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ChatRoom chatRoom = dataSnapshot.getValue(ChatRoom.class);
+                    if (chatRoom != null) {
+                        blockUnblockButton.setText(chatRoom.getBlocked() ? "Unblock" : "Block");
+                    } else {
+                        blockUnblockButton.setText("Block");
+                    }
+                } else {
+                    blockUnblockButton.setText("Block");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Failed to read chat room data: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
