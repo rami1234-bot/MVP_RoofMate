@@ -45,6 +45,11 @@
         android:title="wishlist"
         />
 
+    <item
+        android:id="@+id/changeinterests"
+        android:title="change interests"
+        />
+
 
     <item
         android:id="@+id/logout"

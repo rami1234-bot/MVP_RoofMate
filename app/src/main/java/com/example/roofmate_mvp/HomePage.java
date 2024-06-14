@@ -14,5 +14,6 @@ public class HomePage extends BaseActivity {
         // Get the User object from the Intent
         Intent intent = getIntent();
         user = (User) intent.getSerializableExtra("user");
+
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,14 +13,21 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class BaseActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // This will be called in child activities to set the content view
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -42,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (id == R.id.tool1) {
             navigateTo(Profile.class, currentUser);
@@ -62,19 +70,45 @@ public class BaseActivity extends AppCompatActivity {
         } else if (id == R.id.tool10) {
             navigateTo(OwnHomes.class, currentUser);
             return true;
-        }else if (id == R.id.tool90) {
+        } else if (id == R.id.tool90) {
             navigateTo(Wishlist.class, currentUser);
             return true;
         } else if (id == R.id.logout) {
             mAuth.signOut();
-            // Redirect to login screen or any other appropriate screen
             Intent intent = new Intent(BaseActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
             return true;
-        }else {
+        } else if (id == R.id.changeinterests) {
+            if (currentUser != null) {
+                fetchUserAndNavigate(currentUser.getUid());
+            }
+            return true;
+        } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void fetchUserAndNavigate(String userId) {
+        mDatabase.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User newUser = dataSnapshot.getValue(User.class);
+                if (newUser != null) {
+                    Intent intent = new Intent(BaseActivity.this, interests.class);
+                    intent.putExtra("user", newUser);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(BaseActivity.this, "Failed to retrieve user information", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(BaseActivity.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void navigateTo(Class<?> cls, FirebaseUser currentUser) {
