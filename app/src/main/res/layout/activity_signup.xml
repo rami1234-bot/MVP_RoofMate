@@ -29,12 +29,38 @@
         android:minHeight="48dp"
         android:padding="10dp" />
 
+    <!-- Phone Number Picker -->
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/countryCodePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameEditText"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
+
+    <!-- Phone Number EditText -->
+    <EditText
+        android:id="@+id/phoneNumberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/countryCodePicker"
+        android:layout_toRightOf="@id/countryCodePicker"
+        android:layout_below="@id/usernameEditText"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:padding="10dp" />
+
     <!-- Password EditText -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/usernameEditText"
+        android:layout_below="@id/phoneNumberEditText"
         android:layout_marginTop="20dp"
         android:hint="Password"
         android:inputType="textPassword"
@@ -49,9 +75,10 @@
         android:layout_below="@id/passwordEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/img"
+        android:src="@drawable/img"
         android:contentDescription="Profile Picture"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+    />
 
     <!-- Select Profile Image Button -->
     <Button
@@ -68,18 +95,18 @@
         android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
         android:layout_below="@id/selectProfileImageButton"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:text="Sign Up" />
 
     <!-- Go Back Button -->
     <Button
         android:id="@+id/goBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go Back"
         android:layout_below="@id/signupButton"
         android:layout_marginTop="20dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Go Back" />
+
 </RelativeLayout>
