@@ -21,6 +21,7 @@ public class Signup extends AppCompatActivity {
     private EditText passwordEditText;
     private Button signupButton;
     private Button goBackButton;
+    private EditText phoneNumberEditText;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -40,6 +41,7 @@ public class Signup extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         signupButton = findViewById(R.id.signupButton);
         goBackButton = findViewById(R.id.goBackButton);
+        phoneNumberEditText=findViewById(R.id.phoneNumberEditText);
 
         // Set onClick listener for sign-up button
         signupButton.setOnClickListener(v -> {
