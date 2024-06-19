@@ -19,9 +19,9 @@ public class Signup extends AppCompatActivity {
     private EditText emailEditText;
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private EditText phoneNumberEditText;
     private Button signupButton;
     private Button goBackButton;
-    private EditText phoneNumberEditText;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -39,20 +39,21 @@ public class Signup extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
+        phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         signupButton = findViewById(R.id.signupButton);
         goBackButton = findViewById(R.id.goBackButton);
-        phoneNumberEditText=findViewById(R.id.phoneNumberEditText);
 
         // Set onClick listener for sign-up button
         signupButton.setOnClickListener(v -> {
             String email = emailEditText.getText().toString().trim();
             String username = usernameEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
+            String phoneNumber = phoneNumberEditText.getText().toString().trim();
 
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phoneNumber)) {
                 Toast.makeText(Signup.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else {
-                registerUser(email, username, password);
+                registerUser(email, username, password, phoneNumber);
             }
         });
 
@@ -60,15 +61,14 @@ public class Signup extends AppCompatActivity {
         goBackButton.setOnClickListener(v -> finish());
     }
 
-    private void registerUser(String email, String username, String password) {
+    private void registerUser(String email, String username, String password, String phoneNumber) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
                             String userId = user.getUid();
-                            saveUserToDatabase(userId, username, email, password);
-
+                            saveUserToDatabase(userId, username, email, password, phoneNumber);
                         }
                     } else {
                         Toast.makeText(Signup.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -76,15 +76,15 @@ public class Signup extends AppCompatActivity {
                 });
     }
 
-    private void saveUserToDatabase(String userId, String username, String email, String password) {
-        User newUser = new User(userId, username, email, password);
+    private void saveUserToDatabase(String userId, String username, String email, String password, String phoneNumber) {
+        User newUser = new User(userId, username, email, password, phoneNumber);
 
         mDatabase.child("users").child(userId).setValue(newUser)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(Signup.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Signup.this, interests.class);
-                        intent.putExtra("user",newUser);
+                        intent.putExtra("user", newUser);
                         startActivity(intent);
                         finish();
                     } else {

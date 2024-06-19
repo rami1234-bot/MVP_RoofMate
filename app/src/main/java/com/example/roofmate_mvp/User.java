@@ -6,35 +6,31 @@ import java.util.List;
 
 public class User implements Serializable { // to enable passing user in intent
 
-    private static final long serialVersionUID = 1L; //  this line for serialization
+    private static final long serialVersionUID = 1L; // this line for serialization
 
-    public String username;
-    public String email;
-    public String password;
-    public String userid;
-    public int follower = 0;
-    public String profileImageUrl;
+    private String username;
+    private String email;
+    private String password;
+    private String userid;
+    private int follower;
+    private String profileImageUrl;
+    private String phoneNumber; // Added phone number field
     private List<String> interests;
     private List<String> wishlist;
-
-    public List<String> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(List<String> interests) {
-        this.interests = interests;
-    }
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String userid, String username, String email, String password) {
+    public User(String userid, String username, String email, String password, String phoneNumber) {
         this.userid = userid;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
         this.follower = 0;
+        this.interests = new ArrayList<>();
+        this.wishlist = new ArrayList<>();
     }
 
     // Getters and setters
@@ -86,6 +82,21 @@ public class User implements Serializable { // to enable passing user in intent
         this.profileImageUrl = profileImageUrl;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<String> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
+    }
 
     public List<String> getWishlist() {
         return wishlist;
