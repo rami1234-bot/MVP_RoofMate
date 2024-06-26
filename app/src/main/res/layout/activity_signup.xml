@@ -1,10 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".Signup">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <!-- Email EditText -->
     <EditText
@@ -17,41 +15,39 @@
         android:minHeight="48dp"
         android:padding="10dp" />
 
+    <!-- Horizontal LinearLayout for Phone Number and Country Code Picker -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <!-- Country Code Picker -->
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/countryCodePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Phone Number EditText -->
+        <EditText
+            android:id="@+id/phoneNumberEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:minHeight="48dp"
+            android:padding="10dp" />
+    </LinearLayout>
+
     <!-- Username EditText -->
     <EditText
         android:id="@+id/usernameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailEditText"
         android:layout_marginTop="20dp"
         android:hint="Username"
         android:inputType="text"
-        android:minHeight="48dp"
-        android:padding="10dp" />
-
-    <!-- Phone Number Picker -->
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/countryCodePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/usernameEditText"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
-
-    <!-- Phone Number EditText -->
-    <EditText
-        android:id="@+id/phoneNumberEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/countryCodePicker"
-        android:layout_toRightOf="@id/countryCodePicker"
-        android:layout_below="@id/usernameEditText"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:hint="Phone Number"
-        android:inputType="phone"
         android:minHeight="48dp"
         android:padding="10dp" />
 
@@ -60,53 +56,25 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/phoneNumberEditText"
         android:layout_marginTop="20dp"
         android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="10dp" />
 
-    <!-- Profile Picture ImageView -->
-    <ImageView
-        android:id="@+id/profileImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/passwordEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/img"
-        android:contentDescription="Profile Picture"
-        android:scaleType="centerCrop"
-    />
-
-    <!-- Select Profile Image Button -->
-    <Button
-        android:id="@+id/selectProfileImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profileImageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:text="Select Profile Image" />
-
     <!-- Sign Up Button -->
     <Button
         android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/selectProfileImageButton"
         android:layout_marginTop="20dp"
         android:text="Sign Up" />
 
     <!-- Go Back Button -->
     <Button
         android:id="@+id/goBackButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signupButton"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
         android:text="Go Back" />
-
-</RelativeLayout>
+</LinearLayout>

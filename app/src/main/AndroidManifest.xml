@@ -16,6 +16,10 @@
             android:name=".Wishlist"
             android:exported="false" />
         <activity
+            android:name=".more"
+            android:exported="false" />
+
+        <activity
             android:name=".InterestSearch"
             android:exported="false" />
         <activity
