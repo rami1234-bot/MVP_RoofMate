@@ -84,7 +84,7 @@ public class Signup extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(Signup.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(Signup.this, more.class);
+                        Intent intent = new Intent(Signup.this, verf.class);
                         intent.putExtra("user", newUser);
                         intent.putExtra("phoneNumber",phoneNumber);
                         startActivity(intent);

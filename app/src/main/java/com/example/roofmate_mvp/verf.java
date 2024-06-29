@@ -2,6 +2,7 @@ package com.example.roofmate_mvp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class more extends AppCompatActivity {
+public class verf extends AppCompatActivity {
 
     private String mVerificationId;
     private EditText editTextCode;
@@ -37,8 +38,8 @@ public class more extends AppCompatActivity {
         editTextCode = findViewById(R.id.editTextCode);
 
         Intent intent = getIntent();
-        String mobile = intent.getStringExtra("mobile");
-        sendVerificationCode(mobile);
+        String phoneNumber = intent.getStringExtra("phoneNumber");
+        sendVerificationCode(phoneNumber);
 
         findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,10 +56,13 @@ public class more extends AppCompatActivity {
         });
     }
 
-    private void sendVerificationCode(String mobile) {
+    private void sendVerificationCode(String phoneNumber) {
+        if (!phoneNumber.startsWith("+")) {
+            phoneNumber = "+972" + phoneNumber;
+        }
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber("+972" + mobile)
+                        .setPhoneNumber(phoneNumber)
                         .setTimeout(60L, TimeUnit.SECONDS)
                         .setActivity(this)
                         .setCallbacks(mCallbacks)
@@ -78,7 +82,8 @@ public class more extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(more.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(verf.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("FirebaseAuth", "Verification failed", e);
         }
 
         @Override
@@ -95,11 +100,11 @@ public class more extends AppCompatActivity {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(more.this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(verf.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(more.this, interests.class);
+                            Intent intent = new Intent(verf.this, interests.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } else {
