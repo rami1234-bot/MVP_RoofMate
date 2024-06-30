@@ -20,7 +20,7 @@
 
         <activity android:name=".Wishlist" android:exported="false" />
         <activity android:name=".verf" android:exported="true" />
-        <activity android:name=".InterestSearch" android:exported="false" />
+        <activity android:name=".InterestSearch" android:exported="true" />
         <activity android:name=".BaseActivity" android:exported="false" />
         <activity android:name=".EditProfile" android:exported="false" />
         <activity android:name=".interests" android:exported="false" />
@@ -34,8 +34,10 @@
         <activity android:name=".HomeSearch" android:exported="false" />
         <activity android:name=".Profile" android:exported="false" />
         <activity android:name=".HomePage" android:exported="false" />
+        <activity android:name=".InterestAdapter" android:exported="false" />
         <activity android:name=".Signup" android:exported="true" />
-        <activity android:name=".MainActivity" android:exported="true">
+        <activity android:name=".MainActivity" android:exported="true"/>
+        <activity android:name=".test" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

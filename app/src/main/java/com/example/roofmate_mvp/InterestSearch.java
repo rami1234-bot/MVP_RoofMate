@@ -1,15 +1,12 @@
 package com.example.roofmate_mvp;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,15 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.roofmate_mvp.Profile;
-import com.example.roofmate_mvp.R;
-import com.example.roofmate_mvp.User;
-import com.example.roofmate_mvp.UserAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InterestSearch extends BaseActivity implements UserAdapter.OnUserClickListener{
+public class InterestSearch extends AppCompatActivity implements UserAdapter.OnUserClickListener {
     private SearchView searchViewByInterests;
     private ListView listViewUsersByInterests;
     private UserAdapter userAdapter;
@@ -46,6 +35,9 @@ public class InterestSearch extends BaseActivity implements UserAdapter.OnUserCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interest_search);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Initialize Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -71,7 +63,8 @@ public class InterestSearch extends BaseActivity implements UserAdapter.OnUserCl
         });
     }
 
-    //  when search bar is pressed
+
+    // When search bar is pressed
     private void showInterestSelectionDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_intrests);
@@ -90,7 +83,7 @@ public class InterestSearch extends BaseActivity implements UserAdapter.OnUserCl
         dialog.show();
     }
 
-    // getting the list of selected interests for the search
+    // Getting the list of selected interests for the search
     private String[] getSelectedInterests(Dialog dialog) {
         List<String> selectedInterests = new ArrayList<>();
 
@@ -176,7 +169,7 @@ public class InterestSearch extends BaseActivity implements UserAdapter.OnUserCl
         return selectedInterests.toArray(new String[0]);
     }
 
-    // comparing the gotten list to the users in the database
+    // Comparing the gotten list to the users in the database
     private void searchUsersByInterests(final String[] interests) {
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -192,6 +185,7 @@ public class InterestSearch extends BaseActivity implements UserAdapter.OnUserCl
             }
 
             @Override
+
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(InterestSearch.this, "Failed to search users: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -207,12 +201,11 @@ public class InterestSearch extends BaseActivity implements UserAdapter.OnUserCl
         }
         return true;
     }
-    // Handle item click here
+
     @Override
     public void onUserClick(User user) {
         Intent intent = new Intent(InterestSearch.this, Profile.class);
         intent.putExtra("userid", user.getUserid());
         startActivity(intent);
     }
-
 }
