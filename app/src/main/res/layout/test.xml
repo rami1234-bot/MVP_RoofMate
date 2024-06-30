@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Usersearch">
+    tools:context=".test">
+
+
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -17,14 +19,14 @@
 
     <!-- Search Bar -->
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchViewByInterests"
+        android:id="@+id/searchview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Search users by name" />
 
     <!-- ListView to display users -->
     <ListView
-        android:id="@+id/listViewUsersByInterests"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
