@@ -31,16 +31,13 @@ public class Chat extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        messagesListView = findViewById(R.id.messagesListView);
+        // Adjust the IDs as per the new XML layout
+        messagesListView = findViewById(R.id.list_view);
         messageEditText = findViewById(R.id.messageEditText);
         sendMessageButton = findViewById(R.id.sendMessageButton);
 
-        // Retrieve chat room ID and username from intent extras
+        // Retrieve chat room ID from intent extras
         chatRoomId = getIntent().getStringExtra("chatRoomId");
-        String username = getIntent().getStringExtra("oth");
-
-        // Set the toolbar title to the username
-        getSupportActionBar().setTitle(username);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomId).child("messages");
 
