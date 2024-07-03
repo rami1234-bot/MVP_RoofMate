@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home {
-    private String id; // Add a field to store the unique ID
+    private String id;
     private int rent;
     private String name;
     private List<Image> imageList = new ArrayList<>();
@@ -14,17 +14,22 @@ public class Home {
     private String disk = "";
     private String ownerid;
     private boolean available = true;
+    private double latitude;
+    private double longitude;
 
     // Constructors
     public Home() {
     }
 
-    public Home( int rent, String name, String ownerid, String disk, int rooms) {
-        this.rent = rent;
+    public Home(String idhome,String name, String description, int rent, int rooms, double latitude, double longitude, String ownerId) {
         this.name = name;
-        this.ownerid = ownerid;
-        this.disk = disk;
+        this.disk = description;
+        this.rent = rent;
         this.rooms = rooms;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.ownerid = ownerId;
+        this.id = idhome;
     }
 
     // Getter and Setter methods
@@ -90,6 +95,22 @@ public class Home {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     // Function to add an image to the imageList

@@ -8,6 +8,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:275295762445:android:d2ddf7be8381a33116fd44",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwFxBhMdTlBT-cI1Fn-FWPJ6VXCBw3weE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:275295762445:android:630e83a599633fa316fd44",
         "android_client_info": {
           "package_name": "com.example.roofmate_mvp"

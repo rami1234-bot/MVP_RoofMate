@@ -1,22 +1,16 @@
 package com.example.roofmate_mvp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -175,11 +169,20 @@ public class HomeSearch extends BaseActivity {
             Home selectedHome = homeList.get(position);
             Intent intent = new Intent(HomeSearch.this, HomeInfo.class);
             intent.putExtra("home_name", selectedHome.getName());
-            intent.putExtra("home_id",selectedHome.getId());
+            intent.putExtra("home_id", selectedHome.getId());
             intent.putExtra("home_description", selectedHome.getDisk());
             intent.putExtra("ownerid", selectedHome.getOwnerid());
-            startActivity(intent);
+
+            String message = "Clicked Home:\n"
+                    + "Name: " + selectedHome.getName() + "\n"
+                    + "ID: " + selectedHome.getId() + "\n"
+                    + "Description: " + selectedHome.getDisk() + "\n"
+                    + "Owner ID: " + selectedHome.getOwnerid();
+            Toast.makeText(HomeSearch.this, message, Toast.LENGTH_LONG).show();
+
+           startActivity(intent);
         });
     }
+
 
 }

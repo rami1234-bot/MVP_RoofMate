@@ -6,4 +6,5 @@
     <item name="signupButton" type="id" />
     <item name="goBackButton" type="id" />
     <item name="userListView" type="id" />
+    <item name="map" type="id" />
 </resources>

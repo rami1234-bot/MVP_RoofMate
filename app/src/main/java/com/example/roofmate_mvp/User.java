@@ -16,6 +16,7 @@ public class User implements Serializable { // to enable passing user in intent
     private String profileImageUrl;
     private String phoneNumber; // Added phone number field
     private List<String> interests;
+    private List<Review> reviews;
     private List<String> wishlist;
 
     public User() {

@@ -1,34 +1,36 @@
 package com.example.roofmate_mvp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+public class AddHome extends AppCompatActivity {
 
-public class AddHome extends BaseActivity {
+    private static final int MAP_ACTIVITY_REQUEST_CODE = 1;
 
     private EditText nameEditText;
     private EditText descriptionEditText;
     private EditText rentEditText;
     private EditText roomsEditText;
+    private Button locationButton;
 
     private FirebaseDatabase database;
     private DatabaseReference homesRef;
 
-    @SuppressLint("MissingInflatedId")
+    private double selectedLatitude = 0;
+    private double selectedLongitude = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,23 @@ public class AddHome extends BaseActivity {
         descriptionEditText = findViewById(R.id.disc);
         rentEditText = findViewById(R.id.rent);
         roomsEditText = findViewById(R.id.rooms);
+        locationButton = findViewById(R.id.locbut);
+
+        locationButton.setOnClickListener(view -> {
+            Intent intent = new Intent(AddHome.this, MapActivity.class);
+            startActivityForResult(intent, MAP_ACTIVITY_REQUEST_CODE);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MAP_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                selectedLatitude = data.getDoubleExtra("latitude", 0);
+                selectedLongitude = data.getDoubleExtra("longitude", 0);
+            }
+        }
     }
 
     public void submitPost(View view) {
@@ -51,7 +70,9 @@ public class AddHome extends BaseActivity {
         String description = descriptionEditText.getText().toString().trim();
         String rentString = rentEditText.getText().toString().trim();
         String roomsString = roomsEditText.getText().toString().trim();
-        if (name.isEmpty() || description.isEmpty() || rentString.isEmpty()) {
+
+        // Validate input
+        if (name.isEmpty() || description.isEmpty() || rentString.isEmpty() || roomsString.isEmpty()) {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -62,34 +83,36 @@ public class AddHome extends BaseActivity {
             rent = Integer.parseInt(rentString);
             rooms = Integer.parseInt(roomsString);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid rent amount", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid rent or rooms number", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a new Home object
+        if (selectedLatitude == 0 && selectedLongitude == 0) {
+            Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Get current user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            // User not signed in, handle accordingly
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
             return;
         }
-        String ownerId = currentUser.getUid();
-        List<Image> imageList = new ArrayList<>();  // Replace with actual image list if any
-        Home home = new Home(rent, name, ownerId, description, rooms);
 
-        // Save to Firebase under "homes"
-        String homeId = homesRef.push().getKey(); // Generate a unique ID for the home
-        if (homeId == null) {
-            // Error generating unique ID, handle accordingly
-            return;
-        }
-        home.setId(homeId); // Set the ID for the home object
-        homesRef.child(homeId).setValue(home)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(AddHome.this, "Home added successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddHome.this, HomePage.class);
-                    startActivity(intent);
-                    finish(); // Finish this activity to prevent going back to it on back press
-                })
-                .addOnFailureListener(e -> Toast.makeText(AddHome.this, "Failed to add home", Toast.LENGTH_SHORT).show());
+        // Generate a unique key for the home in Firebase
+        String homeId = homesRef.push().getKey(); // This creates a new unique ID
+
+        // Create a new Home object with the generated ID
+        Home home = new Home(homeId, name, description, rent, rooms, selectedLatitude, selectedLongitude, currentUser.getUid());
+
+        // Save the new home to the database
+        homesRef.child(homeId).setValue(home).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Home added successfully", Toast.LENGTH_SHORT).show();
+                finish(); // Close the activity
+            } else {
+                Toast.makeText(this, "Failed to add home: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

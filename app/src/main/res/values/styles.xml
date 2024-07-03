@@ -1,0 +1,11 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/defaultBorderFlagColor</item>
+        <item name="colorPrimaryDark">@color/cardview_shadow_end_color</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+    <!-- Add other themes and styles as needed -->
+</resources>
