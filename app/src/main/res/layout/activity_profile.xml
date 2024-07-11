@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tlbr"
         android:layout_width="match_parent"
@@ -11,6 +12,14 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <Button
+        android:id="@+id/sendrequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Lists"
+        android:layout_below="@id/blockUnblockButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
     <!-- Username TextView -->
     <TextView
@@ -23,23 +32,18 @@
         android:layout_below="@id/tlbr"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp" />
-    <Button
-        android:id="@+id/blockUnblockButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/followButton"
-        android:text="Block"
-        />
 
-    <!-- Follow Button -->
-    <Button
-        android:id="@+id/followButton"
+    <!-- Average Rating TextView -->
+    <TextView
+        android:id="@+id/averageRatingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Follow"
-        android:layout_toEndOf="@id/usernameTextView"
-        android:layout_alignBaseline="@id/usernameTextView"
+        android:text="Average Rating: 0"
+        android:textSize="16sp"
+        android:layout_below="@id/usernameTextView"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp" />
+
 
     <!-- Send Message Button -->
     <Button
@@ -47,8 +51,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send Message"
-        android:layout_toEndOf="@id/followButton"
-        android:layout_alignBaseline="@id/usernameTextView"
+        android:layout_toEndOf="@id/blockUnblockButton"
+        android:layout_alignBaseline="@id/blockUnblockButton"
+        android:layout_marginStart="16dp" />
+
+    <!-- Block/Unblock Button -->
+    <Button
+        android:id="@+id/blockUnblockButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Block"
+        android:layout_below="@id/averageRatingTextView"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp" />
 
     <!-- Interests LinearLayout -->
@@ -61,23 +75,43 @@
         android:layout_marginStart="16dp"
         android:orientation="horizontal" />
 
-    <!-- Follower Count TextView -->
-    <TextView
-        android:id="@+id/followerCountTextView"
+    <!-- RecyclerView for Review Stars -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reviewStarsRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Followers: 0"
-        android:textSize="16sp"
         android:layout_below="@id/interestsLinearLayout"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal" />
+
+    <!-- EditText for Review -->
+    <EditText
+        android:id="@+id/reviewText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write a review..."
+        android:layout_below="@id/reviewStarsRecyclerView"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Submit Review Button -->
+    <Button
+        android:id="@+id/submitReviewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Review"
+        android:layout_below="@id/reviewText"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp" />
 
-    <!-- ListView for Images -->
+    <!-- ListView for User Reviews -->
     <ListView
-        android:id="@+id/imagesListView"
+        android:id="@+id/reviewsListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/followerCountTextView"
+        android:layout_below="@id/submitReviewButton"
         android:layout_marginTop="16dp"
         android:divider="@null"
         android:dividerHeight="0dp" />

@@ -1,31 +1,41 @@
 package com.example.roofmate_mvp;
 
 public class Review {
+    private String desk;
+    private int star;
+    private String uid;
 
-    public String getDesk() {
+    public Review(int star, String desk, String uid) {
+        this.desk = desk;
+        this.star = star;
+        this.uid = uid;
+    }
+
+    public Review() {
+        // Default constructor required for calls to DataSnapshot.getValue(Review.class)
+    }
+
+    public String getText() {
         return desk;
     }
 
-    public void setDesk(String desk) {
+    public void setText(String desk) {
         this.desk = desk;
     }
 
-    String desk ;
-
-    public int getStar() {
+    public int getStars() {
         return star;
     }
 
-    public void setStar(int star) {
+    public void setStars(int star) {
         this.star = star;
     }
 
-    int star;
+    public String getUid() {
+        return uid;
+    }
 
-
-    public Review(int s,String d){
-
-        this.desk=d;
-        this.star=s;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

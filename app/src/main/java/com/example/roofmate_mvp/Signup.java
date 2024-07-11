@@ -1,6 +1,7 @@
 package com.example.roofmate_mvp;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -13,6 +14,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import me.pushy.sdk.Pushy;
+import me.pushy.sdk.util.exceptions.PushyException;
 
 public class Signup extends AppCompatActivity {
 
@@ -68,7 +72,9 @@ public class Signup extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
                             String userId = user.getUid();
-                            saveUserToDatabase(userId, username, email, password, phoneNumber);
+
+                            // Register for Pushy notifications and get the token
+                            new RegisterForPushyTask(userId, username, email, password, phoneNumber).execute();
                         }
                     } else {
                         Toast.makeText(Signup.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -76,8 +82,41 @@ public class Signup extends AppCompatActivity {
                 });
     }
 
-    private void saveUserToDatabase(String userId, String username, String email, String password, String phoneNumber) {
-        User newUser = new User(userId, username, email, password, phoneNumber);
+    private class RegisterForPushyTask extends AsyncTask<Void, Void, String> {
+        private String userId, username, email, password, phoneNumber;
+
+        public RegisterForPushyTask(String userId, String username, String email, String password, String phoneNumber) {
+            this.userId = userId;
+            this.username = username;
+            this.email = email;
+            this.password = password;
+            this.phoneNumber = phoneNumber;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                // Register the device for push notifications
+                return Pushy.register(getApplicationContext());
+            } catch (PushyException e) {
+                // Registration failed
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String pushyToken) {
+            if (pushyToken != null) {
+                // Save user to database with the Pushy token
+                saveUserToDatabase(userId, username, email, password, phoneNumber, pushyToken);
+            } else {
+                Toast.makeText(Signup.this, "Pushy registration failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void saveUserToDatabase(String userId, String username, String email, String password, String phoneNumber, String pushyToken) {
+        User newUser = new User(userId, username, email, password, phoneNumber, pushyToken);
 
         mDatabase.child("users").child(userId).setValue(newUser)
                 .addOnCompleteListener(task -> {
@@ -86,7 +125,7 @@ public class Signup extends AppCompatActivity {
 
                         Intent intent = new Intent(Signup.this, verf.class);
                         intent.putExtra("user", newUser);
-                        intent.putExtra("phoneNumber",phoneNumber);
+                        intent.putExtra("phoneNumber", phoneNumber);
                         startActivity(intent);
                         finish();
                     } else {

@@ -25,6 +25,19 @@
 
 
     <item
+        android:id="@+id/chats"
+        android:title="chats
+"
+        />
+
+
+    <item
+        android:id="@+id/friendreq"
+        android:title="requests
+"
+        />
+
+    <item
         android:id="@+id/tool13"
         android:title="search for users"
         />

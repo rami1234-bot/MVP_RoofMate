@@ -1,9 +1,8 @@
 package com.example.roofmate_mvp;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -193,7 +192,7 @@ public class InterestSearch extends AppCompatActivity implements UserAdapter.OnU
     }
 
     private boolean hasAllInterests(User user, String[] interests) {
-        List<String> userInterests = user.getInterests();
+        List<String> userInterests = (List<String>) user.getInterests();
         for (String interest : interests) {
             if (!userInterests.contains(interest)) {
                 return false;

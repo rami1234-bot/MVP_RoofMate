@@ -74,19 +74,44 @@ public class BaseActivity extends AppCompatActivity {
             navigateTo(Wishlist.class, currentUser);
             return true;
         } else if (id == R.id.logout) {
-            mAuth.signOut();
-            Intent intent = new Intent(BaseActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if (currentUser != null) {
+                updateFcmTokenAndLogout(currentUser.getUid());
+            }
             return true;
         } else if (id == R.id.changeinterests) {
             if (currentUser != null) {
                 fetchUserAndNavigate(currentUser.getUid());
             }
             return true;
+        } else if (id == R.id.friendreq) {
+            Intent intent = new Intent(BaseActivity.this, Requests.class);
+            intent.putExtra("user", currentUser);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.chats) {
+            if (currentUser != null) {
+                Intent intent = new Intent(BaseActivity.this, Chatlist.class);
+                intent.putExtra("user", currentUser);
+                startActivity(intent);
+            }
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void updateFcmTokenAndLogout(String userId) {
+        mDatabase.child("users").child(userId).child("fcmToken").setValue("")
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        mAuth.signOut();
+                        Intent intent = new Intent(BaseActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(BaseActivity.this, "Failed to update FCM token", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void fetchUserAndNavigate(String userId) {
@@ -114,7 +139,9 @@ public class BaseActivity extends AppCompatActivity {
     private void navigateTo(Class<?> cls, FirebaseUser currentUser) {
         Intent intent = new Intent(BaseActivity.this, cls);
         if (currentUser != null) {
-            intent.putExtra("userid", currentUser.getUid());
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser1 = mAuth.getCurrentUser();
+            intent.putExtra("userid", currentUser1.getUid());
         }
         startActivity(intent);
     }

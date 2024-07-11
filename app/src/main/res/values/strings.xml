@@ -8,6 +8,8 @@
     <string name="user_id_missing" />
 
     <string name="no_interests_available">No interests available</string>
+    <string name="unblock_user" />
+    <string name="block_user" />
 </resources>
 
 

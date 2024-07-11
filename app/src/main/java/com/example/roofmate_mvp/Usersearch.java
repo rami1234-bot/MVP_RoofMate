@@ -3,6 +3,7 @@ package com.example.roofmate_mvp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -11,12 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.roofmate_mvp.Profile;
-import com.example.roofmate_mvp.R;
-import com.example.roofmate_mvp.User;
-import com.example.roofmate_mvp.UserAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -79,8 +77,6 @@ public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickL
                 return true;
             }
         });
-
-
     }
 
     private void fetchUsersFromFirebase() {
@@ -89,9 +85,18 @@ public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickL
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    User user = snapshot.getValue(User.class);
-                    userList.add(user);
+                    Log.d("FirebaseData", "snapshot: " + snapshot.toString());
+                    try {
+                        User user = snapshot.getValue(User.class);
+                        if (user != null) {
+                            userList.add(user);
+                        }
+                    } catch (DatabaseException e) {
+                        e.printStackTrace();
+                        Toast.makeText(Usersearch.this, "Error deserializing data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
+                filteredUserList.clear();
                 filteredUserList.addAll(userList);
                 userAdapter.notifyDataSetChanged();
             }
@@ -99,6 +104,7 @@ public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickL
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Handle database error
+                Toast.makeText(Usersearch.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -117,15 +123,15 @@ public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickL
         userAdapter.notifyDataSetChanged();
     }
 
+    //woidaiwo[dajiwodaojiwdjiawiod
 
     @Override
     public void onUserClick(User user) {
         Intent intent = new Intent(Usersearch.this, Profile.class);
-        //intent.putExtra("user", user);
-
         intent.putExtra("userid", user.getUserid());
+        intent.putExtra("fcm12", user.getFcmToken());
         startActivity(intent);
+        Toast.makeText(Usersearch.this, "wdawd"+user.getFcmToken(), Toast.LENGTH_SHORT).show();
+
     }
 }
-
-
