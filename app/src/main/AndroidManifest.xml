@@ -18,7 +18,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="RoofMate"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RoofMate_mvp"
@@ -83,6 +83,12 @@
             android:name=".verf"
             android:exported="true" />
         <activity
+            android:name=".Signin"
+            android:exported="true" />
+        <activity
+            android:name=".Signup"
+            android:exported="true" />
+        <activity
             android:name=".InterestSearch"
             android:exported="true" />
         <activity
@@ -127,9 +133,7 @@
         <activity
             android:name=".InterestAdapter"
             android:exported="false" />
-        <activity
-            android:name=".Signup"
-            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />

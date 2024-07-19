@@ -1,9 +1,11 @@
 package com.example.roofmate_mvp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ public class Signup extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.signup2);
 
         // Initialize Firebase Auth and Database Reference
         mAuth = FirebaseAuth.getInstance();
@@ -46,6 +48,11 @@ public class Signup extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         signupButton = findViewById(R.id.signupButton);
         goBackButton = findViewById(R.id.goBackButton);
+        goBackButton.setVisibility(View.VISIBLE);
+        goBackButton.setBackgroundColor(Color.TRANSPARENT);
+        signupButton.setVisibility(View.VISIBLE);
+        signupButton.setBackgroundColor(Color.TRANSPARENT);
+
 
         // Set onClick listener for sign-up button
         signupButton.setOnClickListener(v -> {

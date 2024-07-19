@@ -1,0 +1,132 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent" android:layout_height="wrap_content" >
+	<!-- 
+	/*
+	 *	This content is generated from the API File Info.
+	 *	(Alt+Shift+Ctrl+I).
+	 *
+	 *	@desc 		
+	 *	@file 		iphone_13_mini___1
+	 *	@date 		Wednesday 17th of July 2024 06:43:47 PM
+	 *	@title 		Page 1
+	 *	@author 	
+	 *	@keywords 	
+	 *	@generator 	Export Kit v1.3.figma
+	 *
+	 */
+	-->
+	<ScrollView android:id="@+id/iphone_13_mini___1" 
+		android:layout_width="wrap_content" 
+		android:layout_height="match_parent" >
+
+		<RelativeLayout android:id="@+id/content_container" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" >
+
+
+
+			<RelativeLayout android:id="@+id/page_iphone_13_mini___1_ek1"
+				android:layout_marginTop="0dp"
+				android:layout_marginStart="0dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				>
+
+				<View
+					android:id="@+id/_bg__iphone_13_mini___1_ek2"
+					android:layout_width="375dp"
+					android:layout_height="812dp"
+					android:layout_marginStart="0dp"
+					android:layout_marginTop="0dp"
+					android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape" />
+
+				<ImageView android:id="@+id/rectangle_16"
+					android:src="@drawable/rectangle_17"
+					android:contentDescription="rectangle_17"
+					 android:layout_marginStart="59dp"
+					android:layout_marginTop="354dp"
+					android:layout_width="256dp"
+					android:layout_height="61dp" />
+				<Button android:id="@+id/submit"
+					android:src="@drawable/rectangle_17"
+					android:contentDescription="rectangle_17"
+					android:layout_marginStart="59dp"
+					android:layout_marginTop="354dp"
+					android:layout_width="256dp"
+					android:layout_height="61dp"
+					android:visibility="invisible"/>
+
+				<ImageView android:id="@+id/image_2"
+					android:src="@drawable/image_2"
+					android:contentDescription="image_2"
+					 android:layout_marginStart="-31dp"
+					android:layout_marginTop="58dp"
+					android:layout_width="437dp"
+					android:layout_height="231dp" />
+
+				<TextView android:id="@+id/already_have_an_account_"
+					android:textStyle="bold"
+					android:textSize="28sp"
+					android:textColor="@color/navyblue"
+					android:layout_marginLeft="41dp"
+					android:layout_marginTop="297dp"
+					android:layout_width="326dp"
+					android:layout_height="54dp"
+					android:text="Already have an account?"
+					 />
+
+				<TextView android:id="@+id/sign_in"
+					android:textStyle="bold"
+					android:textSize="30sp"
+					android:textColor="@color/white"
+					android:layout_marginLeft="147dp"
+					android:layout_marginTop="366dp"
+					android:layout_width="116dp"
+					android:layout_height="57dp"
+					android:text="Signin"
+					 />
+
+				<TextView android:id="@+id/want_to_join_"
+					android:textStyle="bold"
+					android:textSize="28sp"
+					android:textColor="@color/navyblue"
+					android:layout_marginLeft="106dp"
+					android:layout_marginTop="450dp"
+					android:layout_width="195dp"
+					android:layout_height="54dp"
+					android:text="Want to join?"
+					 />
+
+				<ImageView android:id="@+id/rectangle_17"
+					android:src="@drawable/rectangle_17"
+					android:contentDescription="rectangle_17"
+					 android:layout_marginStart="59dp"
+					android:layout_marginTop="495dp"
+					android:layout_width="256dp"
+					android:layout_height="61dp" />
+
+				<Button android:id="@+id/submit1"
+					android:src="@drawable/rectangle_17"
+					android:contentDescription="rectangle_17"
+					android:layout_marginStart="59dp"
+					android:layout_marginTop="495dp"
+					android:layout_width="256dp"
+					android:layout_height="61dp"
+					android:visibility="invisible"/>
+
+				<TextView android:id="@+id/sign_up"
+					android:textStyle="bold"
+					android:textSize="30sp"
+					android:textColor="@color/white"
+					android:layout_marginLeft="142dp"
+					android:layout_marginTop="507dp"
+					android:layout_width="125dp"
+					android:layout_height="57dp"
+					android:text="SignUp"
+					 />
+
+			</RelativeLayout>
+		</RelativeLayout>
+
+	</ScrollView>
+</HorizontalScrollView>
