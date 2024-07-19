@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- iphone_13_mini___2 strings -->
+	<!-- iphone_13_mini___Page4 strings -->
+
+	<string name="app_name">Page 1</string>
+	<string name="tell_us_more_about_you__string">Tell us more about you!</string>
+	<string name="hobbies____string">Hobbies...</string>
+	<string name="describe_yourself____string">Describe yourself...</string>
+	<string name="living_situation____string">Living situation...</string>
+
+
+	<!-- iphone_13_mini___hesham strings -->
 
 	<string name="username_label" />
 	<string name="user_data_null" />

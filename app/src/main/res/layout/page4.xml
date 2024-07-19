@@ -1,0 +1,172 @@
+<HorizontalScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<ScrollView
+		android:id="@+id/iphone_13_mini___4"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent">
+
+		<RelativeLayout
+			android:id="@+id/content_container"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+
+			<RelativeLayout
+				android:id="@+id/page_iphone_13_mini___4_ek1"
+				android:layout_marginTop="0dp"
+				android:layout_marginStart="0dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColorHint="white">
+
+				<View
+					android:id="@+id/_bg__iphone_13_mini___4_ek2"
+					android:layout_marginStart="0dp"
+					android:layout_marginTop="0dp"
+					android:layout_width="375dp"
+					android:layout_height="812dp"
+					android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape" />
+
+				<TextView
+					android:id="@+id/tell_us_more_about_you_"
+					android:layout_marginLeft="35dp"
+					android:layout_marginTop="269dp"
+					android:layout_width="378dp"
+					android:layout_height="78dp"
+					android:text="@string/tell_us_more_about_you__string"
+					android:textColor="@color/navyblue"
+					android:textSize="32sp"
+					android:textStyle="bold" />
+
+				<ImageView
+					android:id="@+id/image_2"
+					android:layout_marginStart="-31dp"
+					android:layout_marginTop="45dp"
+					android:layout_width="437dp"
+					android:layout_height="227dp"
+					android:src="@drawable/image_2"
+					android:contentDescription="image_2" />
+
+				<!-- Hobbies Section -->
+				<RelativeLayout
+					android:layout_marginLeft="59dp"
+					android:layout_marginTop="374dp"
+					android:layout_width="256dp"
+					android:layout_height="61dp">
+
+					<ImageView
+						android:id="@+id/rectangle_17_hobbies"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:src="@drawable/rectangle_17"
+						android:contentDescription="rectangle_17" />
+
+					<EditText
+						android:id="@+id/hobbies___"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="@string/hobbies____string"
+						android:textColor="@color/white"
+						android:textSize="30sp"
+						android:textStyle="bold"
+						android:background="@android:color/transparent"
+						android:gravity="center" />
+				</RelativeLayout>
+
+				<!-- Describe Yourself Section -->
+				<RelativeLayout
+					android:layout_marginLeft="59dp"
+					android:layout_marginTop="460dp"
+					android:layout_width="256dp"
+					android:layout_height="61dp">
+
+					<ImageView
+						android:id="@+id/rectangle_17_describe"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:src="@drawable/rectangle_17"
+						android:contentDescription="rectangle_17" />
+
+					<EditText
+						android:id="@+id/describe_yourself___"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="@string/describe_yourself____string"
+						android:textColor="@color/white"
+						android:textSize="30sp"
+						android:textStyle="bold"
+						android:background="@android:color/transparent"
+						android:gravity="center" />
+				</RelativeLayout>
+
+				<!-- Living Situation Section -->
+				<RelativeLayout
+					android:layout_marginLeft="59dp"
+					android:layout_marginTop="553dp"
+					android:layout_width="256dp"
+					android:layout_height="61dp">
+
+					<ImageView
+						android:id="@+id/rectangle_17_living"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:src="@drawable/rectangle_17"
+						android:contentDescription="rectangle_17" />
+
+					<EditText
+						android:id="@+id/living_situation___"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:text="@string/living_situation____string"
+						android:textColor="@color/white"
+						android:textSize="30sp"
+						android:textStyle="bold"
+						android:background="@android:color/transparent"
+						android:gravity="center" />
+				</RelativeLayout>
+
+				<ImageView
+					android:id="@+id/vector"
+					android:layout_marginStart="305dp"
+					android:layout_marginTop="23dp"
+					android:layout_width="32dp"
+					android:layout_height="21dp"
+					android:src="@drawable/vector"
+					android:contentDescription="vector" />
+
+				<Button
+					android:id="@+id/goBackButton"
+					android:layout_marginStart="305dp"
+					android:layout_marginTop="23dp"
+					android:layout_width="32dp"
+					android:layout_height="21dp"
+					android:background="@drawable/vector"
+					android:contentDescription="nothing"
+					android:visibility="invisible" />
+
+				<View
+					android:id="@+id/rectangle_34"
+					android:layout_marginStart="139dp"
+					android:layout_marginTop="658dp"
+					android:layout_width="100dp"
+					android:layout_height="60dp"
+					android:background="@drawable/rectangle_34_ek1_shape" />
+
+				<TextView
+					android:id="@+id/submit"
+					android:layout_width="137dp"
+					android:layout_height="59dp"
+					android:layout_marginLeft="151dp"
+					android:layout_marginTop="670dp"
+					android:text="@string/submit_string"
+					android:textColor="@color/navyblue"
+					android:textSize="25sp"
+					android:textStyle="bold" />
+
+			</RelativeLayout>
+		</RelativeLayout>
+	</ScrollView>
+</HorizontalScrollView>
