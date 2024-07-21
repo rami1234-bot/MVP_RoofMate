@@ -1,28 +1,24 @@
-<HorizontalScrollView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent" android:layout_height="wrap_content" >
 
-	<ScrollView
-		android:id="@+id/iphone_13_mini___4"
+	<ScrollView android:id="@+id/iphone_13_mini___1"
 		android:layout_width="wrap_content"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent" >
 
-		<RelativeLayout
-			android:id="@+id/content_container"
+		<RelativeLayout android:id="@+id/content_container"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content" >
 
-			<RelativeLayout
-				android:id="@+id/page_iphone_13_mini___4_ek1"
+
+
+			<RelativeLayout android:id="@+id/page_iphone_13_mini___1_ek1"
 				android:layout_marginTop="0dp"
 				android:layout_marginStart="0dp"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textColorHint="white">
+				>
 
-				<View
+			<View
 					android:id="@+id/_bg__iphone_13_mini___4_ek2"
 					android:layout_marginStart="0dp"
 					android:layout_marginTop="0dp"
