@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="Username"
-        android:inputType="text"
+        android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="10dp" />
 
@@ -59,6 +59,24 @@
         android:layout_marginTop="20dp"
         android:hint="Password"
         android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="10dp" />
+
+    <!-- Gender RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/genderRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
+
+    <!-- Age EditText -->
+    <EditText
+        android:id="@+id/ageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Age"
+        android:inputType="number"
         android:minHeight="48dp"
         android:padding="10dp" />
 

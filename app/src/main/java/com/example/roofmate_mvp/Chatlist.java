@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,21 +31,19 @@ public class Chatlist extends BaseActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private User u1;
-    private User u2;
-    private String userId2;
-    private String username = ""; // Add this to store the username
-    private String fcmcd = ""; // Add this to store the FCM token
+    private String username = "";
+    private String fcmcd = "";
 
     List<String> list1;
     List<String> list2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Toolbar toolbar = findViewById(R.id.tlbr);
-            setSupportActionBar(toolbar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatlist);
+
+        Toolbar toolbar = findViewById(R.id.tlbr);
+        setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
@@ -68,6 +67,7 @@ public class Chatlist extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String otherUserId = uids.get(position);
+
                 if (mAuth.getCurrentUser() != null && otherUserId != null) {
                     checkAndNavigateToChatRoom(mAuth.getCurrentUser().getUid(), otherUserId);
                 } else {
@@ -87,15 +87,17 @@ public class Chatlist extends BaseActivity {
                         list1 = new ArrayList<>();
                         list2 = new ArrayList<>();
 
-                        if (dataSnapshot.hasChild("sentTo")) {
-                            for (DataSnapshot snapshot : dataSnapshot.child("sentTo").getChildren()) {
-                                list1.add(snapshot.getKey());
+                        if (dataSnapshot.hasChild("sent")) {
+                            for (DataSnapshot snapshot : dataSnapshot.child("sent").getChildren()) {
+                                String sentUserId = snapshot.getValue(String.class);
+                                list1.add(sentUserId);
                             }
                         }
 
-                        if (dataSnapshot.hasChild("receivedFrom")) {
-                            for (DataSnapshot snapshot : dataSnapshot.child("receivedFrom").getChildren()) {
-                                list2.add(snapshot.getKey());
+                        if (dataSnapshot.hasChild("received")) {
+                            for (DataSnapshot snapshot : dataSnapshot.child("received").getChildren()) {
+                                String receivedUserId = snapshot.getValue(String.class);
+                                list2.add(receivedUserId);
                             }
                         }
 
@@ -103,7 +105,7 @@ public class Chatlist extends BaseActivity {
 
                         Toast.makeText(Chatlist.this, "Shared Chats: " + sharedList.size(), Toast.LENGTH_SHORT).show();
 
-                        // Optionally, you can update the ListView with the shared chat list
+                        // Update the ListView with the shared chat list
                         uids.clear();
                         uids.addAll(sharedList);
                         adapter.notifyDataSetChanged();
@@ -181,7 +183,7 @@ public class Chatlist extends BaseActivity {
                     User user = dataSnapshot.getValue(User.class);
                     if (user != null) {
                         username = user.getUsername();
-                        fcmcd = user.getFcmToken(); // Assuming the FCM token is stored in the user object
+                        fcmcd = user.getFcmToken();
 
                         Intent intent = new Intent(Chatlist.this, Chat.class);
                         intent.putExtra("chatRoomId", chatRoomId);

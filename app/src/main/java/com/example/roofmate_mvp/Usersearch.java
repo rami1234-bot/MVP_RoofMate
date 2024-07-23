@@ -1,5 +1,7 @@
 package com.example.roofmate_mvp;
 
+import static com.google.firebase.appcheck.internal.util.Logger.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickListener {
@@ -85,15 +88,29 @@ public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickL
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d("FirebaseData", "snapshot: " + snapshot.toString());
                     try {
+                        // Attempt to deserialize User directly
                         User user = snapshot.getValue(User.class);
                         if (user != null) {
                             userList.add(user);
+                        } else {
+                            // If user is null, try to convert from HashMap
+                            HashMap<String, Object> userMap = (HashMap<String, Object>) snapshot.getValue();
+                            if (userMap != null) {
+                                user = new User();
+                                user.fromHashMap(userMap);
+                                userList.add(user);
+
+                                Toast.makeText(Usersearch.this, "wdawdawdawd " , Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                // Handle case where data cannot be converted
+                                Log.e(TAG, "DataSnapshot contains neither User nor HashMap.");
+                            }
                         }
-                    } catch (DatabaseException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(Usersearch.this, "Error deserializing data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Usersearch.this, "Errowdawdar handling datawdawd: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 filteredUserList.clear();
@@ -109,6 +126,7 @@ public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickL
         });
     }
 
+
     private void filterUsers(String query) {
         filteredUserList.clear();
         if (TextUtils.isEmpty(query)) {
@@ -123,15 +141,12 @@ public class Usersearch extends BaseActivity implements UserAdapter.OnUserClickL
         userAdapter.notifyDataSetChanged();
     }
 
-    //woidaiwo[dajiwodaojiwdjiawiod
-
     @Override
     public void onUserClick(User user) {
         Intent intent = new Intent(Usersearch.this, Profile.class);
         intent.putExtra("userid", user.getUserid());
         intent.putExtra("fcm12", user.getFcmToken());
         startActivity(intent);
-        Toast.makeText(Usersearch.this, "wdawd"+user.getFcmToken(), Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(Usersearch.this, "Selected User: " + user.getFcmToken(), Toast.LENGTH_SHORT).show();
     }
 }

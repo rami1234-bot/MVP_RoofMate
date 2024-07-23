@@ -65,6 +65,12 @@
 
 
     <item
+        android:id="@+id/tinder"
+        android:title="tinder"
+        />
+
+
+    <item
         android:id="@+id/logout"
         android:title="logout"
         />
