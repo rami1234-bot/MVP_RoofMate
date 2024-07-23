@@ -24,6 +24,12 @@
         android:theme="@style/Theme.RoofMate_mvp"
         tools:targetApi="31">
         <activity
+            android:name=".RequestListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Swipe"
+            android:exported="false" />
+        <activity
             android:name=".Requests"
             android:exported="false" />
         <activity

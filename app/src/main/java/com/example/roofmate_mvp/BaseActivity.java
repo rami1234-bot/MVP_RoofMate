@@ -83,8 +83,15 @@ public class BaseActivity extends AppCompatActivity {
                 fetchUserAndNavigate(currentUser.getUid());
             }
             return true;
+        }  else if (id == R.id.tinder) {
+            if (currentUser != null) {
+                Intent intent = new Intent(BaseActivity.this, Swipe.class);
+                intent.putExtra("user", currentUser);
+                startActivity(intent);
+            }
+            return true;
         } else if (id == R.id.friendreq) {
-            Intent intent = new Intent(BaseActivity.this, Requests.class);
+            Intent intent = new Intent(BaseActivity.this, RequestListActivity.class);
             intent.putExtra("user", currentUser);
             startActivity(intent);
             return true;

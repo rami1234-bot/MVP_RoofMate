@@ -99,24 +99,14 @@ public class Profile extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-
-
-        if(otherUserId.equals(currentUser.getUid())){
+        if (otherUserId.equals(currentUser.getUid())) {
             blockUnblockButton.setVisibility(View.INVISIBLE);
             submitReviewButton.setVisibility(View.INVISIBLE);
             reviewText.setVisibility(View.INVISIBLE);
             sendMessageButton.setVisibility(View.INVISIBLE);
             reviewStarsRecyclerView.setVisibility(View.INVISIBLE);
             sendrequest.setVisibility(View.INVISIBLE);
-           // Toast.makeText(this, currentUser.getUid()+otherUserId, Toast.LENGTH_SHORT).show();
-          //  Toast.makeText(this, otherUserId, Toast.LENGTH_SHORT).show();
-
-
-
         }
-
-
-
 
         // Fetch and display user data
         if (otherUserId != null) {
@@ -137,7 +127,7 @@ public class Profile extends AppCompatActivity {
         sendrequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToLists(currentUser.getUid(),otherUserId);
+                addToLists(currentUser.getUid(), otherUserId);
             }
         });
 
@@ -170,8 +160,6 @@ public class Profile extends AppCompatActivity {
                     if (user != null) {
                         userIdTextView.setText(user.getUsername());
                         username = user.getUsername();
-
-
                         displayInterests(user.getInterests());
                         checkBlockStatus(currentUser.getUid(), otherUserId);
                     } else {
@@ -207,29 +195,6 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-//    private void createOrNavigateChatRoom(final String userId1, final String userId2) {
-//        final String chatRoomId1 = userId1 + userId2;
-//        final String chatRoomId2 = userId2 + userId1;
-//
-//        mDatabase.child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.hasChild(chatRoomId1)) {
-//                    navigateToChatActivity(chatRoomId1);
-//                } else if (dataSnapshot.hasChild(chatRoomId2)) {
-//                    navigateToChatActivity(chatRoomId2);
-//                } else {
-//                    createChatRoom(chatRoomId1, userId1, userId2, false);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Toast.makeText(Profile.this, "Failed to check chat rooms: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
     private void createChatRoom(String chatRoomId, String userId1, String userId2, boolean isBlocked) {
         ChatRoom chatRoom = new ChatRoom(chatRoomId, isBlocked);
         mDatabase.child("chatrooms").child(chatRoomId).setValue(chatRoom)
@@ -248,7 +213,6 @@ public class Profile extends AppCompatActivity {
         intent.putExtra("otherUsername", username);
         intent.putExtra("fcm", fcmcd);
         intent.putExtra("otheruserid", otherUserId);
-
         startActivity(intent);
     }
 
@@ -280,57 +244,12 @@ public class Profile extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Profile.this, "Failed to check chat rooms: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Profile.this, "Failed to check chat room: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void toggleBlockStatus(final String userId1, final String userId2) {
-        final String chatRoomId1 = userId1 + userId2;
-        final String chatRoomId2 = userId2 + userId1;
-
-        mDatabase.child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(chatRoomId1)) {
-                    ChatRoom chatRoom = dataSnapshot.child(chatRoomId1).getValue(ChatRoom.class);
-                    if (chatRoom != null) {
-                        chatRoom.setBlocked(!chatRoom.getBlocked());
-                        mDatabase.child("chatrooms").child(chatRoomId1).setValue(chatRoom)
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(Profile.this, chatRoom.getBlocked() ? "User blocked" : "User unblocked", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(Profile.this, "Failed to update block status", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                } else if (dataSnapshot.hasChild(chatRoomId2)) {
-                    ChatRoom chatRoom = dataSnapshot.child(chatRoomId2).getValue(ChatRoom.class);
-                    if (chatRoom != null) {
-                        chatRoom.setBlocked(!chatRoom.getBlocked());
-                        mDatabase.child("chatrooms").child(chatRoomId2).setValue(chatRoom)
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(Profile.this, chatRoom.getBlocked() ? "User blocked" : "User unblocked", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(Profile.this, "Failed to update block status", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                } else {
-                    createChatRoom(chatRoomId1, userId1, userId2, true);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Profile.this, "Failed to check chat rooms: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void checkBlockStatus(final String userId1, final String userId2) {
+    private void checkBlockStatus(String userId1, String userId2) {
         final String chatRoomId1 = userId1 + userId2;
         final String chatRoomId2 = userId2 + userId1;
 
@@ -340,19 +259,19 @@ public class Profile extends AppCompatActivity {
                 if (dataSnapshot.hasChild(chatRoomId1)) {
                     ChatRoom chatRoom = dataSnapshot.child(chatRoomId1).getValue(ChatRoom.class);
                     if (chatRoom != null && chatRoom.getBlocked()) {
-                        blockUnblockButton.setText(R.string.unblock_user);
+                        blockUnblockButton.setText("Unblock");
                     } else {
-                        blockUnblockButton.setText("block");
+                        blockUnblockButton.setText("Block");
                     }
                 } else if (dataSnapshot.hasChild(chatRoomId2)) {
                     ChatRoom chatRoom = dataSnapshot.child(chatRoomId2).getValue(ChatRoom.class);
                     if (chatRoom != null && chatRoom.getBlocked()) {
-                        blockUnblockButton.setText("unblock");
+                        blockUnblockButton.setText("Unblock");
                     } else {
-                        blockUnblockButton.setText(R.string.block_user);
+                        blockUnblockButton.setText("Block");
                     }
                 } else {
-                    blockUnblockButton.setText(R.string.block_user);
+                    blockUnblockButton.setText("Block");
                 }
             }
 
@@ -362,108 +281,130 @@ public class Profile extends AppCompatActivity {
             }
         });
     }
-    private void fetchReviews(String userId) {
-        mDatabase.child("users").child(userId).child("reviews").addListenerForSingleValueEvent(new ValueEventListener() {
+
+    private void toggleBlockStatus(String userId1, String userId2) {
+        final String chatRoomId1 = userId1 + userId2;
+        final String chatRoomId2 = userId2 + userId1;
+
+        mDatabase.child("chatrooms").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                reviewList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Review review = snapshot.getValue(Review.class);
-                    if (review != null) {
-                        reviewList.add(review);
+                if (dataSnapshot.hasChild(chatRoomId1)) {
+                    ChatRoom chatRoom = dataSnapshot.child(chatRoomId1).getValue(ChatRoom.class);
+                    if (chatRoom != null) {
+                        boolean newBlockStatus = !chatRoom.getBlocked();
+                        mDatabase.child("chatrooms").child(chatRoomId1).child("blocked").setValue(newBlockStatus);
+                        blockUnblockButton.setText(newBlockStatus ? "Unblock" : "Block");
                     }
-                }
-                reviewAdapter.notifyDataSetChanged();
-                calculateAverageRating(reviewList);
-
-                // Log reviews to verify
-                for (Review review : reviewList) {
-                    Log.d("Profile", "Review: " + review.getStars() + " - " + review.getText());
+                } else if (dataSnapshot.hasChild(chatRoomId2)) {
+                    ChatRoom chatRoom = dataSnapshot.child(chatRoomId2).getValue(ChatRoom.class);
+                    if (chatRoom != null) {
+                        boolean newBlockStatus = !chatRoom.getBlocked();
+                        mDatabase.child("chatrooms").child(chatRoomId2).child("blocked").setValue(newBlockStatus);
+                        blockUnblockButton.setText(newBlockStatus ? "Unblock" : "Block");
+                    }
+                } else {
+                    createChatRoom(chatRoomId1, userId1, userId2, true);
+                    blockUnblockButton.setText("Unblock");
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Profile.this, "Failed to fetch reviews: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Profile.this, "Failed to toggle block status: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
-
-    private void calculateAverageRating(List<Review> reviews) {
-        if (reviews.isEmpty()) {
-            return;
-        }
-
-        int totalStars = 0;
-        for (Review review : reviews) {
-            totalStars += review.getStars();
-        }
-        double averageRating = (double) totalStars / reviews.size();
-
-        // Update UI with average rating
-        TextView averageRatingTextView = findViewById(R.id.averageRatingTextView);
-        averageRatingTextView.setText("averege rating"+ averageRating);
-    }
     private void submitReview() {
         String reviewTextValue = reviewText.getText().toString().trim();
-        if (selectedStars == 0 || reviewTextValue.isEmpty()) {
-            Toast.makeText(this, "Please select a rating and write a review.", Toast.LENGTH_SHORT).show();
+
+        if (reviewTextValue.isEmpty()) {
+            Toast.makeText(Profile.this, "Review text cannot be empty", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        final Review newReview = new Review(selectedStars, reviewTextValue, currentUser.getUid());
-
-        // Add the new review to the local list
-        reviewList.add(newReview);
-        reviewAdapter.notifyDataSetChanged(); // Notify adapter of data change
-
-        // Update the Firebase database with the new review
-        if (otherUserId != null) {
-            mDatabase.child("users").child(otherUserId).child("reviews").push().setValue(newReview)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(Profile.this, "Review submitted successfully.", Toast.LENGTH_SHORT).show();
-                            // Clear review text field
-                            reviewText.setText("");
-                            // Reset selected stars
-                            selectedStars = 0;
-                            // Calculate and display updated average rating
-                            calculateAverageRating(reviewList);
-                        } else {
-                            Toast.makeText(Profile.this, "Failed to submit review.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            Toast.makeText(this, "Other user information is missing.", Toast.LENGTH_SHORT).show();
+        if (selectedStars == 0) {
+            Toast.makeText(Profile.this, "Please select a star rating", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        Review newReview = new Review(selectedStars, reviewTextValue, currentUser.getUid());
+
+        // Get the other user's object
+        mDatabase.child("users").child(otherUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User otherUser = dataSnapshot.getValue(User.class);
+
+                if (otherUser != null) {
+                    List<Review> otherUserReviews = otherUser.getReviews();
+                    if (otherUserReviews == null) {
+                        otherUserReviews = new ArrayList<>();
+                    }
+                    otherUserReviews.add(newReview);
+                    otherUser.setReviews(otherUserReviews);
+
+                    // Save the updated user object back into the database
+                    mDatabase.child("users").child(otherUserId).setValue(otherUser)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Profile.this, "Review submitted successfully", Toast.LENGTH_SHORT).show();
+                                    reviewText.setText(""); // Clear the review text field
+                                    fetchReviews(otherUserId); // Refresh the reviews list
+                                } else {
+                                    Toast.makeText(Profile.this, "Failed to submit review", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(Profile.this, "Failed to retrieve user information", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Failed to retrieve user information: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    private void fetchReviews(String userId) {
+        mDatabase.child("users").child(userId).child("reviews").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                reviewList.clear(); // Clear the existing list
+                for (DataSnapshot reviewSnapshot : dataSnapshot.getChildren()) {
+                    Review review = reviewSnapshot.getValue(Review.class);
+                    reviewList.add(review);
+                }
+                reviewAdapter.notifyDataSetChanged(); // Notify the adapter to refresh the ListView
+            }
 
-
-
-
-    private void addToLists(String currentUserId, String otherUserId) {
-        // Add current user's ID to other user's receivedFrom list
-        mDatabase.child("users").child(otherUserId).child("receivedFrom").child(currentUserId).setValue(true)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(Profile.this, "Added to received list", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Profile.this, "Failed to add to received list", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        // Add other user's ID to current user's sentTo list
-        mDatabase.child("users").child(currentUserId).child("sentTo").child(otherUserId).setValue(true)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(Profile.this, "Added to sent list", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(Profile.this, "Failed to add to sent list", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Profile.this, "Failed to fetch reviews", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    private void addToLists(String userId1, String userId2) {
+        DatabaseReference currentUserRef = mDatabase.child("users").child(userId1);
+        DatabaseReference otherUserRef = mDatabase.child("users").child(userId2);
+
+        // Add user2 to user1's sent list
+        currentUserRef.child("sent").child(userId2).setValue(true)
+                .addOnSuccessListener(aVoid -> {
+                    // Add user1 to user2's received list
+                    otherUserRef.child("received").child(userId1).setValue(true)
+                            .addOnSuccessListener(aVoid1 -> {
+                                Toast.makeText(Profile.this, "Users added to respective lists", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(Profile.this, "Failed to add user1 to user2's received list", Toast.LENGTH_SHORT).show();
+                            });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(Profile.this, "Failed to add user2 to user1's sent list", Toast.LENGTH_SHORT).show();
+                });
+    }
 }

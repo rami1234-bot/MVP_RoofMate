@@ -1,6 +1,7 @@
 package com.example.roofmate_mvp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +36,16 @@ public class UserAdapter12 extends ArrayAdapter<String> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String userId = uids.get(position);
+        ViewHolder holder;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
+            holder = new ViewHolder();
+            holder.textViewUsername = convertView.findViewById(R.id.usernameTextView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-
-        TextView textViewUsername = convertView.findViewById(R.id.usernameTextView);
 
         // Fetch the username from the database using the user ID
         mDatabase.child(userId).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -48,18 +53,28 @@ public class UserAdapter12 extends ArrayAdapter<String> {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String username = dataSnapshot.getValue(String.class);
-                    textViewUsername.setText(username);
+                    if (username != null) {
+                        holder.textViewUsername.setText(username);
+                    } else {
+                        holder.textViewUsername.setText("Unknown User");
+                    }
                 } else {
-                    textViewUsername.setText("Unknown User");
+                    holder.textViewUsername.setText("Unknown User");
                 }
+                Log.d("UserAdapter12", "UserID: " + userId + " Username: " + holder.textViewUsername.getText().toString());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                textViewUsername.setText("Error");
+                holder.textViewUsername.setText("Error");
+                Log.e("UserAdapter12", "Database error: " + databaseError.getMessage());
             }
         });
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        TextView textViewUsername;
     }
 }
