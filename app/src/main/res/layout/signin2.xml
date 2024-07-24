@@ -1,26 +1,26 @@
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent" android:layout_height="wrap_content" >
-	<!-- 
+	<!--
 	/*
 	 *	This content is generated from the API File Info.
 	 *	(Alt+Shift+Ctrl+I).
 	 *
-	 *	@desc 		
+	 *	@desc
 	 *	@file 		iphone_13_mini___2
 	 *	@date 		Friday 19th of July 2024 11:20:51 AM
 	 *	@title 		Page 1
-	 *	@author 	
-	 *	@keywords 	
+	 *	@author
+	 *	@keywords
 	 *	@generator 	Export Kit v1.3.figma
 	 *
 	 */
 	-->
-	<ScrollView android:id="@+id/iphone_13_mini___2" 
-		android:layout_width="wrap_content" 
+	<ScrollView android:id="@+id/iphone_13_mini___2"
+		android:layout_width="wrap_content"
 		android:layout_height="match_parent" >
 
-		<RelativeLayout android:id="@+id/content_container" 
-			android:layout_width="wrap_content" 
+		<RelativeLayout android:id="@+id/content_container"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content" >
 
 
@@ -32,12 +32,13 @@
 				android:layout_height="wrap_content"
 				>
 
-				<View   android:id="@+id/_bg__iphone_13_mini___2_ek2"
-					android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape"
-					 android:layout_marginStart="0dp"
-					android:layout_marginTop="0dp"
+				<View
+					android:id="@+id/_bg__iphone_13_mini___2_ek2"
 					android:layout_width="375dp"
-					android:layout_height="812dp" />
+					android:layout_height="812dp"
+					android:layout_marginStart="0dp"
+					android:layout_marginTop="0dp"
+					android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape" />
 
 				<TextView android:id="@+id/welcome_back_"
 					android:textStyle="bold"
@@ -84,6 +85,7 @@
 					android:layout_height="57dp"
 					android:hint="@string/password____string"
 					android:textColorHint="@color/white"
+					android:backgroundTint="@android:color/transparent"
 					 />
 
 				<ImageView android:id="@+id/rectangle_18"
@@ -104,6 +106,7 @@
 					android:layout_height="57dp"
 					android:hint="@string/email____string"
 					android:textColorHint="@color/white"
+					android:backgroundTint="@android:color/transparent"
 
 					 />
 

@@ -1,28 +1,25 @@
 package com.example.roofmate_mvp;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class GenderAdapter extends RecyclerView.Adapter<GenderAdapter.GenderViewHolder> {
+
     private List<String> genderList;
-    private OnGenderClickListener onGenderClickListener;
-    private int selectedPosition = RecyclerView.NO_POSITION;
+    private OnGenderClickListener genderClickListener;
 
     public interface OnGenderClickListener {
         void onGenderClick(String gender);
     }
 
-    public GenderAdapter(List<String> genderList, OnGenderClickListener onGenderClickListener) {
+    public GenderAdapter(List<String> genderList, OnGenderClickListener genderClickListener) {
         this.genderList = genderList;
-        this.onGenderClickListener = onGenderClickListener;
+        this.genderClickListener = genderClickListener;
     }
 
     @NonNull
@@ -36,15 +33,7 @@ public class GenderAdapter extends RecyclerView.Adapter<GenderAdapter.GenderView
     public void onBindViewHolder(@NonNull GenderViewHolder holder, int position) {
         String gender = genderList.get(position);
         holder.genderTextView.setText(gender);
-        holder.genderTextView.setBackgroundColor(selectedPosition == position ? 0xFFE0E0E0 : 0xFFFFFFFF);
-        holder.genderTextView.setOnClickListener(v -> {
-            if (selectedPosition != RecyclerView.NO_POSITION) {
-                notifyItemChanged(selectedPosition);
-            }
-            selectedPosition = holder.getAdapterPosition();
-            notifyItemChanged(selectedPosition);
-            onGenderClickListener.onGenderClick(gender);
-        });
+        holder.itemView.setOnClickListener(v -> genderClickListener.onGenderClick(gender));
     }
 
     @Override
@@ -55,7 +44,7 @@ public class GenderAdapter extends RecyclerView.Adapter<GenderAdapter.GenderView
     static class GenderViewHolder extends RecyclerView.ViewHolder {
         TextView genderTextView;
 
-        public GenderViewHolder(@NonNull View itemView) {
+        GenderViewHolder(@NonNull View itemView) {
             super(itemView);
             genderTextView = itemView.findViewById(android.R.id.text1);
         }

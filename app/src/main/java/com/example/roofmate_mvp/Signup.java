@@ -11,15 +11,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Arrays;
 
 import me.pushy.sdk.Pushy;
 import me.pushy.sdk.util.exceptions.PushyException;
@@ -31,13 +27,12 @@ public class Signup extends AppCompatActivity {
     private EditText passwordEditText;
     private EditText phoneNumberEditText;
     private EditText ageEditText;
-    private RecyclerView genderRecyclerView;
+    private EditText genderEditText;
     private Button signupButton;
     private Button goBackButton;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private String selectedGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +49,13 @@ public class Signup extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordEditText);
         phoneNumberEditText = findViewById(R.id.phoneNumberEditText);
         ageEditText = findViewById(R.id.ageEditText);
-        genderRecyclerView = findViewById(R.id.genderRecyclerView);
+        genderEditText = findViewById(R.id.genderEditText);
         signupButton = findViewById(R.id.signupButton);
         goBackButton = findViewById(R.id.goBackButton);
         goBackButton.setVisibility(View.VISIBLE);
         goBackButton.setBackgroundColor(Color.TRANSPARENT);
         signupButton.setVisibility(View.VISIBLE);
         signupButton.setBackgroundColor(Color.TRANSPARENT);
-
-
-        // Set up RecyclerView for gender selection
-        genderRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        GenderAdapter genderAdapter = new GenderAdapter(Arrays.asList("Male", "Female", "Other"), gender -> selectedGender = gender);
-        genderRecyclerView.setAdapter(genderAdapter);
 
         // Set onClick listener for sign-up button
         signupButton.setOnClickListener(v -> {
@@ -75,11 +64,12 @@ public class Signup extends AppCompatActivity {
             String password = passwordEditText.getText().toString().trim();
             String phoneNumber = phoneNumberEditText.getText().toString().trim();
             String age = ageEditText.getText().toString().trim();
+            String gender = genderEditText.getText().toString().trim();
 
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(age) || selectedGender == null) {
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(age) || TextUtils.isEmpty(gender)) {
                 Toast.makeText(Signup.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else {
-                registerUser(email, username, password, phoneNumber, age, selectedGender);
+                registerUser(email, username, password, phoneNumber, age, gender);
             }
         });
 
@@ -147,7 +137,7 @@ public class Signup extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(Signup.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(Signup.this, interests.class);
+                        Intent intent = new Intent(Signup.this, verf.class);
                         intent.putExtra("user", newUser);
                         intent.putExtra("phoneNumber", phoneNumber);
                         startActivity(intent);
