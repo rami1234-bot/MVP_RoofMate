@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- iphone_13_mini___Page4 strings -->
+    <!-- iphone_13_mini___Page4 strings -->
 
-	<string name="app_name">Page 1</string>
-	<string name="tell_us_more_about_you__string">Tell us more about you!</string>
-	<string name="hobbies____string">Hobbies...</string>
-	<string name="describe_yourself____string">Describe yourself...</string>
-	<string name="living_situation____string">Living situation...</string>
-
-
-	<!-- iphone_13_mini___hesham strings -->
-
-	<string name="username_label" />
-	<string name="user_data_null" />
-	<string name="user_not_found" />
-	<string name="read_user_data_failed" />
-	<string name="user_id_label" />
-	<string name="user_id_missing" />
+    <string name="app_name">Page 1</string>
+    <string name="tell_us_more_about_you__string">Tell us more about you!</string>
+    <string name="hobbies____string">Hobbies...</string>
+    <string name="describe_yourself____string">Describe yourself...</string>
+    <string name="living_situation____string">Living situation...</string>
 
 
+    <!-- iphone_13_mini___hesham strings -->
+
+    <string name="username_label" />
+    <string name="user_data_null" />
+    <string name="user_not_found" />
+    <string name="read_user_data_failed" />
+    <string name="user_id_label" />
+    <string name="user_id_missing" />
 
 
-	<string name="no_interests_available">No interests available</string>
-	<string name="unblock_user" />
-	<string name="block_user" />
+    <string name="no_interests_available">No interests available</string>
+    <string name="unblock_user" />
+    <string name="block_user" />
 
 
-	<string name="ek_img_content">ExportKit Image</string>
-	<string name="welcome_to_roofmate___string">Welcome to RoofMate !</string>
-	<string name="user_name____string">User Name...</string>
-	<string name="email____string">Email...</string>
-	<string name="submit_string">Submit</string>
-	<string name="password____string">Password...</string>
-	<string name="age_string">Age</string>
-	<string name="gender_string">Gender</string>
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="welcome_to_roofmate___string">Welcome to RoofMate !</string>
+    <string name="user_name____string">User Name...</string>
+    <string name="email____string">Email...</string>
+    <string name="submit_string">Submit</string>
+    <string name="password____string">Password...</string>
+    <string name="age_string">Age</string>
+    <string name="gender_string">Gender</string>
 
 </resources>

@@ -24,12 +24,14 @@
         android:theme="@style/Theme.RoofMate_mvp"
         tools:targetApi="31">
         <activity
+            android:name=".dddd"
+            android:exported="false" />
+        <activity
             android:name=".RequestListActivity"
             android:exported="false" />
         <activity
             android:name=".Swipe"
             android:exported="false" />
-
         <activity
             android:name=".Chatlist"
             android:exported="false" />
@@ -86,10 +88,9 @@
         <activity
             android:name=".verf"
             android:exported="true" />
-        <activity android:name=".start"
-            android:exported="true">
-
-        </activity>
+        <activity
+            android:name=".start"
+            android:exported="true"></activity>
         <activity
             android:name=".Signin"
             android:exported="true" />
@@ -123,7 +124,6 @@
         <activity
             android:name=".AddHome"
             android:exported="false" />
-
         <activity
             android:name=".Contacts"
             android:exported="false" />
@@ -139,7 +139,6 @@
         <activity
             android:name=".InterestAdapter"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />
