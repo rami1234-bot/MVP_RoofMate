@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends BaseActivity
+{
     private TextView userIdTextView;
     private DatabaseReference mDatabase;
     private FirebaseUser currentUser;
@@ -51,11 +53,17 @@ public class Profile extends AppCompatActivity {
     private ReviewsAdapter reviewAdapter;
     private List<Review> reviewList;
 
+    private DatabaseReference userRef;
+    private Switch avgSwitch;
+    private User currentUser1;
+
     @SuppressLint("StringFormatInvalid")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        avgSwitch = findViewById(R.id.avgSwitch);
 
         // Initialize UI elements
         userIdTextView = findViewById(R.id.usernameTextView);
@@ -66,6 +74,9 @@ public class Profile extends AppCompatActivity {
         submitReviewButton = findViewById(R.id.submitReviewButton);
         reviewStarsRecyclerView = findViewById(R.id.reviewStarsRecyclerView);
         reviewsListView = findViewById(R.id.reviewsListView);
+
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
         sendrequest = findViewById(R.id.sendrequest);
 
@@ -147,6 +158,34 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toggleBlockStatus(currentUser.getUid(), otherUserId);
+            }
+        });
+
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                currentUser1 = dataSnapshot.getValue(User.class);
+                if (currentUser1 != null) {
+                    // Set the switch state based on the avg property
+                    avgSwitch.setChecked(currentUser1.isAvg());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle database error
+                Toast.makeText(Profile.this, "Failed to load user data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Set up a listener for the switch
+        avgSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (currentUser1 != null) {
+
+
+                currentUser1.setAvg(isChecked);
+                userRef.setValue(currentUser1);
             }
         });
     }

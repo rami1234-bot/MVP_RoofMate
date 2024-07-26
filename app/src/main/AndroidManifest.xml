@@ -24,6 +24,9 @@
         android:theme="@style/Theme.RoofMate_mvp"
         tools:targetApi="31">
         <activity
+            android:name=".HomeEdit"
+            android:exported="false" />
+        <activity
             android:name=".dddd"
             android:exported="false" />
         <activity
@@ -90,7 +93,7 @@
             android:exported="true" />
         <activity
             android:name=".start"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Signin"
             android:exported="true" />

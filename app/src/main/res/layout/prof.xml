@@ -73,8 +73,18 @@
         android:id="@+id/sendrequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add to Lists"
+        android:text="Send Request"
         android:layout_below="@id/interestsLinearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- Dislike Button -->
+    <Button
+        android:id="@+id/dislikeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dislike"
+        android:layout_below="@id/sendrequest"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
@@ -83,7 +93,7 @@
         android:id="@+id/reviewsListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sendrequest"
+        android:layout_below="@id/dislikeButton"
         android:layout_marginTop="16dp"
         android:divider="@null"
         android:dividerHeight="0dp" />

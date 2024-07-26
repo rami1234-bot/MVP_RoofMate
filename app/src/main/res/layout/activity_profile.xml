@@ -22,6 +22,19 @@
         android:layout_marginTop="16dp" />
 
     <!-- Username TextView -->
+
+
+
+    <Switch
+        android:id="@+id/avgSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average"
+        android:layout_below="@id/blockUnblockButton"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
+
+
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"

@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class AddHome extends BaseActivity {
+public class HomeEdit extends BaseActivity {
 
     private static final int MAP_ACTIVITY_REQUEST_CODE = 1;
 
@@ -30,6 +30,8 @@ public class AddHome extends BaseActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference homesRef;
+    private String homeId;
+    private Home home;
 
     private double selectedLatitude = 0;
     private double selectedLongitude = 0;
@@ -37,7 +39,7 @@ public class AddHome extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_home);
+        setContentView(R.layout.activity_home_edit);
 
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance();
@@ -51,11 +53,19 @@ public class AddHome extends BaseActivity {
         locationButton = findViewById(R.id.locbut);
 
         locationButton.setOnClickListener(view -> {
-            Intent intent = new Intent(AddHome.this, MapActivity.class);
+            Intent intent = new Intent(HomeEdit.this, MapActivity.class);
             startActivityForResult(intent, MAP_ACTIVITY_REQUEST_CODE);
         });
 
-        checkIfUserHasHome();
+        // Get home ID from intent
+        homeId = getIntent().getStringExtra("homeId");
+        if (homeId == null) {
+            Toast.makeText(this, "No home ID provided", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        loadHomeDetails();
     }
 
     @Override
@@ -69,35 +79,27 @@ public class AddHome extends BaseActivity {
         }
     }
 
-    private void checkIfUserHasHome() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
-        String userId = currentUser.getUid();
-        homesRef.orderByChild("ownerid").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void loadHomeDetails() {
+        homesRef.child(homeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot homeSnapshot : dataSnapshot.getChildren()) {
-                        Home home = homeSnapshot.getValue(Home.class);
-                        if (home != null) {
-                            // Home exists for this user, navigate to EditHome activity
-                            Intent intent = new Intent(AddHome.this, HomeEdit.class);
-                            intent.putExtra("homeId", home.getId());
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
+                home = dataSnapshot.getValue(Home.class);
+                if (home != null) {
+                    // Pre-fill the EditTexts with home details
+                    nameEditText.setText(home.getName());
+                    descriptionEditText.setText(home.getDisk());
+                    rentEditText.setText(String.valueOf(home.getRent()));
+                    roomsEditText.setText(String.valueOf(home.getRooms()));
+                    selectedLatitude = home.getLatitude();
+                    selectedLongitude = home.getLongitude();
+                } else {
+                    Toast.makeText(HomeEdit.this, "Failed to load home details", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(AddHome.this, "Failed to check home existence: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -130,27 +132,23 @@ public class AddHome extends BaseActivity {
             return;
         }
 
-        // Get current user
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        // Update home object with new details
+        home.setName(name);
+        home.setDisk(description);
+        home.setRent(rent);
+        home.setRooms(rooms);
+        home.setLatitude(selectedLatitude);
+        home.setLongitude(selectedLongitude);
 
-        // Generate a unique key for the home in Firebase
-        String homeId = homesRef.push().getKey(); // This creates a new unique ID
-
-        // Create a new Home object with the generated ID
-        Home home = new Home(homeId, name, description, rent, rooms, selectedLatitude, selectedLongitude, currentUser.getUid());
-
-        // Save the new home to the database
+        // Save the updated home to the database
         homesRef.child(homeId).setValue(home).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(this, "Home added successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Home updated successfully", Toast.LENGTH_SHORT).show();
                 finish(); // Close the activity
             } else {
-                Toast.makeText(this, "Failed to add home: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Failed to update home: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 }
+

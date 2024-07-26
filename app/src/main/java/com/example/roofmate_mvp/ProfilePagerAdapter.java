@@ -26,9 +26,11 @@ import java.util.List;
 public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapter.ProfileViewHolder> {
 
     private List<User> userList;
+    private OnProfileActionListener listener;
 
-    public ProfilePagerAdapter(List<User> userList) {
+    public ProfilePagerAdapter(List<User> userList, OnProfileActionListener listener) {
         this.userList = userList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -43,14 +45,11 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
         User user = userList.get(position);
         holder.profileName.setText(user.getUsername());
         holder.averageRating.setText("Average Rating: " + user.getAverageRating());
-
-        // Set age and gender
         holder.ageTextView.setText("Age: " + user.getAge());
         holder.genderTextView.setText("Gender: " + user.getGender());
 
         List<String> interests = user.getInterests();
         holder.interestsLinearLayout.removeAllViews();
-
         for (String interest : interests) {
             TextView interestTextView = new TextView(holder.itemView.getContext());
             interestTextView.setText(interest);
@@ -59,13 +58,18 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
             holder.interestsLinearLayout.addView(interestTextView);
         }
 
-        // Handle button click
+        // Handle send request button click
         holder.sendRequestButton.setOnClickListener(v -> {
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            FirebaseUser currentUser = mAuth.getCurrentUser();
-            String currentUserId = currentUser != null ? currentUser.getUid() : null;
-            addToLists(currentUserId, user.getUserid());
-            Toast.makeText(holder.itemView.getContext(), "Added " + user.getFcmToken() + " to lists", Toast.LENGTH_SHORT).show();
+            if (listener != null) {
+                listener.onSendRequestClick(position);
+            }
+        });
+
+        // Handle dislike button click
+        holder.dislikeButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onDislikeClick(position);
+            }
         });
     }
 
@@ -81,6 +85,7 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
         TextView genderTextView;
         LinearLayout interestsLinearLayout;
         Button sendRequestButton;
+        Button dislikeButton;
 
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +95,7 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
             genderTextView = itemView.findViewById(R.id.genderTextView);
             interestsLinearLayout = itemView.findViewById(R.id.interestsLinearLayout);
             sendRequestButton = itemView.findViewById(R.id.sendrequest);
+            dislikeButton = itemView.findViewById(R.id.dislikeButton);
         }
     }
 
@@ -143,6 +149,42 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
                         // Handle database error
                     }
                 });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error
+            }
+        });
+    }
+
+    private void addToDislikeList(String userId1, String userId2) {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Get current user object
+        mDatabase.child("users").child(userId1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User currentUser = snapshot.getValue(User.class);
+
+                if (currentUser != null) {
+                    // Initialize dislike list if null
+                    if (currentUser.getDislikes() == null) {
+                        currentUser.setDislikes(new ArrayList<>());
+                    }
+
+                    // Update dislike list
+                    currentUser.getDislikes().add(userId2);
+
+                    // Save updated user back to the database
+                    mDatabase.child("users").child(userId1).setValue(currentUser)
+                            .addOnSuccessListener(aVoid -> {
+                                // Successfully updated the dislike list
+                            })
+                            .addOnFailureListener(e -> {
+                                // Failed to update the dislike list
+                            });
+                }
             }
 
             @Override
