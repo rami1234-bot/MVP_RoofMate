@@ -34,7 +34,7 @@
 
 				<View
 					android:id="@+id/_bg__iphone_13_mini___2_ek2"
-					android:layout_width="375dp"
+					android:layout_width="420dp"
 					android:layout_height="812dp"
 					android:layout_marginStart="0dp"
 					android:layout_marginTop="0dp"

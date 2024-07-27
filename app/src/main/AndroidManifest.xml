@@ -24,6 +24,12 @@
         android:theme="@style/Theme.RoofMate_mvp"
         tools:targetApi="31">
         <activity
+            android:name=".UniInfo"
+            android:exported="false" />
+        <activity
+            android:name=".UniversityInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeEdit"
             android:exported="false" />
         <activity

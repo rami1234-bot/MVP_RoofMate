@@ -14,7 +14,7 @@
             <View
                 android:id="@+id/_bg__iphone_13_mini___3_ek2"
                 android:layout_width="475dp"
-                android:layout_height="812dp"
+                android:layout_height="880dp"
                 android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape" />
 
             <ImageView
@@ -113,7 +113,7 @@
                 android:id="@+id/rectangle_34_ek1"
                 android:background="@drawable/rectangle_34_ek1_shape"
                 android:layout_marginStart="137dp"
-                android:layout_marginTop="695dp"
+                android:layout_marginTop="800dp"
                 android:layout_width="100dp"
                 android:layout_height="60dp" />
 
@@ -121,10 +121,10 @@
                 android:id="@+id/signupButton"
                 android:background="@drawable/rectangle_34_ek1_shape"
                 android:layout_marginStart="137dp"
-                android:layout_marginTop="695dp"
+                android:layout_marginTop="800dp"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/submit"
@@ -132,10 +132,21 @@
                 android:textSize="25sp"
                 android:textColor="@color/navyblue"
                 android:layout_marginStart="149dp"
-                android:layout_marginTop="710dp"
+                android:layout_marginTop="810dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/submit_string" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/livingSituationRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_34"
+                android:padding="4dp"
+                android:layout_marginStart="86dp"
+                android:layout_marginTop="670dp"
+                android:minHeight="0dp"
+                android:maxHeight="10dp" />
 
             <EditText
                 android:id="@+id/passwordEditText"
@@ -217,7 +228,5 @@
                 android:backgroundTint="@android:color/transparent" />
 
         </RelativeLayout>
-
     </ScrollView>
-
 </HorizontalScrollView>

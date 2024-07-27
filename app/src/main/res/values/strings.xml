@@ -8,6 +8,18 @@
     <string name="describe_yourself____string">Describe yourself...</string>
     <string name="living_situation____string">Living situation...</string>
 
+    <string-array name="college_options">
+        <item>College 12345</item>
+        <item>College 12345</item>
+
+        <item>College 12345</item>
+        <item>College 12345</item>
+        <item>College 12345</item>
+        <item>College 12345</item>
+
+        <!-- Add more colleges if needed -->
+    </string-array>
+
 
     <!-- iphone_13_mini___hesham strings -->
 

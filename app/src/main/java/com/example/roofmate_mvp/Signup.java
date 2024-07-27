@@ -9,16 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import me.pushy.sdk.Pushy;
 import me.pushy.sdk.util.exceptions.PushyException;
+import java.util.Arrays;
 
 public class Signup extends AppCompatActivity {
 
@@ -28,11 +28,14 @@ public class Signup extends AppCompatActivity {
     private EditText phoneNumberEditText;
     private EditText ageEditText;
     private EditText genderEditText;
+    private RecyclerView livingSituationRecyclerView;
     private Button signupButton;
     private Button goBackButton;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+
+    private LivingSituationAdapter livingSituationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +55,28 @@ public class Signup extends AppCompatActivity {
         genderEditText = findViewById(R.id.genderEditText);
         signupButton = findViewById(R.id.signupButton);
         goBackButton = findViewById(R.id.goBackButton);
-        goBackButton.setVisibility(View.VISIBLE);
-        goBackButton.setBackgroundColor(Color.TRANSPARENT);
-        signupButton.setVisibility(View.VISIBLE);
-        signupButton.setBackgroundColor(Color.TRANSPARENT);
+        livingSituationRecyclerView = findViewById(R.id.livingSituationRecyclerView);
+
+        // Set up RecyclerView
+        livingSituationRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        livingSituationAdapter = new LivingSituationAdapter(Arrays.asList("Has an apartment", "No apartment"));
+        livingSituationRecyclerView.setAdapter(livingSituationAdapter);
 
         // Set onClick listener for sign-up button
         signupButton.setOnClickListener(v -> {
+
             String email = emailEditText.getText().toString().trim();
             String username = usernameEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
             String phoneNumber = phoneNumberEditText.getText().toString().trim();
             String age = ageEditText.getText().toString().trim();
             String gender = genderEditText.getText().toString().trim();
+            String livingSituation = livingSituationAdapter.getSelectedLivingSituation();
 
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(age) || TextUtils.isEmpty(gender)) {
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(age) || TextUtils.isEmpty(gender) || TextUtils.isEmpty(livingSituation)) {
                 Toast.makeText(Signup.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else {
-                registerUser(email, username, password, phoneNumber, age, gender);
+                registerUser(email, username, password, phoneNumber, age, gender, livingSituation);
             }
         });
 
@@ -77,7 +84,7 @@ public class Signup extends AppCompatActivity {
         goBackButton.setOnClickListener(v -> finish());
     }
 
-    private void registerUser(String email, String username, String password, String phoneNumber, String age, String gender) {
+    private void registerUser(String email, String username, String password, String phoneNumber, String age, String gender, String livingSituation) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
@@ -86,7 +93,7 @@ public class Signup extends AppCompatActivity {
                             String userId = user.getUid();
 
                             // Register for Pushy notifications and get the token
-                            new RegisterForPushyTask(userId, username, email, password, phoneNumber, age, gender).execute();
+                            new RegisterForPushyTask(userId, username, email, password, phoneNumber, age, gender, livingSituation).execute();
                         }
                     } else {
                         Toast.makeText(Signup.this, "Authentication Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -95,9 +102,9 @@ public class Signup extends AppCompatActivity {
     }
 
     private class RegisterForPushyTask extends AsyncTask<Void, Void, String> {
-        private String userId, username, email, password, phoneNumber, age, gender;
+        private String userId, username, email, password, phoneNumber, age, gender, livingSituation;
 
-        public RegisterForPushyTask(String userId, String username, String email, String password, String phoneNumber, String age, String gender) {
+        public RegisterForPushyTask(String userId, String username, String email, String password, String phoneNumber, String age, String gender, String livingSituation) {
             this.userId = userId;
             this.username = username;
             this.email = email;
@@ -105,15 +112,16 @@ public class Signup extends AppCompatActivity {
             this.phoneNumber = phoneNumber;
             this.age = age;
             this.gender = gender;
+            this.livingSituation = livingSituation;
         }
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(Void... voids) {
             try {
-                // Register the device for push notifications
-                return Pushy.register(getApplicationContext());
+                // Register for Pushy notifications and get the token
+                return Pushy.register(Signup.this);
             } catch (PushyException e) {
-                // Registration failed
+                e.printStackTrace();
                 return null;
             }
         }
@@ -121,30 +129,24 @@ public class Signup extends AppCompatActivity {
         @Override
         protected void onPostExecute(String pushyToken) {
             if (pushyToken != null) {
-                // Save user to database with the Pushy token
-                saveUserToDatabase(userId, username, email, password, phoneNumber, age, gender, pushyToken);
+                // Save user data to Firebase Realtime Database
+                User user = new User(username, email, password, userId, phoneNumber, age, gender, livingSituation, pushyToken);
+                mDatabase.child("users").child(userId).setValue(user)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Signup.this, "Signup successful", Toast.LENGTH_SHORT).show();
+                                // Redirect to another activity if needed
+                                Intent intent = new Intent(Signup.this, UniInfo.class);
+                                intent.putExtra("user",user);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(Signup.this, "Failed to save user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             } else {
-                Toast.makeText(Signup.this, "Pushy registration failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Signup.this, "Failed to register for Pushy", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private void saveUserToDatabase(String userId, String username, String email, String password, String phoneNumber, String age, String gender, String pushyToken) {
-        User newUser = new User(userId, username, email, password, phoneNumber, age, gender, pushyToken);
-
-        mDatabase.child("users").child(userId).setValue(newUser)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(Signup.this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(Signup.this, interests.class);
-                        intent.putExtra("user", newUser);
-                        intent.putExtra("phoneNumber", phoneNumber);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(Signup.this, "Failed to save user information", Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 }

@@ -11,6 +11,10 @@ public class User implements Serializable { // to enable passing user in intent
 
     private static final long serialVersionUID = 1L; // this line for serialization
 
+    private String universityId;
+    private String universityPicture; // URI of the picture
+    private String universityName;
+
     private String username;
     private String email;
     private String password;
@@ -67,6 +71,17 @@ public class User implements Serializable { // to enable passing user in intent
         return gender;
     }
 
+    private String livingSituation;
+
+
+    public String getLivingSituation() {
+        return livingSituation;
+    }
+
+    public void setLivingSituation(String livingSituation) {
+        this.livingSituation = livingSituation;
+    }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -87,6 +102,32 @@ public class User implements Serializable { // to enable passing user in intent
         this.fcmToken = fcmToken;
     }
 
+    public String getUniversityId() {
+        return universityId;
+    }
+
+    public void setUniversityId(String universityId) {
+        this.universityId = universityId;
+    }
+
+    // Getter and Setter for universityPicture
+    public String getUniversityPicture() {
+        return universityPicture;
+    }
+
+    public void setUniversityPicture(String universityPicture) {
+        this.universityPicture = universityPicture;
+    }
+
+    // Getter and Setter for universityName
+    public String getUniversityName() {
+        return universityName;
+    }
+
+    public void setUniversityName(String universityName) {
+        this.universityName = universityName;
+    }
+
     public User() {
         // Default constructor
     }
@@ -100,14 +141,16 @@ public class User implements Serializable { // to enable passing user in intent
     }
     private List<String> dislikes;
 
-    public User(String userId, String username, String email, String password, String phoneNumber, String age1, String gender, String pushyToken) {
-        this.userid = userId;
+
+    public User(String username, String email, String password, String userId, String phoneNumber, String age, String gender, String livingSituation, String pushyToken) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.userid = userId;
         this.phoneNumber = phoneNumber;
-        this.age = age1;
+        this.age = age;
         this.gender = gender;
+        this.livingSituation = livingSituation;
         this.fcmToken = pushyToken;
     }
 

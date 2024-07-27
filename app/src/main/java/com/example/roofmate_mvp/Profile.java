@@ -32,13 +32,14 @@ import java.util.List;
 public class Profile extends BaseActivity
 {
     private TextView userIdTextView;
+    private TextView uni;
+
     private DatabaseReference mDatabase;
     private FirebaseUser currentUser;
     private Button sendMessageButton;
     private Button blockUnblockButton;
     private Button submitReviewButton;
 
-    Button sendrequest;
     private EditText reviewText;
     private RecyclerView reviewStarsRecyclerView;
     private String otherUserId;
@@ -73,12 +74,13 @@ public class Profile extends BaseActivity
         reviewText = findViewById(R.id.reviewText);
         submitReviewButton = findViewById(R.id.submitReviewButton);
         reviewStarsRecyclerView = findViewById(R.id.reviewStarsRecyclerView);
+        uni = findViewById(R.id.universityNameTextView);
+
         reviewsListView = findViewById(R.id.reviewsListView);
 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
-        sendrequest = findViewById(R.id.sendrequest);
 
         // Set up RecyclerView for review stars
         reviewStarsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -116,7 +118,6 @@ public class Profile extends BaseActivity
             reviewText.setVisibility(View.INVISIBLE);
             sendMessageButton.setVisibility(View.INVISIBLE);
             reviewStarsRecyclerView.setVisibility(View.INVISIBLE);
-            sendrequest.setVisibility(View.INVISIBLE);
         }
 
         // Fetch and display user data
@@ -135,12 +136,7 @@ public class Profile extends BaseActivity
             }
         });
 
-        sendrequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addToLists(currentUser.getUid(), otherUserId);
-            }
-        });
+
 
         // Existing logic for sendMessageButton and blockUnblockButton...
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +195,7 @@ public class Profile extends BaseActivity
                     if (user != null) {
                         userIdTextView.setText(user.getUsername());
                         username = user.getUsername();
+                        uni.setText(user.getUniversityName());
                         displayInterests(user.getInterests());
                         checkBlockStatus(currentUser.getUid(), otherUserId);
                     } else {
