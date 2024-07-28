@@ -29,21 +29,8 @@ public class HomePage extends BaseActivity {
         button7 = findViewById(R.id.button7);
 
         // Set OnClickListener for buttons
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle button1 click
-                Toast.makeText(HomePage.this, "Button 1 clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle button2 click
-                Toast.makeText(HomePage.this, "Button 2 clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+        button1.setOnClickListener(v -> openSwipeActivity("Has an apartment"));
+        button2.setOnClickListener(v -> openSwipeActivity("No apartment"));
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,5 +71,13 @@ public class HomePage extends BaseActivity {
                 Toast.makeText(HomePage.this, "Button 7 clicked", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    private void openSwipeActivity(String livingSituation) {
+        Intent intent = new Intent(HomePage.this, Swipe.class);
+        intent.putExtra("user", user);
+        intent.putExtra("livingSituation", livingSituation);
+        startActivity(intent);
     }
 }

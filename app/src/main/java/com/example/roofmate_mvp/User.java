@@ -31,7 +31,7 @@ public class User implements Serializable { // to enable passing user in intent
     private String gender;
     private List<String> wishlist;
     private String fcmToken;
-    private boolean avg = false; // New boolean variable
+    private boolean avg = true; // New boolean variable
 
     // Getters and setters for new variable
     public boolean isAvg() {
@@ -72,6 +72,26 @@ public class User implements Serializable { // to enable passing user in intent
     }
 
     private String livingSituation;
+    private List<String> favorites;
+
+
+
+    public List<String> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<String> favorites) {
+        this.favorites = favorites;
+    }
+
+    public void addFavorite(String userId) {
+        if (favorites == null) {
+            favorites = new ArrayList<>();
+        }
+        if (!favorites.contains(userId)) {
+            favorites.add(userId);
+        }
+    }
 
 
     public String getLivingSituation() {

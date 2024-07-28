@@ -31,6 +31,7 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
     private DatabaseReference userRef;
     private List<User> userList;
     private User currentUser;
+    private String livingSituationFilter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -48,6 +49,9 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
         userList = new ArrayList<>();
         adapter = new ProfilePagerAdapter(userList, this); // Pass 'this' as the listener
         viewPager.setAdapter(adapter);
+
+        // Get filter criteria from Intent
+        livingSituationFilter = getIntent().getStringExtra("livingSituation");
 
         fetchCurrentUser();
 
@@ -125,6 +129,11 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
                             }
                         }
                     }
+                }
+
+                // Apply living situation filter
+                if (livingSituationFilter != null) {
+                    filteredUsers.removeIf(user -> !livingSituationFilter.equals(user.getLivingSituation()));
                 }
 
                 if (filteredUsers.isEmpty() && !allUsers.isEmpty()) {
