@@ -201,8 +201,8 @@
                     android:layout_marginLeft="87dp"
                     android:layout_marginTop="606dp"
                     android:src="@drawable/rectangle_35"
-                    android:text="@string/age_string"
-                    android:textColor="@color/white"
+                    android:hint="@string/age_string"
+                    android:textColorHint="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 

@@ -1,9 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Filters">
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Age Range -->
+    <TextView
+        android:id="@+id/ageRangeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age Range:"
+        android:textSize="18sp" />
+
+    <SeekBar
+        android:id="@+id/ageRangeSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ageRangeLabel"
+        android:max="100" />
+
+    <TextView
+        android:id="@+id/ageRangeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ageRangeSeekBar"
+        android:text="0-100"
+        android:textSize="16sp" />
+
+    <!-- Location -->
+    <TextView
+        android:id="@+id/locationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ageRangeValue"
+        android:text="Location:"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/locationSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationLabel" />
+
+    <!-- Gender -->
+    <TextView
+        android:id="@+id/genderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationSpinner"
+        android:text="Gender:"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/genderRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/genderLabel">
+
+        <RadioButton
+            android:id="@+id/maleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/femaleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female" />
+
+        <RadioButton
+            android:id="@+id/otherRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other" />
+    </RadioGroup>
+</RelativeLayout>
