@@ -87,6 +87,7 @@
                     android:src="@drawable/rectangle_17"
                     android:textColorHint="@color/white"
                     android:textSize="30sp"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -105,6 +106,7 @@
                     android:layout_marginStart="59dp"
                     android:layout_marginLeft="143dp"
                     android:layout_marginTop="345dp"
+                    android:textColor="@color/white"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="@string/email____string"
                     android:inputType="textEmailAddress"
@@ -148,6 +150,7 @@
                     android:layout_marginStart="59dp"
                     android:layout_marginLeft="116dp"
                     android:layout_marginTop="433dp"
+                    android:textColor="@color/white"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="@string/password____string"
                     android:inputType="textPassword"
@@ -201,8 +204,9 @@
                     android:layout_marginLeft="87dp"
                     android:layout_marginTop="606dp"
                     android:src="@drawable/rectangle_35"
-                    android:hint="@string/age_string"
-                    android:textColorHint="@color/white"
+                    android:text="@string/age_string"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@android:color/transparent"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
@@ -260,6 +264,8 @@
                     android:layout_marginStart="59dp"
                     android:layout_marginLeft="87dp"
                     android:layout_marginTop="516dp"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="Phone Number"
                     android:inputType="phone"
                     android:src="@drawable/rectangle_17"
