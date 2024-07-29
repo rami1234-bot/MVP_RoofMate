@@ -22,6 +22,12 @@ public class User implements Serializable { // to enable passing user in intent
     private int follower;
     private String profileImageUrl;
     private String phoneNumber; // Added phone number field
+
+
+    private int minAge;
+    private int maxAge;
+    private List<String> filterLocations;
+    private List<String> filterGenders;
     private List<String> interests;
     private List<Review> reviews;
     private List<String> shared;
@@ -172,6 +178,10 @@ public class User implements Serializable { // to enable passing user in intent
         this.gender = gender;
         this.livingSituation = livingSituation;
         this.fcmToken = pushyToken;
+        this.minAge = 18;
+        this.maxAge = 99;
+        this.filterLocations = new ArrayList<>();
+        this.filterGenders = new ArrayList<>();
     }
 
     // New constructor with six parameters

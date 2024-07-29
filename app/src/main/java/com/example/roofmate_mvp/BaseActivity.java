@@ -95,6 +95,11 @@ public class BaseActivity extends AppCompatActivity {
             intent.putExtra("user", currentUser);
             startActivity(intent);
             return true;
+        } else if (id == R.id.hh) {
+            Intent intent = new Intent(BaseActivity.this, Filters.class);
+            intent.putExtra("user", currentUser);
+            startActivity(intent);
+            return true;
         } else if (id == R.id.chats) {
             if (currentUser != null) {
                 Intent intent = new Intent(BaseActivity.this, Chatlist.class);
