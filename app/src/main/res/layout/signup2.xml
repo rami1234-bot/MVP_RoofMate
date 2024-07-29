@@ -230,17 +230,19 @@
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
-                <TextView
+                <EditText
                     android:id="@+id/genderEditText"
                     android:layout_width="126dp"
                     android:layout_height="57dp"
                     android:layout_marginLeft="211dp"
                     android:layout_marginTop="614dp"
                     android:inputType="text"
-                    android:text="@string/gender_string"
-                    android:textColor="@color/white"
+                    android:hint="@string/gender_string"
+                    android:textColorHint="@color/white"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:backgroundTint="@android:color/transparent"
+                    />
 
                 <ImageView
                     android:id="@+id/rectangle_37"
