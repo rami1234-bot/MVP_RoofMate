@@ -58,18 +58,21 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
             holder.interestsLinearLayout.addView(interestTextView);
         }
 
-        // Handle send request button click
         holder.sendRequestButton.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onSendRequestClick(position);
             }
         });
 
-        // Handle dislike button click
         holder.dislikeButton.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onDislikeClick(position);
             }
+        });
+
+        // Handle add to favorites button click
+        holder.addToFavoritesButton.setOnClickListener(v -> {
+            addToFavorites(user.getUserid(), holder.itemView);
         });
     }
 
@@ -86,6 +89,7 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
         LinearLayout interestsLinearLayout;
         Button sendRequestButton;
         Button dislikeButton;
+        Button addToFavoritesButton;
 
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,101 +100,59 @@ public class ProfilePagerAdapter extends RecyclerView.Adapter<ProfilePagerAdapte
             interestsLinearLayout = itemView.findViewById(R.id.interestsLinearLayout);
             sendRequestButton = itemView.findViewById(R.id.sendrequest);
             dislikeButton = itemView.findViewById(R.id.dislikeButton);
+            addToFavoritesButton = itemView.findViewById(R.id.addToFavoritesButton);
         }
     }
 
-    private void addToLists(String userId1, String userId2) {
+    private void addToFavorites(String userIdToAdd, View itemView) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentFirebaseUser != null) {
+            String currentUserId = currentFirebaseUser.getUid();
 
-        // Get current user object
-        mDatabase.child("users").child(userId1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User currentUser = snapshot.getValue(User.class);
+            // Get current user object
+            mDatabase.child("users").child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User currentUser = snapshot.getValue(User.class);
 
-                // Get other user object
-                mDatabase.child("users").child(userId2).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User otherUser = snapshot.getValue(User.class);
-
-                        if (currentUser != null && otherUser != null) {
-                            // Initialize lists if null
-                            if (currentUser.getSent() == null) {
-                                currentUser.setSent(new ArrayList<>());
-                            }
-                            if (otherUser.getReceived() == null) {
-                                otherUser.setReceived(new ArrayList<>());
-                            }
-
-                            // Update lists
-                            currentUser.getSent().add(userId2);
-                            otherUser.getReceived().add(userId1);
-
-                            // Save updated users back to the database
-                            mDatabase.child("users").child(userId1).setValue(currentUser)
-                                    .addOnSuccessListener(aVoid -> {
-                                        mDatabase.child("users").child(userId2).setValue(otherUser)
-                                                .addOnSuccessListener(aVoid1 -> {
-                                                    // Successfully updated both users
-                                                })
-                                                .addOnFailureListener(e -> {
-                                                    // Failed to update other user
-                                                });
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        // Failed to update current user
-                                    });
+                    if (currentUser != null) {
+                        // Initialize favorites list if null
+                        if (currentUser.getFavorites() == null) {
+                            currentUser.setFavorites(new ArrayList<>());
                         }
+
+                        // Check if the user is already in the favorites list
+                        if (currentUser.getFavorites().contains(userIdToAdd)) {
+                            Toast.makeText(itemView.getContext(), "User already in favorites", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Check if the maximum number of favorites is reached
+                        if (currentUser.getFavorites().size() >= 3) {
+                            Toast.makeText(itemView.getContext(), "Maximum favorites reached", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Add to favorites
+                        currentUser.getFavorites().add(userIdToAdd);
+
+                        // Save updated user back to the database
+                        mDatabase.child("users").child(currentUserId).setValue(currentUser)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(itemView.getContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(itemView.getContext(), "Failed to add to favorites", Toast.LENGTH_SHORT).show();
+                                });
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle database error
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle database error
-            }
-        });
-    }
-
-    private void addToDislikeList(String userId1, String userId2) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Get current user object
-        mDatabase.child("users").child(userId1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User currentUser = snapshot.getValue(User.class);
-
-                if (currentUser != null) {
-                    // Initialize dislike list if null
-                    if (currentUser.getDislikes() == null) {
-                        currentUser.setDislikes(new ArrayList<>());
-                    }
-
-                    // Update dislike list
-                    currentUser.getDislikes().add(userId2);
-
-                    // Save updated user back to the database
-                    mDatabase.child("users").child(userId1).setValue(currentUser)
-                            .addOnSuccessListener(aVoid -> {
-                                // Successfully updated the dislike list
-                            })
-                            .addOnFailureListener(e -> {
-                                // Failed to update the dislike list
-                            });
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle database error
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle database error
+                }
+            });
+        }
     }
 }
