@@ -48,4 +48,7 @@
     <string name="age_string">Age</string>
     <string name="gender_string">Gender</string>
 
+    <string name="mia_sorloth_string">Mia Sorloth</string>
+    <string name="yesterday___13_01_string">Yesterday , 13:01</string>
+
 </resources>
