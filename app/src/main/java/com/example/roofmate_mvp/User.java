@@ -174,6 +174,22 @@ public class User implements Serializable { // to enable passing user in intent
         this.fcmToken = pushyToken;
     }
 
+    // New constructor with six parameters
+    public User(String userId, String username, String email, String password, String phoneNumber, String pushyToken) {
+        this.userid = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.fcmToken = pushyToken;
+        this.follower = 0;
+        this.interests = new ArrayList<>();
+        this.wishlist = new ArrayList<>();
+        this.reviews = new ArrayList<>();
+        this.sent = new ArrayList<>();
+        this.received = new ArrayList<>();
+    }
+
     public String getUsername() {
         return username;
     }
@@ -302,60 +318,52 @@ public class User implements Serializable { // to enable passing user in intent
     }
 
     public void fromHashMap(HashMap<String, Object> hashMap) {
-        if (hashMap.containsKey("userid")) {
-            this.userid = (String) hashMap.get("userid");
+        this.userid = (String) hashMap.getOrDefault("userid", userid);
+        this.username = (String) hashMap.getOrDefault("username", username);
+        this.email = (String) hashMap.getOrDefault("email", email);
+        this.password = (String) hashMap.getOrDefault("password", password);
+        this.phoneNumber = (String) hashMap.getOrDefault("phoneNumber", phoneNumber);
+        this.follower = ((Long) hashMap.getOrDefault("follower", (long) follower)).intValue();
+        this.profileImageUrl = (String) hashMap.getOrDefault("profileImageUrl", profileImageUrl);
+        this.interests = (List<String>) hashMap.getOrDefault("interests", interests);
+
+        List<HashMap<String, Object>> reviewMaps = (List<HashMap<String, Object>>) hashMap.getOrDefault("reviews", new ArrayList<>());
+        List<Review> reviewList = new ArrayList<>();
+        for (HashMap<String, Object> reviewMap : reviewMaps) {
+            Review review = new Review();
+            review.fromHashMap(reviewMap);
+            reviewList.add(review);
         }
-        if (hashMap.containsKey("username")) {
-            this.username = (String) hashMap.get("username");
-        }
-        if (hashMap.containsKey("email")) {
-            this.email = (String) hashMap.get("email");
-        }
-        if (hashMap.containsKey("password")) {
-            this.password = (String) hashMap.get("password");
-        }
-        if (hashMap.containsKey("phoneNumber")) {
-            this.phoneNumber = (String) hashMap.get("phoneNumber");
-        }
-        if (hashMap.containsKey("follower")) {
-            this.follower = ((Long) hashMap.get("follower")).intValue();
-        }
-        if (hashMap.containsKey("profileImageUrl")) {
-            this.profileImageUrl = (String) hashMap.get("profileImageUrl");
-        }
-        if (hashMap.containsKey("interests")) {
-            this.interests = (List<String>) hashMap.get("interests");
-        }
-        if (hashMap.containsKey("reviews")) {
-            List<HashMap<String, Object>> reviewMaps = (List<HashMap<String, Object>>) hashMap.get("reviews");
-            List<Review> reviewList = new ArrayList<>();
-            for (HashMap<String, Object> reviewMap : reviewMaps) {
-                Review review = new Review();
-                review.fromHashMap(reviewMap);
-                reviewList.add(review);
+        this.reviews = reviewList;
+
+        this.sent = (List<String>) hashMap.getOrDefault("sent", sent);
+        this.received = (List<String>) hashMap.getOrDefault("received", received);
+        this.wishlist = (List<String>) hashMap.getOrDefault("wishlist", wishlist);
+        this.shared = (List<String>) hashMap.getOrDefault("shared", shared);
+        this.fcmToken = (String) hashMap.getOrDefault("fcmToken", fcmToken);
+        this.gender = (String) hashMap.getOrDefault("gender", gender);
+        this.avg = (Boolean) hashMap.getOrDefault("avg", avg);
+    }
+
+    public void updateShared() {
+        if (sent != null && received != null) {
+            if (shared == null) {
+                shared = new ArrayList<>();
+            } else {
+                shared.clear(); // Clear existing shared list
             }
-            this.reviews = reviewList;
-        }
-        if (hashMap.containsKey("sent")) {
-            this.sent = (List<String>) hashMap.get("sent");
-        }
-        if (hashMap.containsKey("received")) {
-            this.received = (List<String>) hashMap.get("received");
-        }
-        if (hashMap.containsKey("wishlist")) {
-            this.wishlist = (List<String>) hashMap.get("wishlist");
-        }
-        if (hashMap.containsKey("shared")) {
-            this.shared = (List<String>) hashMap.get("shared");
-        }
-        if (hashMap.containsKey("fcmToken")) {
-            this.fcmToken = (String) hashMap.get("fcmToken");
-        }
-        if (hashMap.containsKey("gender")) {
-            this.gender = (String) hashMap.get("gender");
-        }
-        if (hashMap.containsKey("avg")) {
-            this.avg = (Boolean) hashMap.get("avg");
+
+            for (String sentItem : sent) {
+                if (received.contains(sentItem) && !shared.contains(sentItem)) {
+                    shared.add(sentItem);
+                }
+            }
+
+            for (String receivedItem : received) {
+                if (sent.contains(receivedItem) && !shared.contains(receivedItem)) {
+                    shared.add(receivedItem);
+                }
+            }
         }
     }
 }

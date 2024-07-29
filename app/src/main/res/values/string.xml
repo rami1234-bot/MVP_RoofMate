@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Page 1</string>
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="home_string">Home</string>
+    <string name="find_a_roommate_without_an_apartment_string">Find a roommate without an apartment</string>
+    <string name="find_a_roommate_with_an_apartment_string">Find a roommate with an apartment</string>
+</resources>

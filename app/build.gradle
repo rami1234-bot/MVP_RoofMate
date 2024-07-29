@@ -9,7 +9,6 @@ android {
     compileSdk 34
 
 
-
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }

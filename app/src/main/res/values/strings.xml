@@ -23,6 +23,9 @@
 
     <!-- iphone_13_mini___hesham strings -->
 
+    <string name="home_string">Home</string>
+    <string name="find_a_roommate_without_an_apartment_string">Find a roommate without an apartment</string>
+    <string name="find_a_roommate_with_an_apartment_string">Find a roommate with an apartment</string>
     <string name="username_label" />
     <string name="user_data_null" />
     <string name="user_not_found" />

@@ -1,232 +1,258 @@
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <ScrollView
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content" >
+    <!--
+    /*
+     *	This content is generated from the API File Info.
+     *	(Alt+Shift+Ctrl+I).
+     *
+     *	@desc
+     *	@file 		iphone_13_mini___3
+     *	@date 		Tuesday 23rd of July 2024 11:37:47 AM
+     *	@title 		Page 1
+     *	@author
+     *	@keywords
+     *	@generator 	Export Kit v1.3.figma
+     *
+     */
+    -->
+    <ScrollView android:id="@+id/iphone_13_mini___3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent" >
 
-        <RelativeLayout
+        <RelativeLayout android:id="@+id/content_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
-            <View
-                android:id="@+id/_bg__iphone_13_mini___3_ek2"
-                android:layout_width="475dp"
-                android:layout_height="880dp"
-                android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape" />
 
-            <ImageView
-                android:id="@+id/image_2"
-                android:src="@drawable/image_2"
-                android:contentDescription="image_2"
+
+            <RelativeLayout android:id="@+id/page_iphone_13_mini___3_ek1"
+                android:layout_marginTop="0dp"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="35dp"
-                android:layout_width="437dp"
-                android:layout_height="231dp" />
-
-            <TextView
-                android:id="@+id/welcome_to_roofmate__"
-                android:textStyle="bold"
-                android:textSize="32sp"
-                android:textColor="@color/navyblue"
-                android:layout_marginStart="34dp"
-                android:layout_marginTop="201dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/welcome_to_roofmate___string" />
+                >
 
-            <ImageView
-                android:id="@+id/rectangle_16"
-                android:src="@drawable/rectangle_34"
-                android:contentDescription="rectangle_16"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="263dp"
-                android:layout_width="256dp"
-                android:layout_height="61dp" />
+                <View   android:id="@+id/_bg__iphone_13_mini___3_ek2"
+                    android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_width="420dp"
+                    android:layout_height="812dp"
+                   />
 
-            <EditText
-                android:id="@+id/usernameEditText"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:layout_marginStart="111dp"
-                android:layout_marginTop="273dp"
-                android:layout_width="189dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_name____string"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@android:color/transparent" />
+                <ImageView android:id="@+id/image_2"
+                    android:src="@drawable/image_2"
+                    android:contentDescription="image_2"
+                    android:layout_marginStart="-31dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_width="437dp"
+                    android:layout_height="231dp" />
 
-            <ImageView
-                android:id="@+id/rectangle_17"
-                android:src="@drawable/rectangle_17"
-                android:contentDescription="rectangle_17"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="345dp"
-                android:layout_width="256dp"
-                android:layout_height="61dp" />
+                <TextView android:id="@+id/welcome_to_roofmate__"
+                    android:textStyle="bold"
+                    android:textSize="32sp"
+                    android:textColor="@color/navyblue"
+                    android:layout_marginLeft="34dp"
+                    android:layout_marginTop="201dp"
+                    android:layout_width="344dp"
+                    android:layout_height="66dp"
+                    android:text="@string/welcome_to_roofmate___string"
+                    />
 
-            <EditText
-                android:id="@+id/emailEditText"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:layout_marginStart="143dp"
-                android:layout_marginTop="355dp"
-                android:layout_width="124dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/email____string"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@android:color/transparent" />
+                <ImageView android:id="@+id/rectangle_16"
+                    android:src="@drawable/rectangle_17"
+                    android:contentDescription="rectangle_16"
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="263dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp" />
+                <EditText
+                    android:id="@+id/usernameEditText"
+                    android:src="@drawable/rectangle_17"
 
-            <ImageView
-                android:id="@+id/vector"
-                android:src="@drawable/vector"
-                android:contentDescription="vector"
-                android:layout_marginStart="305dp"
-                android:layout_marginTop="23dp"
-                android:layout_width="32dp"
-                android:layout_height="21dp" />
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="263dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColorHint="@color/white"
+                    android:layout_marginLeft="111dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="@string/user_name____string"/>
 
-            <Button
-                android:id="@+id/goBackButton"
-                android:background="@drawable/vector"
-                android:contentDescription="vector"
-                android:layout_marginStart="305dp"
-                android:layout_marginTop="23dp"
-                android:layout_width="32dp"
-                android:layout_height="21dp"
-                android:visibility="invisible" />
 
-            <ImageView
-                android:id="@+id/rectangle_34"
-                android:src="@drawable/rectangle_34"
-                android:contentDescription="rectangle_34"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="433dp"
-                android:layout_width="256dp"
-                android:layout_height="61dp" />
 
-            <View
-                android:id="@+id/rectangle_34_ek1"
-                android:background="@drawable/rectangle_34_ek1_shape"
-                android:layout_marginStart="137dp"
-                android:layout_marginTop="800dp"
-                android:layout_width="100dp"
-                android:layout_height="60dp" />
+                <ImageView android:id="@+id/rectangle_17"
+                    android:src="@drawable/rectangle_17"
+                    android:contentDescription="rectangle_17"
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="345dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp" />
+                <EditText
+                    android:src="@drawable/rectangle_17"
 
-            <Button
-                android:id="@+id/signupButton"
-                android:background="@drawable/rectangle_34_ek1_shape"
-                android:layout_marginStart="137dp"
-                android:layout_marginTop="800dp"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:visibility="visible" />
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="345dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp"
+                    android:inputType="textEmailAddress"
+                    android:id="@+id/emailEditText"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColorHint="@color/white"
+                    android:layout_marginLeft="143dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="@string/email____string"/>
 
-            <TextView
-                android:id="@+id/submit"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:textColor="@color/navyblue"
-                android:layout_marginStart="149dp"
-                android:layout_marginTop="810dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/submit_string" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/livingSituationRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_34"
-                android:padding="4dp"
-                android:layout_marginStart="86dp"
-                android:layout_marginTop="670dp"
-                android:minHeight="0dp"
-                android:maxHeight="10dp" />
+                <ImageView android:id="@+id/vector"
+                    android:src="@drawable/vector"
+                    android:contentDescription="vector"
+                    android:layout_marginStart="305dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_width="32dp"
+                    android:layout_height="21dp" />
+                <Button android:id="@+id/goBackButton"
+                    android:src="@drawable/vector"
+                    android:contentDescription="vector"
+                    android:layout_marginStart="305dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_width="32dp"
+                    android:layout_height="21dp"
+                    android:visibility="invisible"/>
 
-            <EditText
-                android:id="@+id/passwordEditText"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:layout_marginStart="116dp"
-                android:layout_marginTop="443dp"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/password____string"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@android:color/transparent" />
+                <ImageView android:id="@+id/rectangle_34"
+                    android:src="@drawable/rectangle_34"
+                    android:contentDescription="rectangle_34"
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="433dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp" />
+                <EditText
+                    android:src="@drawable/rectangle_34"
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="433dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp"
+                    android:id="@+id/passwordEditText"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColorHint="@color/white"
+                    android:layout_marginLeft="116dp"
+                    android:inputType="textPassword"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="@string/password____string"/>
 
-            <ImageView
-                android:id="@+id/rectangle_35"
-                android:src="@drawable/rectangle_35"
-                android:contentDescription="rectangle_35"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="606dp"
-                android:layout_width="100dp"
-                android:layout_height="61dp" />
+                <View   android:id="@+id/rectangle_34_ek1"
+                    android:background="@drawable/rectangle_34_ek1_shape"
+                    android:layout_marginStart="137dp"
+                    android:layout_marginTop="695dp"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp" />
+                <Button   android:id="@+id/signupButton"
+                    android:background="@drawable/rectangle_34_ek1_shape"
+                    android:layout_marginStart="137dp"
+                    android:layout_marginTop="695dp"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:visibility="invisible"/>
 
-            <EditText
-                android:id="@+id/ageEditText"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:layout_marginStart="87dp"
-                android:layout_marginTop="614dp"
-                android:layout_width="85dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/age_string"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@android:color/transparent" />
+                <TextView android:id="@+id/submit"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:textColor="@color/navyblue"
+                    android:layout_marginLeft="149dp"
+                    android:layout_marginTop="710dp"
+                    android:layout_width="129.5dp"
+                    android:layout_height="53.5dp"
+                    android:text="@string/submit_string"
+                    />
 
-            <ImageView
-                android:id="@+id/rectangle_36"
-                android:src="@drawable/rectangle_36"
-                android:contentDescription="rectangle_36"
-                android:layout_marginStart="190dp"
-                android:layout_marginTop="606dp"
-                android:layout_width="125dp"
-                android:layout_height="61dp" />
 
-            <EditText
-                android:id="@+id/genderEditText"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:layout_marginStart="211dp"
-                android:layout_marginTop="614dp"
-                android:layout_width="126dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/gender_string"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@android:color/transparent" />
 
-            <ImageView
-                android:id="@+id/rectangle_37"
-                android:src="@drawable/rectangle_34"
-                android:contentDescription="rectangle_37"
-                android:layout_marginStart="59dp"
-                android:layout_marginTop="516dp"
-                android:layout_width="256dp"
-                android:layout_height="61dp" />
+                <ImageView android:id="@+id/rectangle_35"
+                    android:src="@drawable/rectangle_35"
+                    android:contentDescription="rectangle_35"
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="606dp"
+                    android:layout_width="100dp"
+                    android:layout_height="61dp" />
+                <EditText   android:id="@+id/age"
+                    android:src="@drawable/rectangle_35"
 
-            <EditText
-                android:id="@+id/phoneNumberEditText"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:layout_marginStart="87dp"
-                android:layout_marginTop="526dp"
-                android:layout_width="239dp"
-                android:layout_height="wrap_content"
-                android:hint="Phone number"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@android:color/transparent" />
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="606dp"
+                    android:layout_width="100dp"
+                    android:layout_height="61dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="87dp"
+                    android:text="@string/age_string"/>
 
+
+
+                <ImageView android:id="@+id/rectangle_36"
+                    android:src="@drawable/rectangle_36"
+                    android:contentDescription="rectangle_36"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginTop="606dp"
+                    android:layout_width="125dp"
+                    android:layout_height="61dp" />
+                <ImageView   android:id="@+id/gender"
+                    android:src="@drawable/rectangle_36"
+                    android:contentDescription="rectangle_36"
+                    android:layout_marginStart="190dp"
+                    android:layout_marginTop="606dp"
+                    android:layout_width="125dp"
+                    android:layout_height="61dp"
+                  android:backgroundTint="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="211dp"
+                    android:text="@string/gender_string"/>
+
+                <TextView android:id="@+id/genderEditText"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="211dp"
+                    android:layout_marginTop="614dp"
+                    android:layout_width="126dp"
+                    android:layout_height="57dp"
+                    android:text="@string/gender_string"
+                    />
+
+                <ImageView android:id="@+id/rectangle_37"
+                    android:src="@drawable/rectangle_17"
+                    android:contentDescription="rectangle_37"
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="516dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp" />
+
+                <EditText android:id="@+id/phoneNumberEditText"
+                    android:src="@drawable/rectangle_17"
+
+                    android:layout_marginStart="59dp"
+                    android:layout_marginTop="516dp"
+                    android:layout_width="256dp"
+                    android:layout_height="61dp"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:textColorHint="@color/white"
+                    android:layout_marginLeft="87dp"
+                    android:inputType="phone"
+                    android:hint="Phone Number"/>
+
+
+
+            </RelativeLayout>
         </RelativeLayout>
+
     </ScrollView>
 </HorizontalScrollView>
