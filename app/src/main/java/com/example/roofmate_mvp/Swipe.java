@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -78,9 +79,60 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
 
     @Override
     public void onDislikeClick(int position) {
-        int nextPosition = (position + 1) % adapter.getItemCount();
-        viewPager.setCurrentItem(nextPosition, true);
+        // Get the current position of the user
+        int nextPosition = 1; // Move to the second user (index 1)
+
+        // Check if there are at least 2 users
+        if (userList.size() > 1) {
+            // Move to the second user
+            viewPager.setCurrentItem(nextPosition, true);
+        } else {
+            // If there's only one user, handle it accordingly, e.g., show a message or stay on the current profile
+            Toast.makeText(Swipe.this, "Not enough users to dislike", Toast.LENGTH_SHORT).show();
+        }
+
+        // Update the dislike list in Firebase
+        User dislikedUser = userList.get(position);
+        String dislikedUserId = dislikedUser.getUserid();
+        String currentUserId = FirebaseAuth.getInstance().getUid();
+
+        DatabaseReference currentUserRef = FirebaseDatabase.getInstance().getReference("users").child(currentUserId);
+
+        currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User currentUser = snapshot.getValue(User.class);
+
+                if (currentUser != null) {
+                    // Initialize dislike list if null
+                    if (currentUser.getDislikes() == null) {
+                        currentUser.setDislikes(new ArrayList<>());
+                    }
+
+                    // Add disliked user ID to the dislike list
+                    currentUser.getDislikes().add(dislikedUserId);
+
+                    // Update the user's dislike list in the database
+                    currentUserRef.setValue(currentUser)
+                            .addOnSuccessListener(aVoid -> {
+                                // Optionally: Handle success, e.g., notify user or update UI
+                                Toast.makeText(Swipe.this, "User disliked", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                // Optionally: Handle failure
+                                Toast.makeText(Swipe.this, "Failed to dislike user", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Swipe.this, "Failed to update dislike list", Toast.LENGTH_SHORT).show();
+                Log.e("Swipe", "Database error: " + error.getMessage());
+            }
+        });
     }
+
 
     private void fetchCurrentUser() {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {

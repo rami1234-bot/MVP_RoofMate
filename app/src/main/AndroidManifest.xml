@@ -11,9 +11,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"
-        />
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -25,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RoofMate_mvp"
         tools:targetApi="31">
+        <activity
+            android:name=".Filters"
+            android:exported="false" />
         <activity
             android:name=".UniInfo"
             android:exported="false" />
