@@ -14,8 +14,7 @@ public class HomePage extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homeup
-        );
+        setContentView(R.layout.homeup);
 
         // Get the User object from the Intent
         Intent intent = getIntent();
@@ -28,48 +27,48 @@ public class HomePage extends BaseActivity {
         button4 = findViewById(R.id.button4);
         button5 = findViewById(R.id.button5);
         button6 = findViewById(R.id.button6);
-        button1.setVisibility(View.VISIBLE);
-        button1.setBackgroundColor(Color.TRANSPARENT);
-        button2.setVisibility(View.VISIBLE);
-        button2.setBackgroundColor(Color.TRANSPARENT);
-        button3.setVisibility(View.VISIBLE);
-        button3.setBackgroundColor(Color.TRANSPARENT);
-        button4.setVisibility(View.VISIBLE);
-        button4.setBackgroundColor(Color.TRANSPARENT);
-        button5.setVisibility(View.VISIBLE);
-        button5.setBackgroundColor(Color.TRANSPARENT);
-        button6.setVisibility(View.VISIBLE);
-        button6.setBackgroundColor(Color.TRANSPARENT);
+
         // Set OnClickListener for buttons
         button1.setOnClickListener(v -> openSwipeActivity("Apartment"));
-
         button2.setOnClickListener(v -> openSwipeActivity("No apartment"));
-
         button3.setOnClickListener(v -> openProfileActivity());
-
-        button4.setOnClickListener(v -> openWishlistActivity());
-
-        button5.setOnClickListener(v -> Toast.makeText(HomePage.this, "Button 5 clicked", Toast.LENGTH_SHORT).show());
-
-        button6.setOnClickListener(v -> Toast.makeText(HomePage.this, "Button 6 clicked", Toast.LENGTH_SHORT).show());
+        button5.setOnClickListener(v -> openWishlistActivity());
+        button6.setOnClickListener(v -> openChatListActivity());
     }
 
     private void openSwipeActivity(String livingSituation) {
-        Intent intent = new Intent(HomePage.this, Swipe.class);
-        intent.putExtra("user", user);
-        intent.putExtra("livingSituation", livingSituation);
+        if (user != null) {
+            Intent intent = new Intent(HomePage.this, Swipe.class);
+            intent.putExtra("user", user);
+            intent.putExtra("livingSituation", livingSituation);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "User data not available", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openChatListActivity() {
+        Intent intent = new Intent(HomePage.this, Chatlist.class);
         startActivity(intent);
     }
 
     private void openProfileActivity() {
-        Intent intent = new Intent(HomePage.this, Profile.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
+        if (user != null) {
+            Intent intent = new Intent(HomePage.this, Profile.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "User data not available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void openWishlistActivity() {
-        Intent intent = new Intent(HomePage.this, Wishlist.class);
-        intent.putExtra("user", user);
-        startActivity(intent);
+        if (user != null) {
+            Intent intent = new Intent(HomePage.this, Wishlist.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "User data not available", Toast.LENGTH_SHORT).show();
+        }
     }
 }
