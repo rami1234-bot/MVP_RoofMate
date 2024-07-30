@@ -1,307 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/horizontalScrollView2"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<!-- This content is generated from the API File Info. (Alt+Shift+Ctrl+I).
-	     @desc
-	     @file       iphone_13_mini___7
-	     @date       Sunday 28th of July 2024 11:30:03 PM
-	     @title      Page 1
-	     @author
-	     @keywords
-	     @generator  Export Kit v1.3.figma
-	-->
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-	<ScrollView
-		android:id="@+id/iphone_13_mini___7"
-		android:layout_width="455dp"
-		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-		<RelativeLayout
-			android:id="@+id/content_container"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/content_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-			<RelativeLayout
-				android:id="@+id/page_iphone_13_mini___7_ek1"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/page_iphone_13_mini___7_ek1"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-				<View
-					android:id="@+id/_bg__iphone_13_mini___7_ek2"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape" />
+                    <View
+                        android:id="@+id/_bg__iphone_13_mini___7_ek2"
+                        android:background="@drawable/_bg__iphone_13_mini___3_ek2_shape"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_width="411dp"
+                        android:layout_height="812dp" />
 
-				<RelativeLayout
-					android:id="@+id/material_symbols_person_search_outline"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="139dp"
-					android:layout_marginTop="446dp">
+                    <RelativeLayout
+                        android:id="@+id/material_symbols_person_search_outline"
+                        android:layout_marginTop="446dp"
+                        android:layout_marginStart="130dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-					<Button
-						android:id="@+id/find"
-						android:layout_width="93.96dp"
-						android:layout_height="89.38dp"
-						android:layout_marginStart="13.75dp"
-						android:layout_marginTop="18.33dp"
-						android:contentDescription="vector"
-						android:visibility="invisible"
-						android:background="@drawable/vectorser" />
+                        <ImageView
+                            android:id="@+id/vectorser"
+                            android:src="@drawable/vectorser"
+                            android:contentDescription="vector"
+                            android:layout_marginStart="13.75dp"
+                            android:layout_marginTop="18.33dp"
+                            android:layout_width="93.96dp"
+                            android:layout_height="89.38dp" />
 
-					<ImageView
-						android:id="@+id/vector"
-						android:layout_width="93.96dp"
-						android:layout_height="89.38dp"
-						android:layout_marginStart="13.75dp"
-						android:layout_marginTop="18.33dp"
-						android:contentDescription="vector"
-						android:src="@drawable/vectorser" />
+                        <Button
+                            android:id="@+id/button2"
+                            android:src="@drawable/vectorser"
+                            android:contentDescription="vector"
+                            android:layout_marginStart="13.75dp"
+                            android:layout_marginTop="18.33dp"
+                            android:layout_width="93.96dp"
+                            android:layout_height="89.38dp"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
 
-				</RelativeLayout>
+                    <ImageView
+                        android:id="@+id/image_2"
+                        android:src="@drawable/image_2"
+                        android:contentDescription="image_2"
+                        android:layout_marginStart="-8dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_width="130dp"
+                        android:layout_height="92dp" />
 
-				<ImageView
-					android:id="@+id/image_2"
-					android:layout_width="130dp"
-					android:layout_height="92dp"
-					android:layout_marginStart="-8dp"
-					android:layout_marginTop="9dp"
-					android:contentDescription="image_2"
-					android:src="@drawable/image_2" />
+                    <TextView
+                        android:id="@+id/home"
+                        android:textStyle="bold"
+                        android:textSize="28sp"
+                        android:textColor="@color/navyblue"
+                        android:layout_marginLeft="152dp"
+                        android:layout_marginTop="46dp"
+                        android:layout_width="102dp"
+                        android:layout_height="54dp"
+                        android:text="@string/home_string" />
 
-				<TextView
-					android:id="@+id/home"
-					android:layout_width="102dp"
-					android:layout_height="54dp"
-					android:layout_marginStart="164dp"
-					android:layout_marginTop="38dp"
-					android:text="@string/home_string"
-					android:textColor="@color/navyblue"
-					android:textSize="28sp"
-					android:textStyle="bold" />
+                    <View
+                        android:id="@+id/line_1"
+                        android:background="@drawable/line_1_shape"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="92dp"
+                        android:layout_width="374.9dp"
+                        android:layout_height="3dp" />
 
-				<View
-					android:id="@+id/line_1"
-					android:layout_width="409dp"
-					android:layout_height="3dp"
-					android:layout_marginStart="-16dp"
-					android:layout_marginTop="92dp"
-					android:background="@drawable/line_1_shape" />
+                    <View
+                        android:id="@+id/line_2"
+                        android:background="@drawable/line_1_shape"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="413dp"
+                        android:layout_width="374.9dp"
+                        android:layout_height="1dp" />
 
-				<View
-					android:id="@+id/line_2"
-					android:layout_width="410.9dp"
-					android:layout_height="1dp"
-					android:layout_marginTop="413dp"
-					android:background="@drawable/line_2_shape" />
+                    <View
+                        android:id="@+id/line_3"
+                        android:background="@drawable/line_3_shape"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="720dp"
+                        android:layout_width="374.9dp"
+                        android:layout_height="1.7dp" />
 
-				<View
-					android:id="@+id/line_3"
-					android:layout_width="411dp"
-					android:layout_height="1.7dp"
-					android:layout_marginTop="721dp"
-					android:background="@drawable/line_3_shape" />
+                    <TextView
+                        android:id="@+id/find_a_roommate_without_an_apartment"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal|center"
+                        android:gravity="center"
+                        android:textSize="28sp"
+                        android:textColor="@color/navyblue"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginTop="576dp"
+                        android:layout_width="362dp"
+                        android:layout_height="82dp"
+                        android:text="@string/find_a_roommate_without_an_apartment_string" />
 
-				<TextView
-					android:id="@+id/find_a_roommate_without_an_apartment"
-					android:layout_width="362dp"
-					android:layout_height="82dp"
-					android:layout_gravity="center_horizontal|center"
-					android:layout_marginStart="18dp"
-					android:layout_marginTop="576dp"
-					android:gravity="center"
-					android:text="@string/find_a_roommate_without_an_apartment_string"
-					android:textColor="@color/navyblue"
-					android:textSize="28sp"
-					android:textStyle="bold" />
+                    <RelativeLayout
+                        android:id="@+id/token_chat"
+                        android:layout_marginTop="739dp"
+                        android:layout_marginStart="284dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-				<View
-					android:id="@+id/image_4"
-					android:layout_width="225dp"
-					android:layout_height="225dp"
-					android:layout_marginStart="98dp"
-					android:layout_marginTop="293dp"/>
+                        <ImageView
+                            android:id="@+id/vector_ek1"
+                            android:src="@drawable/vector_ek1"
+                            android:contentDescription="vector_ek1"
+                            android:layout_marginStart="16.07dp"
+                            android:layout_marginTop="17.41dp"
+                            android:layout_width="42.86dp"
+                            android:layout_height="40.18dp" />
+                        <Button
+                            android:id="@+id/button6"
+                            android:src="@drawable/vector_ek1"
+                            android:contentDescription="vector_ek1"
+                            android:layout_marginStart="16.07dp"
+                            android:layout_marginTop="17.41dp"
+                            android:layout_width="42.86dp"
+                            android:layout_height="40.18dp"
+                            android:visibility="invisible"/>
+                        <ImageView
+                            android:id="@+id/vector_ek2"
+                            android:src="@drawable/vector_ek2"
+                            android:contentDescription="vector_ek2"
+                            android:layout_marginStart="25.45dp"
+                            android:layout_marginTop="32.14dp"
+                            android:layout_width="22.77dp"
+                            android:layout_height="5.36dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/group"
+                        android:layout_marginTop="749dp"
+                        android:layout_marginStart="138.1dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/vector_ek3"
+                            android:src="@drawable/vector_ek3"
+                            android:contentDescription="vector_ek3"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="31dp"
+                            android:layout_width="60.28dp"
+                            android:layout_height="18.75dp" />
+
+                        <Button
+                            android:id="@+id/button4"
+                            android:src="@drawable/vector_ek3"
+                            android:contentDescription="vector_ek3"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="31dp"
+                            android:layout_width="60.28dp"
+                            android:layout_height="18.75dp"
+                            android:visibility="invisible"/>
 
 
-				<ImageView
-					android:id="@+id/vector_ek1"
-					android:layout_width="45dp"
-					android:layout_height="45dp"
-					android:layout_marginStart="312dp"
-					android:layout_marginTop="749.5dp"
-					android:contentDescription="vector_ek1"
-					android:src="@drawable/vector_ek1" />
+                        <ImageView
+                            android:id="@+id/vector_ek4"
+                            android:src="@drawable/vector_ek4"
+                            android:contentDescription="vector_ek4"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_width="22.6dp"
+                            android:layout_height="18.75dp" />
+                    </RelativeLayout>
 
-				<Button
-					android:id="@+id/add"
-					android:layout_width="45dp"
-					android:layout_height="45dp"
-					android:layout_marginStart="312dp"
-					android:layout_marginTop="749.5dp"
-					android:visibility="invisible"
-					android:background="@drawable/vector_ek1" />
+                    <RelativeLayout
+                        android:id="@+id/clarity_house_line"
+                        android:layout_marginTop="742dp"
+                        android:layout_marginStart="28.5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-				<RelativeLayout
-					android:id="@+id/token_chat"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="250dp"
-					android:layout_marginTop="738dp">
+                        <ImageView
+                            android:id="@+id/vector_ek5"
+                            android:src="@drawable/vector_ek5"
+                            android:contentDescription="vector_ek5"
+                            android:layout_marginStart="4.08dp"
+                            android:layout_marginTop="3.33dp"
+                            android:layout_width="63.09dp"
+                            android:layout_height="28.25dp" />
 
-					<ImageView
-						android:id="@+id/vector_ek2"
-						android:layout_width="42.86dp"
-						android:layout_height="40.18dp"
-						android:layout_marginStart="16.07dp"
-						android:layout_marginTop="17.41dp"
-						android:contentDescription="vector_ek2"
-						android:src="@drawable/vector_ek2" />
+                        <ImageView
+                            android:id="@+id/vector_ek6"
+                            android:src="@drawable/vector_ek6"
+                            android:contentDescription="vector_ek6"
+                            android:layout_marginStart="11.87dp"
+                            android:layout_marginTop="29.6dp"
+                            android:layout_width="47.49dp"
+                            android:layout_height="27.07dp" />
 
-					<ImageView
-						android:id="@+id/vector_ek3"
-						android:layout_width="22.77dp"
-						android:layout_height="5.36dp"
-						android:layout_marginStart="25.45dp"
-						android:layout_marginTop="32.14dp"
-						android:contentDescription="vector_ek3"
-						android:src="@drawable/vector_ek3" />
+                        <ImageView
+                            android:id="@+id/vector_ek7"
+                            android:src="@drawable/vector_ek7"
+                            android:contentDescription="vector_ek7"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_width="71.24dp"
+                            android:layout_height="60dp" />
 
-					<Button
-						android:id="@+id/chats"
-						android:layout_width="22.77dp"
-						android:layout_height="5.36dp"
-						android:layout_marginStart="25.45dp"
-						android:layout_marginTop="32.14dp"
-						android:visibility="invisible"
-						android:background="@drawable/vector_ek3" />
+                        <Button
+                            android:id="@+id/button3"
+                            android:src="@drawable/vector_ek7"
+                            android:contentDescription="vector_ek7"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_width="71.24dp"
+                            android:layout_height="60dp"
+                            android:visibility="invisible"/>
+                    </RelativeLayout>
 
-				</RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/ph_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="218dp"
+                        android:layout_marginTop="746dp">
 
-				<RelativeLayout
-					android:id="@+id/group"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="94.89dp"
-					android:layout_marginTop="750dp">
+                        <ImageView
+                            android:id="@+id/vector_ek8"
+                            android:layout_width="56.87dp"
+                            android:layout_height="50.62dp"
+                            android:layout_marginStart="4.06dp"
+                            android:layout_marginTop="3.75dp"
+                            android:contentDescription="vector_ek8"
+                            android:src="@drawable/vector_ek8" />
 
-					<ImageView
-						android:id="@+id/vector_ek4"
-						android:layout_width="55dp"
-						android:layout_height="18.75dp"
-						android:layout_marginTop="31dp"
-						android:contentDescription="vector_ek4"
-						android:src="@drawable/vector_ek4" />
+                        <Button
+                            android:id="@+id/button5"
+                            android:layout_width="56.87dp"
+                            android:layout_height="50.62dp"
+                            android:layout_marginStart="4.06dp"
+                            android:layout_marginTop="3.75dp"
+                            android:contentDescription="vector_ek8"
+                            android:src="@drawable/vector_ek8"
+                            android:visibility="invisible" />
 
-					<ImageView
-						android:id="@+id/vector_ek5"
-						android:layout_width="20.63dp"
-						android:layout_height="18.75dp"
-						android:layout_marginStart="17dp"
-						android:contentDescription="vector_ek5"
-						android:src="@drawable/vector_ek5" />
 
-				</RelativeLayout>
+                    </RelativeLayout>
 
-				<RelativeLayout
-					android:id="@+id/clarity_house_line"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="14dp"
-					android:layout_marginTop="742dp">
+                    <ImageView
+                        android:id="@+id/vector_ek11"
+                        android:src="@drawable/vector_ek11"
+                        android:contentDescription="vector_ek11"
+                        android:layout_marginStart="144.67dp"
+                        android:layout_marginTop="152dp"
+                        android:layout_width="120.56dp"
+                        android:layout_height="110dp" />
 
-					<ImageView
-						android:id="@+id/vector_ek6"
-						android:layout_width="57.56dp"
-						android:layout_height="28.25dp"
-						android:layout_marginStart="3.72dp"
-						android:layout_marginTop="3.33dp"
-						android:contentDescription="vector_ek6"
-						android:src="@drawable/vector_ek6" />
+                    <Button
+                        android:id="@+id/button1"
+                        android:src="@drawable/vector_ek11"
+                        android:contentDescription="vector_ek11"
+                        android:layout_marginStart="144.67dp"
+                        android:layout_marginTop="152dp"
+                        android:layout_width="120.56dp"
+                        android:layout_height="110dp"
+                        android:visibility="invisible" />
 
-					<ImageView
-						android:id="@+id/vector_ek7"
-						android:layout_width="43.33dp"
-						android:layout_height="27.07dp"
-						android:layout_marginStart="10.83dp"
-						android:layout_marginTop="29.6dp"
-						android:contentDescription="vector_ek7"
-						android:src="@drawable/vector_ek7" />
+                    <TextView
+                        android:id="@+id/find_a_roommate_with_an_apartment"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal|center"
+                        android:gravity="center"
+                        android:textSize="28sp"
+                        android:textColor="@color/navyblue"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="311dp"
+                        android:layout_width="362dp"
+                        android:layout_height="82dp"
+                        android:text="@string/find_a_roommate_with_an_apartment_string" />
 
-					<ImageView
-						android:id="@+id/vector_ek8"
-						android:layout_width="65dp"
-						android:layout_height="60dp"
-						android:contentDescription="vector_ek8"
-						android:src="@drawable/vector_ek8" />
-
-				</RelativeLayout>
-
-				<RelativeLayout
-					android:id="@+id/ph_star"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="181dp"
-					android:layout_marginTop="746dp">
-
-					<ImageView
-						android:id="@+id/vector_ek9"
-						android:layout_width="56.87dp"
-						android:layout_height="50.62dp"
-						android:layout_marginStart="4.06dp"
-						android:layout_marginTop="3.75dp"
-						android:contentDescription="vector_ek9"
-						android:src="@drawable/vector_ek9" />
-
-					<Button
-						android:id="@+id/fav"
-						android:layout_width="56.87dp"
-						android:layout_height="50.62dp"
-						android:layout_marginStart="4.06dp"
-						android:layout_marginTop="3.75dp"
-						android:visibility="invisible"
-						android:background="@drawable/vector_ek9" />
-
-				</RelativeLayout>
-
-				<ImageView
-					android:id="@+id/vector_ek11"
-					android:layout_width="120.56dp"
-					android:layout_height="110dp"
-					android:layout_marginStart="122.67dp"
-					android:layout_marginTop="152dp"
-					android:contentDescription="vector_ek11"
-					android:src="@drawable/vector_ek11" />
-
-				<Button
-					android:id="@+id/find_a_roommate_with_an_apartment"
-					android:layout_width="120.56dp"
-					android:layout_height="110dp"
-					android:layout_marginStart="122.67dp"
-					android:layout_marginTop="152dp"
-					android:visibility="invisible"
-					android:background="@drawable/vector_ek11" />
-
-				<TextView
-					android:id="@+id/k"
-					android:layout_width="362dp"
-					android:layout_height="82dp"
-					android:layout_gravity="center_horizontal|center"
-					android:layout_marginStart="6dp"
-					android:layout_marginTop="311dp"
-					android:gravity="center"
-					android:text="@string/find_a_roommate_with_an_apartment_string"
-					android:textColor="@color/navyblue"
-					android:textSize="28sp"
-					android:textStyle="bold" />
-
-			</RelativeLayout>
-		</RelativeLayout>
-
-	</ScrollView>
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

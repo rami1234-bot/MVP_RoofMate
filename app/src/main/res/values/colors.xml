@@ -16,4 +16,11 @@
 	<color name="beigie">#F6EEE5</color>
 	<color name="navyblue">#1D2638</color>
 
+	<color name="_bg__iphone_13_mini___15_ek2_color">#F6EEE5</color>
+	<color name="__username__color">#1D2638</color>
+	<color name="__username__wants_to_send_you_a_message_color">#2B3954</color>
+	<color name="block_color">#FF0000</color>
+	<color name="accept_color">#008000</color>
+	<color name="hi_maria_how_is_it_going__color">#000000</color>
+
 </resources>

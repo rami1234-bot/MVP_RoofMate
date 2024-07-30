@@ -1,5 +1,6 @@
 package com.example.roofmate_mvp;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -65,6 +66,8 @@ public class Signin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(Signin.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(Signin.this, HomePage.class);
+                            startActivity(intent);
                             // You can add further actions here, like opening another activity
                         } else {
                             // If sign in fails, display a message to the user.
