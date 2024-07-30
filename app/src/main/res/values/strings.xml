@@ -60,4 +60,10 @@
     <string name="mia_sorloth_string">Mia Sorloth</string>
     <string name="yesterday___13_01_string">Yesterday , 13:01</string>
 
+
+    <string name="room_mates_string">Room Mates</string>
+    <string name="ava_morgan_string">Ava Morgan</string>
+    <string name="__description__string">*description*</string>
+    <string name="__match__string">*match*</string>
+    <string name="review____string">review...</string>
 </resources>

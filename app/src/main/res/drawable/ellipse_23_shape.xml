@@ -3,6 +3,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
 	android:shape="oval" >
 	<stroke android:color="#dec1a0" android:width="2dp" />
+
+	<solid android:color="@color/_bg__iphone_13_mini___14_ek2_color" />
+
 	<solid android:color="@color/line_1_color" />
+
 </shape>
 
