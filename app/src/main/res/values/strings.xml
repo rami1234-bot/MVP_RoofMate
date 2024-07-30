@@ -21,6 +21,15 @@
     </string-array>
 
 
+    <string-array name="religion_options">
+        <item>Christianity</item>
+        <item>Islam</item>
+        <item>Judaism</item>
+        <item>Buddhism</item>
+        <item>Hinduism</item>
+        <item>Other</item>
+    </string-array>
+
     <!-- iphone_13_mini___hesham strings -->
 
     <string name="home_string">Home</string>

@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Swipe extends BaseActivity implements OnProfileActionListener {
 
@@ -79,19 +80,13 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
 
     @Override
     public void onDislikeClick(int position) {
-        // Get the current position of the user
         int nextPosition = 1; // Move to the second user (index 1)
-
-        // Check if there are at least 2 users
         if (userList.size() > 1) {
-            // Move to the second user
             viewPager.setCurrentItem(nextPosition, true);
         } else {
-            // If there's only one user, handle it accordingly, e.g., show a message or stay on the current profile
             Toast.makeText(Swipe.this, "Not enough users to dislike", Toast.LENGTH_SHORT).show();
         }
 
-        // Update the dislike list in Firebase
         User dislikedUser = userList.get(position);
         String dislikedUserId = dislikedUser.getUserid();
         String currentUserId = FirebaseAuth.getInstance().getUid();
@@ -102,26 +97,14 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User currentUser = snapshot.getValue(User.class);
-
                 if (currentUser != null) {
-                    // Initialize dislike list if null
                     if (currentUser.getDislikes() == null) {
                         currentUser.setDislikes(new ArrayList<>());
                     }
-
-                    // Add disliked user ID to the dislike list
                     currentUser.getDislikes().add(dislikedUserId);
-
-                    // Update the user's dislike list in the database
                     currentUserRef.setValue(currentUser)
-                            .addOnSuccessListener(aVoid -> {
-                                // Optionally: Handle success, e.g., notify user or update UI
-                                Toast.makeText(Swipe.this, "User disliked", Toast.LENGTH_SHORT).show();
-                            })
-                            .addOnFailureListener(e -> {
-                                // Optionally: Handle failure
-                                Toast.makeText(Swipe.this, "Failed to dislike user", Toast.LENGTH_SHORT).show();
-                            });
+                            .addOnSuccessListener(aVoid -> Toast.makeText(Swipe.this, "User disliked", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e -> Toast.makeText(Swipe.this, "Failed to dislike user", Toast.LENGTH_SHORT).show());
                 }
             }
 
@@ -132,7 +115,6 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
             }
         });
     }
-
 
     private void fetchCurrentUser() {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -167,33 +149,40 @@ public class Swipe extends BaseActivity implements OnProfileActionListener {
                 }
 
                 List<User> filteredUsers = new ArrayList<>();
+                List<User> nonFilteredUsers = new ArrayList<>();
                 List<String> currentUserInterests = currentUser.getInterests();
 
                 if (currentUserInterests != null) {
                     for (User user : allUsers) {
+                        boolean hasCommonInterest = false;
                         List<String> userInterests = user.getInterests();
                         if (userInterests != null) {
                             for (String interest : currentUserInterests) {
                                 if (userInterests.contains(interest)) {
-                                    filteredUsers.add(user);
+                                    hasCommonInterest = true;
                                     break;
                                 }
                             }
                         }
+                        if (hasCommonInterest) {
+                            filteredUsers.add(user);
+                        } else {
+                            nonFilteredUsers.add(user);
+                        }
                     }
                 }
 
-                // Apply living situation filter
                 if (livingSituationFilter != null) {
                     filteredUsers.removeIf(user -> !livingSituationFilter.equals(user.getLivingSituation()));
+                    nonFilteredUsers.removeIf(user -> !livingSituationFilter.equals(user.getLivingSituation()));
                 }
 
-                if (filteredUsers.isEmpty() && !allUsers.isEmpty()) {
-                    Collections.shuffle(allUsers);
-                    int userCount = Math.min(10, allUsers.size());
-                    filteredUsers.addAll(allUsers.subList(0, userCount));
-                }
+                // Add 15 random users from the non-filtered list
+                Collections.shuffle(nonFilteredUsers);
+                int additionalUserCount = Math.min(15, nonFilteredUsers.size());
+                filteredUsers.addAll(nonFilteredUsers.subList(0, additionalUserCount));
 
+                // Shuffle the final list of users
                 if (!filteredUsers.isEmpty()) {
                     Collections.shuffle(filteredUsers);
                 }
