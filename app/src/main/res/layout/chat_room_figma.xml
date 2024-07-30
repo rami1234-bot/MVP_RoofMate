@@ -244,17 +244,6 @@
 						android:layout_width="87dp"
 						android:layout_height="68dp" />
 
-					<TextView android:id="@+id/yesterday___13_01"
-						android:textStyle="bold"
-						android:textSize="27sp"
-						android:textColor="@color/black"
-						android:layout_marginLeft="103dp"
-						android:layout_marginTop="547dp"
-						android:layout_width="221.5dp"
-						android:layout_height="60.5dp"
-						android:text="@string/yesterday___13_01_string"
-						 />
-
 					<ImageView android:id="@+id/polygon_4"
 						android:src="@drawable/polygon_4"
 						android:contentDescription="polygon_4"
