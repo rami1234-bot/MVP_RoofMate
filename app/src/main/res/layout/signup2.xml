@@ -122,7 +122,7 @@
                     android:layout_marginStart="305dp"
                     android:layout_marginTop="23dp"
                     android:contentDescription="vector"
-                    android:src="@drawable/vector" />
+                    android:src="@drawable/vectorgo" />
 
                 <Button
                     android:id="@+id/goBackButton"
@@ -131,7 +131,7 @@
                     android:layout_marginStart="305dp"
                     android:layout_marginTop="23dp"
                     android:contentDescription="vector"
-                    android:src="@drawable/vector"
+                    android:src="@drawable/vectorgo"
                     android:visibility="invisible" />
 
                 <ImageView
