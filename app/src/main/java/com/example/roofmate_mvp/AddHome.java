@@ -137,20 +137,31 @@ public class AddHome extends BaseActivity {
             return;
         }
 
+        String userId = currentUser.getUid();
+        DatabaseReference userRef = database.getReference("users").child(userId);
+
         // Generate a unique key for the home in Firebase
         String homeId = homesRef.push().getKey(); // This creates a new unique ID
 
         // Create a new Home object with the generated ID
-        Home home = new Home(homeId, name, description, rent, rooms, selectedLatitude, selectedLongitude, currentUser.getUid());
+        Home home = new Home(homeId, name, description, rent, rooms, selectedLatitude, selectedLongitude, userId);
 
         // Save the new home to the database
         homesRef.child(homeId).setValue(home).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(this, "Home added successfully", Toast.LENGTH_SHORT).show();
+                // Update living situation of the user
+                userRef.child("livingSituation").setValue("Has an apartment").addOnCompleteListener(userTask -> {
+                    if (userTask.isSuccessful()) {
+                        Toast.makeText(this, "Home added and living situation updated successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Failed to update living situation: " + userTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 finish(); // Close the activity
             } else {
                 Toast.makeText(this, "Failed to add home: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

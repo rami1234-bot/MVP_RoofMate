@@ -21,9 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-public class Swipe extends BaseActivity implements OnProfileActionListener {
+public class Swipe extends AppCompatActivity implements OnProfileActionListener {
 
     private ViewPager2 viewPager;
     private ProfilePagerAdapter adapter;

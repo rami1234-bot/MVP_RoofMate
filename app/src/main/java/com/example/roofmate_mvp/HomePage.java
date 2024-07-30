@@ -14,7 +14,8 @@ public class HomePage extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homeup);
+        setContentView(R.layout.homeup
+        );
 
         // Get the User object from the Intent
         Intent intent = getIntent();

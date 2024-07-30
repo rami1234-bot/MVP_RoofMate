@@ -82,7 +82,7 @@ public class User implements Serializable { // to enable passing user in intent
         return gender;
     }
 
-    private String livingSituation;
+    private String livingSituation="No apartment";
     private List<String> favorites;
 
 
