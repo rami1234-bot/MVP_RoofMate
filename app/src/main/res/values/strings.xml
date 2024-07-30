@@ -66,4 +66,12 @@
     <string name="__description__string">*description*</string>
     <string name="__match__string">*match*</string>
     <string name="review____string">review...</string>
+
+    <string name="enter_the_location____string">Enter the location...</string>
+    <string name="apartments_string">Apartments</string>
+    <string name="location__string">Location:</string>
+    <string name="price__monthly___string">Price (monthly):</string>
+    <string name="rooms_number__string">Rooms Number:</string>
+    <string name="pick_number____string">Pick number...</string>
+    <string name="price____string">Price...</string>
 </resources>

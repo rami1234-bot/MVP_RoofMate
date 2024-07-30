@@ -1,5 +1,6 @@
 package com.example.roofmate_mvp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,7 @@ public class AddHome extends BaseActivity {
     private EditText rentEditText;
     private EditText roomsEditText;
     private Button locationButton;
+    private Button submitButton; // Declare the submit button
 
     private FirebaseDatabase database;
     private DatabaseReference homesRef;
@@ -34,10 +36,11 @@ public class AddHome extends BaseActivity {
     private double selectedLatitude = 0;
     private double selectedLongitude = 0;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_home);
+        setContentView(R.layout.lease_appartment);
 
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance();
@@ -46,14 +49,17 @@ public class AddHome extends BaseActivity {
         // Initialize UI components
         nameEditText = findViewById(R.id.name);
         descriptionEditText = findViewById(R.id.disc);
-        rentEditText = findViewById(R.id.rent);
-        roomsEditText = findViewById(R.id.rooms);
-        locationButton = findViewById(R.id.locbut);
+        rentEditText = findViewById(R.id.price);
+        roomsEditText = findViewById(R.id.number);
+        locationButton = findViewById(R.id.location);
+        submitButton = findViewById(R.id.submit); // Initialize the submit button
 
         locationButton.setOnClickListener(view -> {
             Intent intent = new Intent(AddHome.this, MapActivity.class);
             startActivityForResult(intent, MAP_ACTIVITY_REQUEST_CODE);
         });
+
+        submitButton.setOnClickListener(this::submitPost); // Set the submit button's click listener
 
         checkIfUserHasHome();
     }
