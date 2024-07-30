@@ -69,6 +69,11 @@ public class User implements Serializable { // to enable passing user in intent
         return age;
     }
 
+    private String smoking; // New field
+    private List<String> religion; // New field
+    private String allergies; // New field
+    private String pets; // New field
+
     public void setAge(String age) {
         this.age = age;
     }
@@ -84,6 +89,38 @@ public class User implements Serializable { // to enable passing user in intent
 
     public List<String> getFavorites() {
         return favorites;
+    }
+
+    public String getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(String smoking) {
+        this.smoking = smoking;
+    }
+
+    public List<String> getReligion() {
+        return religion;
+    }
+
+    public void setReligion(List<String> religion) {
+        this.religion = religion;
+    }
+
+    public String getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
+    }
+
+    public String getPets() {
+        return pets;
+    }
+
+    public void setPets(String pets) {
+        this.pets = pets;
     }
 
     public void setFavorites(List<String> favorites) {

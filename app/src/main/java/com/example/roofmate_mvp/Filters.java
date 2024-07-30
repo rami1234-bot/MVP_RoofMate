@@ -14,15 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Filters extends AppCompatActivity {
 
     private SeekBar ageRangeSeekBar;
     private TextView ageRangeValue;
     private Spinner locationSpinner;
+    private Spinner religionSpinner;
     private RadioGroup genderRadioGroup;
+    private RadioGroup smokingRadioGroup;
+    private RadioGroup allergiesRadioGroup;
+    private RadioGroup petsRadioGroup;
     private Button saveFiltersButton;
 
     private DatabaseReference mDatabase;
@@ -37,7 +41,11 @@ public class Filters extends AppCompatActivity {
         ageRangeSeekBar = findViewById(R.id.ageRangeSeekBar);
         ageRangeValue = findViewById(R.id.ageRangeValue);
         locationSpinner = findViewById(R.id.locationSpinner);
+        religionSpinner = findViewById(R.id.religionSpinner);
         genderRadioGroup = findViewById(R.id.genderRadioGroup);
+        smokingRadioGroup = findViewById(R.id.smokingRadioGroup);
+        allergiesRadioGroup = findViewById(R.id.allergiesRadioGroup);
+        petsRadioGroup = findViewById(R.id.petsRadioGroup);
         saveFiltersButton = findViewById(R.id.saveFiltersButton);
 
         ageRangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -61,10 +69,23 @@ public class Filters extends AppCompatActivity {
         int minAge = 0;
 
         String location = locationSpinner.getSelectedItem().toString();
+        String religion = religionSpinner.getSelectedItem().toString();
 
         int selectedGenderId = genderRadioGroup.getCheckedRadioButtonId();
         RadioButton selectedGenderButton = findViewById(selectedGenderId);
-        String gender = selectedGenderButton.getText().toString();
+        String gender = selectedGenderButton != null ? selectedGenderButton.getText().toString() : "";
+
+        int selectedSmokingId = smokingRadioGroup.getCheckedRadioButtonId();
+        RadioButton selectedSmokingButton = findViewById(selectedSmokingId);
+        String smoking = selectedSmokingButton != null ? selectedSmokingButton.getText().toString() : "";
+
+        int selectedAllergiesId = allergiesRadioGroup.getCheckedRadioButtonId();
+        RadioButton selectedAllergiesButton = findViewById(selectedAllergiesId);
+        String allergies = selectedAllergiesButton != null ? selectedAllergiesButton.getText().toString() : "";
+
+        int selectedPetsId = petsRadioGroup.getCheckedRadioButtonId();
+        RadioButton selectedPetsButton = findViewById(selectedPetsId);
+        String pets = selectedPetsButton != null ? selectedPetsButton.getText().toString() : "";
 
         // Get the user ID from the intent or shared preferences
         String userId = getIntent().getStringExtra("userId");
@@ -74,11 +95,19 @@ public class Filters extends AppCompatActivity {
             return;
         }
 
+        // Create a map to update filters
+        Map<String, Object> filters = new HashMap<>();
+        filters.put("minAge", minAge);
+        filters.put("maxAge", maxAge);
+        filters.put("filterLocations", location);
+        filters.put("filterReligions", religion);
+        filters.put("filterGenders", gender);
+        filters.put("filterSmoking", smoking);
+        filters.put("filterAllergies", allergies);
+        filters.put("filterPets", pets);
+
         // Update filters in the database
-        mDatabase.child("users").child(userId).child("minAge").setValue(minAge);
-        mDatabase.child("users").child(userId).child("maxAge").setValue(maxAge);
-        mDatabase.child("users").child(userId).child("filterLocations").setValue(location);
-        mDatabase.child("users").child(userId).child("filterGenders").setValue(gender)
+        mDatabase.child("users").child(userId).updateChildren(filters)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Filters saved", Toast.LENGTH_SHORT).show();
